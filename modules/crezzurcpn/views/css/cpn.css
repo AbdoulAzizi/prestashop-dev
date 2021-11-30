@@ -1,0 +1,58 @@
+@charset "UTF-8";
+.bootstrap .table tbody > tr > td {
+  border: 1px solid #eaedef;
+}
+    
+.loader {
+  border: 5px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 5px solid #3498db;
+  width: 100px;
+  height: 100px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+td.details-control {
+  background: url('https://crezzur.com/img/projects/details_open.png') no-repeat center center;
+  cursor: pointer;
+}
+tr.shown td.details-control {
+  background: url('https://crezzur.com/img/projects/details_close.png') no-repeat center center;
+}
+
+.detail {
+  width: 100%!important;
+}
+
+.cpn_viewcust_btn {
+  background-color: #f5f5f5!important;
+  color: #6c757d!important;
+  text-decoration: none!important;
+  border: 1px solid transparent;
+  border-color: #6c757d !important;
+  background-image: none;
+  border-radius: 3px;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.42857;
+  margin-bottom: 0;
+  padding: 6px 8px;
+  text-align: center;
+  user-select: none;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+.cpn_viewcust_btn:hover {
+  color: #f5f5f5!important;
+  background-color: #6c757d !important;
+}

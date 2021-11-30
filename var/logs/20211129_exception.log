@@ -1,0 +1,1 @@
+*ERROR* 	v1.7.8.1	2021/11/29 - 10:27:39: Table &#039;prestashop_dev.ps_mailalert_customer_oos&#039; doesn&#039;t exist&lt;br /&gt;&lt;br /&gt;&lt;pre&gt;SELECT count(*) FROM ps_mailalert_customer_oos LIMIT 1&lt;/pre&gt; at line 769 in file classes/db/Db.php

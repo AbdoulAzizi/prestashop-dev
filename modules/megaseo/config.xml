@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+	<name>megaseo</name>
+	<displayName><![CDATA[Mega SEO]]></displayName>
+	<version><![CDATA[1.0.0]]></version>
+	<description><![CDATA[Several tools for SEO optimisation,  redirections(301,302...), robots, htaccess, caches]]></description>
+	<author><![CDATA[WOBY WEB]]></author>
+	<tab><![CDATA[seo]]></tab>
+	<is_configurable>1</is_configurable>
+	<need_instance>1</need_instance>
+</module>

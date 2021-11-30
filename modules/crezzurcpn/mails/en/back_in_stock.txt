@@ -1,0 +1,13 @@
+{shop_url}
+
+Hi {firstname} {lastname},
+
+The product you were interested in is available again! 
+
+{product_name}
+
+{product_desc}
+
+View this product {product_url}
+
+[{shop_name}]({shop_url})

@@ -1,0 +1,13 @@
+{shop_url}
+
+Hallo {firstname} {lastname},
+
+Het product waarin u geïnteresseerd was, is weer beschikbaar! 
+
+{product_name}
+
+{product_desc}
+
+Bekijk dit product {product_url}
+
+[{shop_name}]({shop_url})
