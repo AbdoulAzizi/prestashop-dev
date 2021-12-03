@@ -171,13 +171,13 @@
       <div class="row">
       <div class="col-xs-12">
           <div class="text-right" style="padding: 10px;">
-              <a href="#" type="button" class="btn btn-primary">Ajouter une redirection</a>
+              <a id="add_redirection" href="#" type="button" class="btn btn-primary">Ajouter une redirection</a>
           </div>
       </div>
   </div>
 
      {* list of redirection created *}
-      <div class="panel panel-default">
+      <div class="panel panel-default" id="redirection_list">
         <div class="panel-heading">
           <h2 class="panel-title ">Redirections 301, 302</h2>
         </div>
@@ -185,33 +185,113 @@
           <table class="table table-striped">
             <thead>
               <tr>
-                <th>{l s="From"}</th>
-                <th>{l s="To"}</th>
-                <th>{l s="Type"}</th>
+                <th>{l s="URI d'origine"}</th>
+                <th>{l s="URL cible"}</th>
+                <th>{l s="Type de redirection"}</th>
                 <th>{l s="Date"}</th>
                 <th>{l s="Action"}</th>
               </tr>
             </thead>
             <tbody>
-              {if isset($redirections)}
-                {* {foreach from=$redirections item=redirection} *}
+              {if isset($redirection_data)}
+               {foreach $redirection_data as $redirection}
                   <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>{$redirection.redirection_from}</td>
+                    <td>{$redirection.redirection_to}</td>
+                    <td>{$redirection.redirection_type}</td>
+                    <td>{$redirection.redirection_date}</td>
                     <td>
-                      <a href="{$redirection.delete_link}" class="btn btn-danger btn-xs">
+                    <form action="{$smarty.server.REQUEST_URI}" method="post" multipart="true" enctype="multipart/form-data">
+                        <button id="updateRedirection" class="btn btn-primary btn-xs">
+                          <i class="icon-edit"></i>
+                        </button>
+                        <button type="submit" name="deleteRedirection"  class="btn btn-danger btn-xs" value="{$redirection.id_redirection}">
                         <i class="icon-trash"></i>
-                      </a>
+                      </button>
+                    </form>
                     </td>
                   </tr>
-                {* {/foreach} *}
+               {/foreach}
               {/if}
             </tbody>
           </table>
         </div>
       </div>
+
+          {* create 301, 302 form *}
+      <div class="panel panel-default" style="display: none;" id="redirection_form">
+        
+        <div class="panel-heading">
+          <h2 class="panel-title">Redirection 301, 302</h2>
+        </div>
+        {if isset($redirection_error_message)}
+        <div class="alert alert-danger" role="alert" id="redirection_error" style="">
+          <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+          <span class="sr-only">Error:</span>
+          <span class="redirection_error_message" id="redirection_error_message">{{$redirection_error_message}}</span>
+        </div>
+        {else}
+        <form action="{$smarty.server.REQUEST_URI}" method="post" multipart="true" enctype="multipart/form-data">
+          <div class="panel-body">
+            <div class="form-group">
+              <label for="redirection_from">{l s="URI d'origine"}</label>
+              <input type="text" class="form-control" id="redirection_from" name="redirection_from" placeholder="{l s="From"}" value="">
+            </div>
+            <div class="form-group">
+              <label for="redirection_to">{l s="URL cible"}</label>
+              <input type="text" class="form-control" id="redirection_to" name="redirection_to" placeholder="{l s="To"}" value="">
+            </div>
+            <div class="form-group">
+              <label for="redirection_type">{l s="Type de redirection"}</label>
+              <select class="form-control" id="redirection_type" name="redirection_type">
+                <option value="301" >301</option>
+                <option value="302" >302</option>
+              </select>
+            </div>
+          
+          <div class="panel-footer">
+            <button type="submit" name="submitRedirection" class="btn btn-primary pull-right">Enregistrer</button>
+          </div>
+          </form>
+        {/if}
+    </div>
+
+    {* redirection update form *}
+    <div class="panel panel-default" style="display: none;" id="redirection_update_form">
+      <div class="panel-heading">
+        <h2 class="panel-title">Redirection 301, 302</h2>
+      </div>
+      {if isset($redirection_update_error_message)}
+      <div class="alert alert-danger" role="alert" id="redirection_update_error" style="">
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Error:</span>
+        <span class="redirection_update_error_message" id="redirection_update_error_message">{{$redirection_update_error_message}}</span>
+      </div>
+      {else}
+      <form action="{$smarty.server.REQUEST_URI}" method="post" multipart="true" enctype="multipart/form-data">
+        <div class="panel-body">
+          <div class="form-group">
+            <label for="redirection_from">{l s="URI d'origine"}</label>
+            <input type="text" class="form-control" id="redirection_from" name="redirection_from" placeholder="{l s="From"}" value="">
+          </div>
+          <div class="form-group">
+            <label for="redirection_to">{l s="URL cible"}</label>
+            <input type="text" class="form-control" id="redirection_to" name="redirection_to" placeholder="{l s="To"}" value="">
+          </div>
+          <div class="form-group">
+            <label for="redirection_type">{l s="Type de redirection"}</label>
+            <select class="form-control" id="redirection_type" name="redirection_type">
+              <option value="301" >301</option>
+              <option value="302" >302</option>
+            </select>
+          </div>
+        
+        <div class="panel-footer">
+          <button type="submit" name="updateRedirection" class="btn btn-primary pull-right">Enregistrer</button>
+        </div>
+        </form>
+      {/if}
+
     
     </div>
 
@@ -276,7 +356,16 @@
         document.getElementById("redirection").style.display = "none";
         document.getElementById("sitemap_administration").style.display = "block";
     };
-    
+    document.getElementById("add_redirection").onclick = function () {
+        document.getElementById("redirection_form").style.display = "block";
+        document.getElementById("redirection_list").style.display = "none";
+        document.getElementById("add_redirection").style.display = "none";
+    };
+    // document.getElementById("updateRedirection").onclick = function () {
+    //     document.getElementById("redirection_update_form").style.display = "block";
+    //     document.getElementById("redirection_list").style.display = "none";
+    //     document.getElementById("add_redirection").style.display = "none";
+    // };
     
     
 </script>

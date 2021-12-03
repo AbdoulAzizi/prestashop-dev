@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.39, created on 2021-11-30 12:31:51
+/* Smarty version 3.1.39, created on 2021-11-30 20:26:10
   from '/var/www/html/prestashop/modules/megaseo/views/templates/admin/adminMegaseo.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.39',
-  'unifunc' => 'content_61a60ba75150f9_87014021',
+  'unifunc' => 'content_61a67ad26cfcf2_22282101',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '9a96fb9ec114505f183f25d5328abb1df7f3151e' => 
     array (
       0 => '/var/www/html/prestashop/modules/megaseo/views/templates/admin/adminMegaseo.tpl',
-      1 => 1638271909,
+      1 => 1638296058,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61a60ba75150f9_87014021 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61a67ad26cfcf2_22282101 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 
 
@@ -170,12 +170,12 @@ echo $_prefixVariable6;?>
             <div class="row">
       <div class="col-xs-12">
           <div class="text-right" style="padding: 10px;">
-              <a href="#" type="button" class="btn btn-primary">Ajouter une redirection</a>
+              <a id="add_redirection" href="#" type="button" class="btn btn-primary">Ajouter une redirection</a>
           </div>
       </div>
   </div>
 
-           <div class="panel panel-default">
+           <div class="panel panel-default" id="redirection_list">
         <div class="panel-heading">
           <h2 class="panel-title ">Redirections 301, 302</h2>
         </div>
@@ -183,11 +183,11 @@ echo $_prefixVariable6;?>
           <table class="table table-striped">
             <thead>
               <tr>
-                <th><?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['l'][0], array( array('s'=>"From"),$_smarty_tpl ) );?>
+                <th><?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['l'][0], array( array('s'=>"URI d'origine"),$_smarty_tpl ) );?>
 </th>
-                <th><?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['l'][0], array( array('s'=>"To"),$_smarty_tpl ) );?>
+                <th><?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['l'][0], array( array('s'=>"URL cible"),$_smarty_tpl ) );?>
 </th>
-                <th><?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['l'][0], array( array('s'=>"Type"),$_smarty_tpl ) );?>
+                <th><?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['l'][0], array( array('s'=>"Type de redirection"),$_smarty_tpl ) );?>
 </th>
                 <th><?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['l'][0], array( array('s'=>"Date"),$_smarty_tpl ) );?>
 </th>
@@ -196,24 +196,136 @@ echo $_prefixVariable6;?>
               </tr>
             </thead>
             <tbody>
-              <?php if ((isset($_smarty_tpl->tpl_vars['redirections']->value))) {?>
-                                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+              <?php if ((isset($_smarty_tpl->tpl_vars['redirection_data']->value))) {?>
+               <?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['redirection_data']->value, 'redirection');
+$_smarty_tpl->tpl_vars['redirection']->do_else = true;
+if ($_from !== null) foreach ($_from as $_smarty_tpl->tpl_vars['redirection']->value) {
+$_smarty_tpl->tpl_vars['redirection']->do_else = false;
+?>
+                  <tr>
+                    <td><?php echo $_smarty_tpl->tpl_vars['redirection']->value['redirection_from'];?>
+</td>
+                    <td><?php echo $_smarty_tpl->tpl_vars['redirection']->value['redirection_to'];?>
+</td>
+                    <td><?php echo $_smarty_tpl->tpl_vars['redirection']->value['redirection_type'];?>
+</td>
+                    <td><?php echo $_smarty_tpl->tpl_vars['redirection']->value['redirection_date'];?>
+</td>
                     <td>
-                      <a href="<?php echo $_smarty_tpl->tpl_vars['redirection']->value['delete_link'];?>
-" class="btn btn-danger btn-xs">
+                    <form action="<?php echo $_SERVER['REQUEST_URI'];?>
+" method="post" multipart="true" enctype="multipart/form-data">
+                        <button id="updateRedirection" class="btn btn-primary btn-xs">
+                          <i class="icon-edit"></i>
+                        </button>
+                        <button type="submit" name="deleteRedirection"  class="btn btn-danger btn-xs" value="<?php echo $_smarty_tpl->tpl_vars['redirection']->value['id_redirection'];?>
+">
                         <i class="icon-trash"></i>
-                      </a>
+                      </button>
+                    </form>
                     </td>
                   </tr>
-                              <?php }?>
+               <?php
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
+              <?php }?>
             </tbody>
           </table>
         </div>
       </div>
+
+                <div class="panel panel-default" style="display: none;" id="redirection_form">
+        
+        <div class="panel-heading">
+          <h2 class="panel-title">Redirection 301, 302</h2>
+        </div>
+        <?php if ((isset($_smarty_tpl->tpl_vars['redirection_error_message']->value))) {?>
+        <div class="alert alert-danger" role="alert" id="redirection_error" style="">
+          <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+          <span class="sr-only">Error:</span>
+          <span class="redirection_error_message" id="redirection_error_message"><?php ob_start();
+echo $_smarty_tpl->tpl_vars['redirection_error_message']->value;
+$_prefixVariable7 = ob_get_clean();
+echo $_prefixVariable7;?>
+</span>
+        </div>
+        <?php } else { ?>
+        <form action="<?php echo $_SERVER['REQUEST_URI'];?>
+" method="post" multipart="true" enctype="multipart/form-data">
+          <div class="panel-body">
+            <div class="form-group">
+              <label for="redirection_from"><?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['l'][0], array( array('s'=>"URI d'origine"),$_smarty_tpl ) );?>
+</label>
+              <input type="text" class="form-control" id="redirection_from" name="redirection_from" placeholder="<?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['l'][0], array( array('s'=>"From"),$_smarty_tpl ) );?>
+" value="">
+            </div>
+            <div class="form-group">
+              <label for="redirection_to"><?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['l'][0], array( array('s'=>"URL cible"),$_smarty_tpl ) );?>
+</label>
+              <input type="text" class="form-control" id="redirection_to" name="redirection_to" placeholder="<?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['l'][0], array( array('s'=>"To"),$_smarty_tpl ) );?>
+" value="">
+            </div>
+            <div class="form-group">
+              <label for="redirection_type"><?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['l'][0], array( array('s'=>"Type de redirection"),$_smarty_tpl ) );?>
+</label>
+              <select class="form-control" id="redirection_type" name="redirection_type">
+                <option value="301" >301</option>
+                <option value="302" >302</option>
+              </select>
+            </div>
+          
+          <div class="panel-footer">
+            <button type="submit" name="submitRedirection" class="btn btn-primary pull-right">Enregistrer</button>
+          </div>
+          </form>
+        <?php }?>
+    </div>
+
+        <div class="panel panel-default" style="display: none;" id="redirection_update_form">
+      <div class="panel-heading">
+        <h2 class="panel-title">Redirection 301, 302</h2>
+      </div>
+      <?php if ((isset($_smarty_tpl->tpl_vars['redirection_update_error_message']->value))) {?>
+      <div class="alert alert-danger" role="alert" id="redirection_update_error" style="">
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Error:</span>
+        <span class="redirection_update_error_message" id="redirection_update_error_message"><?php ob_start();
+echo $_smarty_tpl->tpl_vars['redirection_update_error_message']->value;
+$_prefixVariable8 = ob_get_clean();
+echo $_prefixVariable8;?>
+</span>
+      </div>
+      <?php } else { ?>
+      <form action="<?php echo $_SERVER['REQUEST_URI'];?>
+" method="post" multipart="true" enctype="multipart/form-data">
+        <div class="panel-body">
+          <div class="form-group">
+            <label for="redirection_from"><?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['l'][0], array( array('s'=>"URI d'origine"),$_smarty_tpl ) );?>
+</label>
+            <input type="text" class="form-control" id="redirection_from" name="redirection_from" placeholder="<?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['l'][0], array( array('s'=>"From"),$_smarty_tpl ) );?>
+" value="">
+          </div>
+          <div class="form-group">
+            <label for="redirection_to"><?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['l'][0], array( array('s'=>"URL cible"),$_smarty_tpl ) );?>
+</label>
+            <input type="text" class="form-control" id="redirection_to" name="redirection_to" placeholder="<?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['l'][0], array( array('s'=>"To"),$_smarty_tpl ) );?>
+" value="">
+          </div>
+          <div class="form-group">
+            <label for="redirection_type"><?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['l'][0], array( array('s'=>"Type de redirection"),$_smarty_tpl ) );?>
+</label>
+            <select class="form-control" id="redirection_type" name="redirection_type">
+              <option value="301" >301</option>
+              <option value="302" >302</option>
+            </select>
+          </div>
+        
+        <div class="panel-footer">
+          <button type="submit" name="updateRedirection" class="btn btn-primary pull-right">Enregistrer</button>
+        </div>
+        </form>
+      <?php }?>
+
     
     </div>
 
@@ -279,7 +391,16 @@ echo $_prefixVariable6;?>
         document.getElementById("redirection").style.display = "none";
         document.getElementById("sitemap_administration").style.display = "block";
     };
-    
+    document.getElementById("add_redirection").onclick = function () {
+        document.getElementById("redirection_form").style.display = "block";
+        document.getElementById("redirection_list").style.display = "none";
+        document.getElementById("add_redirection").style.display = "none";
+    };
+    // document.getElementById("updateRedirection").onclick = function () {
+    //     document.getElementById("redirection_update_form").style.display = "block";
+    //     document.getElementById("redirection_list").style.display = "none";
+    //     document.getElementById("add_redirection").style.display = "none";
+    // };
     
     
 <?php echo '</script'; ?>

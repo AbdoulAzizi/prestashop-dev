@@ -59,6 +59,8 @@ class AdminMegaseoController extends ModuleAdminController{
             'robots_content' => $this->getRobotsContent(),
             'sitemap_content' => $this->getSitemapContent(),
             'htaccess_content' => $this->getHtaccessContent(),
+            'redirection_data' => $this->getRedirectionData(),
+            
 
 
         ));
@@ -72,6 +74,7 @@ class AdminMegaseoController extends ModuleAdminController{
 
     
     }
+    
 
     public function getRobotsContent()
     {
@@ -169,6 +172,20 @@ class AdminMegaseoController extends ModuleAdminController{
         }
         
     }
+
+    public function getRedirectionData()
+    {
+        $redirection_data = [];
+       
+        // retreive all redirection from redirection table by sql query
+
+        $redirection_data =  Db::getInstance()->executeS('SELECT * FROM '._DB_PREFIX_.'redirection');
+
+        // var_dump($redirection_data[0]['id_redirection']);exit;
+
+        return $redirection_data;
+        
+    }
     
     public function postProcess()
     {
@@ -211,6 +228,71 @@ class AdminMegaseoController extends ModuleAdminController{
                 return $this->errors[] = $this->l('Le fichier .htaccess a rencontré un problème lors de la mise à jour');
             }
         }
+
+        if(Tools::isSubmit('submitRedirection')){
+            
+            // créer une redirection 301 ou 302 en fonction du choix de l'utilisateur et enregistrer la redirection
+            $redirection_type = Tools::getValue('redirection_type');
+            $redirection_from = Tools::getValue('redirection_from');
+            $redirection_to = Tools::getValue('redirection_to');
+
+            if(!$redirection_from || !$redirection_to){
+                return $this->errors[] = $this->l('Vous devez renseigner les deux champs');
+            }
+
+            if(preg_match('#^https?://#', $redirection_from)){
+                return $this->errors[] = $this->l('L\'URI d\'origine ne doit pas commencer par http:// ou https://');
+            }
+
+            if(!preg_match('#^https?://#', $redirection_to)){
+                return $this->errors[] = $this->l('L\'URL cible doit commencer par http:// ou https://');
+            }
+
+            // vérifier que la redirection n'existe pas déjà
+            $redirection_exists = Db::getInstance()->getValue('SELECT COUNT(*) FROM '._DB_PREFIX_.'redirection WHERE redirection_from = "'.pSQL($redirection_from).'"');
+            if($redirection_exists){
+                return $this->errors[] = $this->l('Cette redirection existe déjà');
+            }
+
+            // enregistrer la redirection
+            $redirection_id = Db::getInstance()->insert('redirection', [
+                'redirection_from' => pSQL($redirection_from),
+                'redirection_to' => pSQL($redirection_to),
+                'redirection_type' => pSQL($redirection_type),
+                'redirection_date' => date('Y-m-d H:i:s')
+            ]);
+
+            if($redirection_id){
+                return $this->confirmations[] = $this->l('La redirection a été enregistrée');
+            }
+            else{
+                return $this->errors[] = $this->l('Une erreur est survenue lors de l\'enregistrement de la redirection');
+            }
+            
+
+        }
+
+        if(Tools::isSubmit('deleteRedirection')){
+            $redirection_id = Tools::getValue('deleteRedirection');
+            $redirection_id = (int)$redirection_id;
+            if(!$redirection_id){
+                return $this->errors[] = $this->l('Vous devez sélectionner une redirection');
+            }
+
+            $redirection_exists = Db::getInstance()->getValue('SELECT COUNT(*) FROM '._DB_PREFIX_.'redirection WHERE id_redirection = "'.pSQL($redirection_id).'"');
+            if(!$redirection_exists){
+                return $this->errors[] = $this->l('Cette redirection n\'existe pas');
+            }
+
+            $redirection_deleted = Db::getInstance()->delete('redirection', 'id_redirection = "'.pSQL($redirection_id).'"');
+            if($redirection_deleted){
+                return $this->confirmations[] = $this->l('La redirection a été supprimée');
+            }
+            else{
+                return $this->errors[] = $this->l('Une erreur est survenue lors de la suppression de la redirection');
+            }
+        }
+
         parent::postProcess();
     }
 
