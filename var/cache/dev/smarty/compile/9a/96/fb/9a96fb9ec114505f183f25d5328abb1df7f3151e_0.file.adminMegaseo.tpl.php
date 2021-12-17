@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.39, created on 2021-11-30 20:26:10
+/* Smarty version 3.1.39, created on 2021-12-17 16:59:00
   from '/var/www/html/prestashop/modules/megaseo/views/templates/admin/adminMegaseo.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.39',
-  'unifunc' => 'content_61a67ad26cfcf2_22282101',
+  'unifunc' => 'content_61bcb3c412a4c9_46918124',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '9a96fb9ec114505f183f25d5328abb1df7f3151e' => 
     array (
       0 => '/var/www/html/prestashop/modules/megaseo/views/templates/admin/adminMegaseo.tpl',
-      1 => 1638296058,
+      1 => 1639756699,
       2 => 'file',
     ),
   ),
@@ -20,30 +20,39 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61a67ad26cfcf2_22282101 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61bcb3c412a4c9_46918124 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 
 
   <style type="text/css">
 
+.navbar-default .navbar-nav>.active>a,
+.navbar-default .navbar-nav>.active>a:hover,
+.navbar-default .navbar-nav>.active>a:focus {
+    color: #50A0FF;
+    background-color: #beeaf3 !important;
+    display:block;
+    font-size: large;
+}
+/* 
 .menu ul li:active, .menu ul li:hover, .menu ul li.active, 
 .menu ul li:focus, .menu ul li:visited , .menu ul li > a:hover, .menu ul li > a:focus, .menu ul li > a:active, .menu ul li > a:visited {
     background-color: #beeaf3;
 }
 .current {
 	background: #beeaf3;
-}
+} */
    </style>
 
 
 <nav class="navbar navbar-default">
   <div class="container-fluid menu">
-        <ul class="nav navbar-nav">
-      <li class="current"><a id="robots_link" href="#">Robots.txt</a></li>
-      <li><a id="htaccess_link" href="#">htaccess</a></li>
-      <li><a id="sitemap_link" href="#">Sitemap</a></li>
-	    <li><a id="redirection_link" href="#">Redirection</a></li>
-      <li><a id="sitemap_administration_link" href="#">Gérer le sitemap</a></li>
+        <ul class="nav navbar-nav" id="menu-tab">
+      <li><a data-toggle="tab" id="robots_link" href="#robots">Robots.txt</a></li>
+      <li><a data-toggle="tab" id="htaccess_link" href="#htaccess">htaccess</a></li>
+      <li><a data-toggle="tab" id="sitemap_link" href="#sitemap">Sitemap</a></li>
+	    <li><a data-toggle="tab" id="redirection_link" href="#redirection">Redirection</a></li>
+      <li><a data-toggle="tab" id="sitemap_administration_link" href="#sitemap_administration">Gérer le sitemap</a></li>
     </ul>
   </div>
 </nav>
@@ -215,7 +224,8 @@ $_smarty_tpl->tpl_vars['redirection']->do_else = false;
                     <td>
                     <form action="<?php echo $_SERVER['REQUEST_URI'];?>
 " method="post" multipart="true" enctype="multipart/form-data">
-                        <button id="updateRedirection" class="btn btn-primary btn-xs">
+                        <button id="updateRedirection" class="btn btn-primary btn-xs" type="button" name="updateRedirection" value="<?php echo $_smarty_tpl->tpl_vars['redirection']->value['id_redirection'];?>
+">
                           <i class="icon-edit"></i>
                         </button>
                         <button type="submit" name="deleteRedirection"  class="btn btn-danger btn-xs" value="<?php echo $_smarty_tpl->tpl_vars['redirection']->value['id_redirection'];?>
@@ -234,7 +244,17 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
         </div>
       </div>
 
+            <div class="row">
+        <div class="col-xs-12">
+          <div class="text-right" id="cancel_redirection" style="padding: 10px; display:none";>
+            <a id="" href="#" type="button" class="btn btn-default">Annuler</a>
+          </div>
+        </div>
+      </div>
+          
+
                 <div class="panel panel-default" style="display: none;" id="redirection_form">
+
         
         <div class="panel-heading">
           <h2 class="panel-title">Redirection 301, 302</h2>
@@ -282,6 +302,7 @@ echo $_prefixVariable7;?>
     </div>
 
         <div class="panel panel-default" style="display: none;" id="redirection_update_form">
+    
       <div class="panel-heading">
         <h2 class="panel-title">Redirection 301, 302</h2>
       </div>
@@ -347,60 +368,138 @@ echo $_prefixVariable8;?>
 
     
   
-    $(document).ready(function() {
-        $(".nav > li").click(function() {
-            $(".nav > li").removeClass('current');
-            $(this).addClass('current');
-        });
-    });
-    document.getElementById("htaccess_link").onclick = function () {
-        document.getElementById("htaccess").style.display = "block";
-        document.getElementById("robots").style.display = "none";
-        document.getElementById("sitemap").style.display = "none";
-        document.getElementById("redirection").style.display = "none";
-        document.getElementById("sitemap_link").style.color = "black";
-        document.getElementById("features").style.display = "none"; 
+$(document).ready(function(){
+          $('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
+              localStorage.setItem('activeTab', $(e.target).attr('href'));
+          });
+          var activeTab = localStorage.getItem('activeTab');
+          if(activeTab){
+              $('#menu-tab a[href="' + activeTab + '"]').tab('show');
+              // set tab active background color              
+          }
+          if (activeTab == '#htaccess') {
+           // call showHtaccessForm function
+            showHtaccessForm();
+          }
+          if (activeTab == '#robots') {
+            // call showRobotsForm function
+            showRobotsForm();
+          }
+          if (activeTab == '#sitemap') {
+            // call showSitemapForm function
+            showSitemapForm();
+          }
+          if (activeTab == '#redirection') {
+            // call showRedirectionForm function
+            showRedirectionForm();
+          }
+          if (activeTab == '#sitemap_administration') {
+            // call showSitemapAdministration function
+            showSitemapAdministration();
+          }
 
+          
+
+      });
+      
+    // $(document).ready(function() {
+    //     $(".nav > li").click(function() {
+    //         $(".nav > li ").removeClass('current');
+    //         $(this).addClass('current');
+    //     });
+    // });
+
+    
+    document.getElementById("htaccess_link").onclick = function () {
+      showHtaccessForm();
     };
     document.getElementById("sitemap_link").onclick = function () {
-        document.getElementById("htaccess").style.display = "none";
-        document.getElementById("robots").style.display = "none";
-        document.getElementById("sitemap").style.display = "block";
-        document.getElementById("redirection").style.display = "none";
-        // document.getElementById("htaccess_link").style.color = "black";
-        document.getElementById("features").style.display = "none";
+      showSitemapForm();
+      
     };
     document.getElementById("robots_link").onclick = function () {
-        document.getElementById("htaccess").style.display = "none";
-        document.getElementById("robots").style.display = "block";
-        document.getElementById("sitemap").style.display = "none";
-        document.getElementById("redirection").style.display = "none";
-        document.getElementById("features").style.display = "none";
+      showRobotsForm();
+       
     };
     document.getElementById("redirection_link").onclick = function () {
-        document.getElementById("htaccess").style.display = "none";
-        document.getElementById("robots").style.display = "none";
-        document.getElementById("sitemap").style.display = "none";
-        document.getElementById("redirection").style.display = "block";
-        document.getElementById("features").style.display = "none";
+      showRedirectionForm();
+       
     };
     document.getElementById("sitemap_administration_link").onclick = function () {
-        document.getElementById("htaccess").style.display = "none";
-        document.getElementById("robots").style.display = "none";
-        document.getElementById("sitemap").style.display = "none";
-        document.getElementById("redirection").style.display = "none";
-        document.getElementById("sitemap_administration").style.display = "block";
+      showSitemapAdministration();
+      
     };
     document.getElementById("add_redirection").onclick = function () {
         document.getElementById("redirection_form").style.display = "block";
         document.getElementById("redirection_list").style.display = "none";
         document.getElementById("add_redirection").style.display = "none";
+        document.getElementById("cancel_redirection").style.display = "block";
     };
-    // document.getElementById("updateRedirection").onclick = function () {
-    //     document.getElementById("redirection_update_form").style.display = "block";
-    //     document.getElementById("redirection_list").style.display = "none";
-    //     document.getElementById("add_redirection").style.display = "none";
-    // };
+    document.getElementById("updateRedirection").onclick = function () {
+        document.getElementById("redirection_update_form").style.display = "block";
+        document.getElementById("redirection_list").style.display = "none";
+        document.getElementById("add_redirection").style.display = "none";
+    };
+    document.getElementById("cancel_redirection").onclick = function () {
+        document.getElementById("redirection_form").style.display = "none";
+        document.getElementById("redirection_list").style.display = "block";
+        document.getElementById("add_redirection").style.display = "block";
+        document.getElementById("add_redirection").style.padding = "10px";
+        document.getElementById("add_redirection").style.margin = "10px";
+        document.getElementById("add_redirection").style.float = "right";
+        document.getElementById("cancel_redirection").style.display = "none";
+
+        // button.addEventListener('click',hideshow,false);
+
+        // function hideshow() {
+        //     document.getElementById('cancel_redirection').style.display = 'block'; 
+        //     this.style.display = 'none'
+        // }   
+    };
+
+    function showHtaccessForm() {
+      document.getElementById("htaccess").style.display = "block";
+      // set menu active background color
+      // document.getElementById("htaccess_link").style.backgroundColor = "#beeaf3";
+        document.getElementById("robots").style.display = "none";
+        document.getElementById("sitemap").style.display = "none";
+        document.getElementById("redirection").style.display = "none";
+        // document.getElementById("sitemap_link").style.color = "black";
+        document.getElementById("features").style.display = "none"; 
+    }
+
+    function showRobotsForm() {
+      document.getElementById("htaccess").style.display = "none";
+        document.getElementById("robots").style.display = "block";
+        document.getElementById("sitemap").style.display = "none";
+        document.getElementById("redirection").style.display = "none";
+        document.getElementById("features").style.display = "none";
+    }
+
+    function showSitemapForm() {
+      document.getElementById("htaccess").style.display = "none";
+        document.getElementById("robots").style.display = "none";
+        document.getElementById("sitemap").style.display = "block";
+        document.getElementById("redirection").style.display = "none";
+        // document.getElementById("htaccess_link").style.color = "black";
+        document.getElementById("features").style.display = "none";
+    }
+
+    function showRedirectionForm() {
+      document.getElementById("htaccess").style.display = "none";
+        document.getElementById("robots").style.display = "none";
+        document.getElementById("sitemap").style.display = "none";
+        document.getElementById("redirection").style.display = "block";
+        document.getElementById("features").style.display = "none";
+    }
+
+    function showSitemapAdministration() {
+      document.getElementById("htaccess").style.display = "none";
+        document.getElementById("robots").style.display = "none";
+        document.getElementById("sitemap").style.display = "none";
+        document.getElementById("redirection").style.display = "none";
+        document.getElementById("sitemap_administration").style.display = "block";
+    }
     
     
 <?php echo '</script'; ?>

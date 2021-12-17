@@ -991,7 +991,7 @@
   ),
   'Category' => 
   array (
-    'path' => '',
+    'path' => 'override/classes/Category.php',
     'type' => 'class',
     'override' => false,
   ),
@@ -1819,7 +1819,7 @@
   ),
   'FrontController' => 
   array (
-    'path' => '',
+    'path' => 'override/classes/controller/FrontController.php',
     'type' => 'class',
     'override' => false,
   ),

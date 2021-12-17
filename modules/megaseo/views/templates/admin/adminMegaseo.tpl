@@ -27,13 +27,22 @@
 {literal}
   <style type="text/css">
 
+.navbar-default .navbar-nav>.active>a,
+.navbar-default .navbar-nav>.active>a:hover,
+.navbar-default .navbar-nav>.active>a:focus {
+    color: #50A0FF;
+    background-color: #beeaf3 !important;
+    display:block;
+    font-size: large;
+}
+/* 
 .menu ul li:active, .menu ul li:hover, .menu ul li.active, 
 .menu ul li:focus, .menu ul li:visited , .menu ul li > a:hover, .menu ul li > a:focus, .menu ul li > a:active, .menu ul li > a:visited {
     background-color: #beeaf3;
 }
 .current {
 	background: #beeaf3;
-}
+} */
    </style>
 {/literal}
 
@@ -42,12 +51,12 @@
     {* <div class="navbar-header">
       <a class="navbar-brand active" href="#">SEO avancé</a>
     </div> *}
-    <ul class="nav navbar-nav">
-      <li class="current"><a id="robots_link" href="#">Robots.txt</a></li>
-      <li><a id="htaccess_link" href="#">htaccess</a></li>
-      <li><a id="sitemap_link" href="#">Sitemap</a></li>
-	    <li><a id="redirection_link" href="#">Redirection</a></li>
-      <li><a id="sitemap_administration_link" href="#">Gérer le sitemap</a></li>
+    <ul class="nav navbar-nav" id="menu-tab">
+      <li><a data-toggle="tab" id="robots_link" href="#robots">Robots.txt</a></li>
+      <li><a data-toggle="tab" id="htaccess_link" href="#htaccess">htaccess</a></li>
+      <li><a data-toggle="tab" id="sitemap_link" href="#sitemap">Sitemap</a></li>
+	    <li><a data-toggle="tab" id="redirection_link" href="#redirection">Redirection</a></li>
+      <li><a data-toggle="tab" id="sitemap_administration_link" href="#sitemap_administration">Gérer le sitemap</a></li>
     </ul>
   </div>
 </nav>
@@ -202,7 +211,7 @@
                     <td>{$redirection.redirection_date}</td>
                     <td>
                     <form action="{$smarty.server.REQUEST_URI}" method="post" multipart="true" enctype="multipart/form-data">
-                        <button id="updateRedirection" class="btn btn-primary btn-xs">
+                        <button id="updateRedirection" class="btn btn-primary btn-xs" type="button" name="updateRedirection" value="{$redirection.id_redirection}">
                           <i class="icon-edit"></i>
                         </button>
                         <button type="submit" name="deleteRedirection"  class="btn btn-danger btn-xs" value="{$redirection.id_redirection}">
@@ -218,8 +227,19 @@
         </div>
       </div>
 
+      {* button for cancel *}
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="text-right" id="cancel_redirection" style="padding: 10px; display:none";>
+            <a id="" href="#" type="button" class="btn btn-default">Annuler</a>
+          </div>
+        </div>
+      </div>
+          
+
           {* create 301, 302 form *}
       <div class="panel panel-default" style="display: none;" id="redirection_form">
+
         
         <div class="panel-heading">
           <h2 class="panel-title">Redirection 301, 302</h2>
@@ -258,6 +278,7 @@
 
     {* redirection update form *}
     <div class="panel panel-default" style="display: none;" id="redirection_update_form">
+    
       <div class="panel-heading">
         <h2 class="panel-title">Redirection 301, 302</h2>
       </div>
@@ -312,60 +333,138 @@
 
     
   
-    $(document).ready(function() {
-        $(".nav > li").click(function() {
-            $(".nav > li").removeClass('current');
-            $(this).addClass('current');
-        });
-    });
-    document.getElementById("htaccess_link").onclick = function () {
-        document.getElementById("htaccess").style.display = "block";
-        document.getElementById("robots").style.display = "none";
-        document.getElementById("sitemap").style.display = "none";
-        document.getElementById("redirection").style.display = "none";
-        document.getElementById("sitemap_link").style.color = "black";
-        document.getElementById("features").style.display = "none"; 
+$(document).ready(function(){
+          $('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
+              localStorage.setItem('activeTab', $(e.target).attr('href'));
+          });
+          var activeTab = localStorage.getItem('activeTab');
+          if(activeTab){
+              $('#menu-tab a[href="' + activeTab + '"]').tab('show');
+              // set tab active background color              
+          }
+          if (activeTab == '#htaccess') {
+           // call showHtaccessForm function
+            showHtaccessForm();
+          }
+          if (activeTab == '#robots') {
+            // call showRobotsForm function
+            showRobotsForm();
+          }
+          if (activeTab == '#sitemap') {
+            // call showSitemapForm function
+            showSitemapForm();
+          }
+          if (activeTab == '#redirection') {
+            // call showRedirectionForm function
+            showRedirectionForm();
+          }
+          if (activeTab == '#sitemap_administration') {
+            // call showSitemapAdministration function
+            showSitemapAdministration();
+          }
 
+          
+
+      });
+      
+    // $(document).ready(function() {
+    //     $(".nav > li").click(function() {
+    //         $(".nav > li ").removeClass('current');
+    //         $(this).addClass('current');
+    //     });
+    // });
+
+    
+    document.getElementById("htaccess_link").onclick = function () {
+      showHtaccessForm();
     };
     document.getElementById("sitemap_link").onclick = function () {
-        document.getElementById("htaccess").style.display = "none";
-        document.getElementById("robots").style.display = "none";
-        document.getElementById("sitemap").style.display = "block";
-        document.getElementById("redirection").style.display = "none";
-        // document.getElementById("htaccess_link").style.color = "black";
-        document.getElementById("features").style.display = "none";
+      showSitemapForm();
+      
     };
     document.getElementById("robots_link").onclick = function () {
-        document.getElementById("htaccess").style.display = "none";
-        document.getElementById("robots").style.display = "block";
-        document.getElementById("sitemap").style.display = "none";
-        document.getElementById("redirection").style.display = "none";
-        document.getElementById("features").style.display = "none";
+      showRobotsForm();
+       
     };
     document.getElementById("redirection_link").onclick = function () {
-        document.getElementById("htaccess").style.display = "none";
-        document.getElementById("robots").style.display = "none";
-        document.getElementById("sitemap").style.display = "none";
-        document.getElementById("redirection").style.display = "block";
-        document.getElementById("features").style.display = "none";
+      showRedirectionForm();
+       
     };
     document.getElementById("sitemap_administration_link").onclick = function () {
-        document.getElementById("htaccess").style.display = "none";
-        document.getElementById("robots").style.display = "none";
-        document.getElementById("sitemap").style.display = "none";
-        document.getElementById("redirection").style.display = "none";
-        document.getElementById("sitemap_administration").style.display = "block";
+      showSitemapAdministration();
+      
     };
     document.getElementById("add_redirection").onclick = function () {
         document.getElementById("redirection_form").style.display = "block";
         document.getElementById("redirection_list").style.display = "none";
         document.getElementById("add_redirection").style.display = "none";
+        document.getElementById("cancel_redirection").style.display = "block";
     };
-    // document.getElementById("updateRedirection").onclick = function () {
-    //     document.getElementById("redirection_update_form").style.display = "block";
-    //     document.getElementById("redirection_list").style.display = "none";
-    //     document.getElementById("add_redirection").style.display = "none";
-    // };
+    document.getElementById("updateRedirection").onclick = function () {
+        document.getElementById("redirection_update_form").style.display = "block";
+        document.getElementById("redirection_list").style.display = "none";
+        document.getElementById("add_redirection").style.display = "none";
+    };
+    document.getElementById("cancel_redirection").onclick = function () {
+        document.getElementById("redirection_form").style.display = "none";
+        document.getElementById("redirection_list").style.display = "block";
+        document.getElementById("add_redirection").style.display = "block";
+        document.getElementById("add_redirection").style.padding = "10px";
+        document.getElementById("add_redirection").style.margin = "10px";
+        document.getElementById("add_redirection").style.float = "right";
+        document.getElementById("cancel_redirection").style.display = "none";
+
+        // button.addEventListener('click',hideshow,false);
+
+        // function hideshow() {
+        //     document.getElementById('cancel_redirection').style.display = 'block'; 
+        //     this.style.display = 'none'
+        // }   
+    };
+
+    function showHtaccessForm() {
+      document.getElementById("htaccess").style.display = "block";
+      // set menu active background color
+      // document.getElementById("htaccess_link").style.backgroundColor = "#beeaf3";
+        document.getElementById("robots").style.display = "none";
+        document.getElementById("sitemap").style.display = "none";
+        document.getElementById("redirection").style.display = "none";
+        // document.getElementById("sitemap_link").style.color = "black";
+        document.getElementById("features").style.display = "none"; 
+    }
+
+    function showRobotsForm() {
+      document.getElementById("htaccess").style.display = "none";
+        document.getElementById("robots").style.display = "block";
+        document.getElementById("sitemap").style.display = "none";
+        document.getElementById("redirection").style.display = "none";
+        document.getElementById("features").style.display = "none";
+    }
+
+    function showSitemapForm() {
+      document.getElementById("htaccess").style.display = "none";
+        document.getElementById("robots").style.display = "none";
+        document.getElementById("sitemap").style.display = "block";
+        document.getElementById("redirection").style.display = "none";
+        // document.getElementById("htaccess_link").style.color = "black";
+        document.getElementById("features").style.display = "none";
+    }
+
+    function showRedirectionForm() {
+      document.getElementById("htaccess").style.display = "none";
+        document.getElementById("robots").style.display = "none";
+        document.getElementById("sitemap").style.display = "none";
+        document.getElementById("redirection").style.display = "block";
+        document.getElementById("features").style.display = "none";
+    }
+
+    function showSitemapAdministration() {
+      document.getElementById("htaccess").style.display = "none";
+        document.getElementById("robots").style.display = "none";
+        document.getElementById("sitemap").style.display = "none";
+        document.getElementById("redirection").style.display = "none";
+        document.getElementById("sitemap_administration").style.display = "block";
+    }
     
     
 </script>

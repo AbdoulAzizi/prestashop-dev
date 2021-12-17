@@ -1,29 +1,4 @@
 <?php
-/**
- * 2007-2019 PrestaShop
- *
- * NOTICE OF LICENSE
- *
- * This source file is subject to the Academic Free License (AFL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/afl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@prestashop.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
- * versions in the future. If you wish to customize PrestaShop for your
- * needs please refer to http://www.prestashop.com for more information.
- *
- * @author PrestaShop SA <contact@prestashop.com>
- * @copyright  2007-2019 PrestaShop SA
- * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
- *  International Registered Trademark & Property of PrestaShop SA
- */
-// namespace PrestaShopBundle\Module\megaseo\controllers\admin;
 
 use Doctrine\Common\Cache\CacheProvider;
 use PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController;
@@ -52,7 +27,6 @@ class AdminMegaseoController extends ModuleAdminController{
 
         parent::initContent();
 
-        // render the template
         $this->context->smarty->assign(array(
             'content' => $this->content,
             'module_name' => 'megaseo',
@@ -66,10 +40,6 @@ class AdminMegaseoController extends ModuleAdminController{
         ));
         $this->bootstrap = true;
 
-        // $this->context->smarty->assign('module_dir', $this->_path);
-
-        // return $this->context->smarty->fetch(_PS_MODULE_DIR_.'megaseo/views/templates/admin/adminMegaseo.tpl');
-        // return $output;
         $this->setTemplate('adminMegaseo.tpl');
 
     
@@ -91,7 +61,6 @@ class AdminMegaseoController extends ModuleAdminController{
             $functions = [
                 'is_readable',
                 'is_writable',
-                'is_executable'
             ];
 
             foreach ($functions as $f) {
@@ -123,7 +92,6 @@ class AdminMegaseoController extends ModuleAdminController{
             $functions = [
                 'is_readable',
                 'is_writable',
-                'is_executable'
             ];
 
             foreach ($functions as $f) {
@@ -155,7 +123,6 @@ class AdminMegaseoController extends ModuleAdminController{
             $functions = [
                 'is_readable',
                 'is_writable',
-                'is_executable'
             ];
 
             foreach ($functions as $f) {
