@@ -31,7 +31,7 @@ class FrontController extends FrontControllerCore
 
               if ( preg_match($redirection_from, $request_uri) )
               {
-                  var_dump($request_uri);
+                //   var_dump($request_uri);
 
                   
                   if ($redirection_type == '301')

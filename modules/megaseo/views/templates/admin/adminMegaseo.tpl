@@ -76,18 +76,7 @@
         <h2 class="panel-title">Robots.txt</h2>
       </div>
 
-      {* <div class="panel-body">
-        <p>
-          <a href="http://www.robotstxt.org/robotstxt.html" target="_blank">Robots.txt</a> is a text file that tells search engines what pages to index and follow.
-        </p>
-        <p>
-          It is a good idea to create a robots.txt file in the root directory of your website.
-        </p>
-        <p>
-          The file should contain the following lines:
-        </p>
-      </div> *}
-      {* display errors while permissions are not ok *}
+    
       {if isset($robot_error_message)}
         <div class="alert alert-danger" role="alert" id="robot_error" style="">
           <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
@@ -95,13 +84,6 @@
           <span class="robot_error_message" id="robot_error_message">{{$robot_error_message}}</span>
         </div>
         {else}
-        {* {if isset($robot_success_messages)}
-        <div class="alert alert-success" role="alert" id="robot_success" style="">
-          <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-          <span class="sr-only">Success:</span>
-          <span id="robot_success_message">{{$robot_success_messages}}</span>
-        </div>
-        {/if} *}
         
       <form action="{$smarty.server.REQUEST_URI}" method="post" multipart="true" enctype="multipart/form-data">
         <div class="panel-body">
@@ -329,7 +311,7 @@
   
 
 
-<script type="text/javascript">
+<script>
 
     
   
@@ -366,104 +348,90 @@ $(document).ready(function(){
           
 
       });
-      
-    // $(document).ready(function() {
-    //     $(".nav > li").click(function() {
-    //         $(".nav > li ").removeClass('current');
-    //         $(this).addClass('current');
-    //     });
-    // });
-
     
-    document.getElementById("htaccess_link").onclick = function () {
-      showHtaccessForm();
-    };
-    document.getElementById("sitemap_link").onclick = function () {
-      showSitemapForm();
-      
-    };
-    document.getElementById("robots_link").onclick = function () {
-      showRobotsForm();
-       
-    };
-    document.getElementById("redirection_link").onclick = function () {
-      showRedirectionForm();
-       
-    };
-    document.getElementById("sitemap_administration_link").onclick = function () {
-      showSitemapAdministration();
-      
-    };
-    document.getElementById("add_redirection").onclick = function () {
-        document.getElementById("redirection_form").style.display = "block";
-        document.getElementById("redirection_list").style.display = "none";
-        document.getElementById("add_redirection").style.display = "none";
-        document.getElementById("cancel_redirection").style.display = "block";
-    };
-    document.getElementById("updateRedirection").onclick = function () {
-        document.getElementById("redirection_update_form").style.display = "block";
-        document.getElementById("redirection_list").style.display = "none";
-        document.getElementById("add_redirection").style.display = "none";
-    };
-    document.getElementById("cancel_redirection").onclick = function () {
-        document.getElementById("redirection_form").style.display = "none";
-        document.getElementById("redirection_list").style.display = "block";
-        document.getElementById("add_redirection").style.display = "block";
-        document.getElementById("add_redirection").style.padding = "10px";
-        document.getElementById("add_redirection").style.margin = "10px";
-        document.getElementById("add_redirection").style.float = "right";
-        document.getElementById("cancel_redirection").style.display = "none";
+      $("#htaccess_link").click(function(){
+        showHtaccessForm();
+      });
+      $("#sitemap_link").click(function(){
+        showSitemapForm();
+        
+      });
+      $("#robots_link").click(function(){
+        showRobotsForm();
+        
+      });
+      $("#redirection_link").click(function(){
+        showRedirectionForm();
+        
+      });
+      $("#sitemap_administration_link").click(function(){
+        showSitemapAdministration();
+        
+      });
 
-        // button.addEventListener('click',hideshow,false);
+      $("#add_redirection").click(function () {
 
-        // function hideshow() {
-        //     document.getElementById('cancel_redirection').style.display = 'block'; 
-        //     this.style.display = 'none'
-        // }   
-    };
+          $("#redirection_form").show();
+          $("#redirection_list").hide();
+          $("#add_redirection").hide();
+          $("#cancel_redirection").show();
+
+      });
+
+      $("#updateRedirection").click(function () {
+          $("#redirection_update_form").show();
+          $("#redirection_list").hide();
+          $("#add_redirection").hide();
+      });
+
+      $("#cancel_redirection").click(function () {
+          $("#redirection_form").hide();
+          $("#redirection_list").show();
+          $("#add_redirection").show();
+          $("#add_redirection").css("padding", "10px");
+          $("#add_redirection").css("padding", "10px");
+          $("#add_redirection").css("float", "right");
+          $("#cancel_redirection").hide(); 
+      });
 
     function showHtaccessForm() {
-      document.getElementById("htaccess").style.display = "block";
-      // set menu active background color
-      // document.getElementById("htaccess_link").style.backgroundColor = "#beeaf3";
-        document.getElementById("robots").style.display = "none";
-        document.getElementById("sitemap").style.display = "none";
-        document.getElementById("redirection").style.display = "none";
-        // document.getElementById("sitemap_link").style.color = "black";
-        document.getElementById("features").style.display = "none"; 
+      $("#htaccess").show();
+        $("#robots").hide();
+        $("#sitemap").hide();
+        $("#redirection").hide();
+        $("#features").hide();
     }
 
     function showRobotsForm() {
-      document.getElementById("htaccess").style.display = "none";
-        document.getElementById("robots").style.display = "block";
-        document.getElementById("sitemap").style.display = "none";
-        document.getElementById("redirection").style.display = "none";
-        document.getElementById("features").style.display = "none";
+       $("#htaccess").hide();
+         $("#robots").show();
+         $("#sitemap").hide();
+         $("#redirection").hide();
+         $("#features").hide();
     }
 
     function showSitemapForm() {
-      document.getElementById("htaccess").style.display = "none";
-        document.getElementById("robots").style.display = "none";
-        document.getElementById("sitemap").style.display = "block";
-        document.getElementById("redirection").style.display = "none";
-        // document.getElementById("htaccess_link").style.color = "black";
-        document.getElementById("features").style.display = "none";
+      $("#htaccess").hide();
+        $("#robots").hide();
+        $("#sitemap").show();
+        $("#redirection").hide();
+        $("#features").hide();
     }
 
     function showRedirectionForm() {
-      document.getElementById("htaccess").style.display = "none";
-        document.getElementById("robots").style.display = "none";
-        document.getElementById("sitemap").style.display = "none";
-        document.getElementById("redirection").style.display = "block";
-        document.getElementById("features").style.display = "none";
+       $("#htaccess").hide();
+         $("#robots").hide();
+         $("#sitemap").hide();
+         $("#redirection").show();
+         $("#features").hide();
     }
 
     function showSitemapAdministration() {
-      document.getElementById("htaccess").style.display = "none";
-        document.getElementById("robots").style.display = "none";
-        document.getElementById("sitemap").style.display = "none";
-        document.getElementById("redirection").style.display = "none";
-        document.getElementById("sitemap_administration").style.display = "block";
+      $("#htaccess").hide();
+        $("#robots").hide();
+        $("#sitemap").hide();
+        $("#redirection").hide();
+        $("#sitemap_administration").show();
     }
     
     

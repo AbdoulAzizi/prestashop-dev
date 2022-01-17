@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.39, created on 2021-12-17 16:59:00
+/* Smarty version 3.1.39, created on 2022-01-17 11:43:55
   from '/var/www/html/prestashop/modules/megaseo/views/templates/admin/adminMegaseo.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.39',
-  'unifunc' => 'content_61bcb3c412a4c9_46918124',
+  'unifunc' => 'content_61e5486b7a0351_27723513',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '9a96fb9ec114505f183f25d5328abb1df7f3151e' => 
     array (
       0 => '/var/www/html/prestashop/modules/megaseo/views/templates/admin/adminMegaseo.tpl',
-      1 => 1639756699,
+      1 => 1642416233,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61bcb3c412a4c9_46918124 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61e5486b7a0351_27723513 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 
 
@@ -68,7 +68,8 @@ function content_61bcb3c412a4c9_46918124 (Smarty_Internal_Template $_smarty_tpl)
         <h2 class="panel-title">Robots.txt</h2>
       </div>
 
-                  <?php if ((isset($_smarty_tpl->tpl_vars['robot_error_message']->value))) {?>
+    
+      <?php if ((isset($_smarty_tpl->tpl_vars['robot_error_message']->value))) {?>
         <div class="alert alert-danger" role="alert" id="robot_error" style="">
           <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
           <span class="sr-only">Error:</span>
@@ -79,7 +80,7 @@ echo $_prefixVariable1;?>
 </span>
         </div>
         <?php } else { ?>
-                
+        
       <form action="<?php echo $_SERVER['REQUEST_URI'];?>
 " method="post" multipart="true" enctype="multipart/form-data">
         <div class="panel-body">
@@ -364,7 +365,7 @@ echo $_prefixVariable8;?>
 
 
 <?php echo '<script'; ?>
- type="text/javascript">
+>
 
     
   
@@ -401,104 +402,90 @@ $(document).ready(function(){
           
 
       });
-      
-    // $(document).ready(function() {
-    //     $(".nav > li").click(function() {
-    //         $(".nav > li ").removeClass('current');
-    //         $(this).addClass('current');
-    //     });
-    // });
-
     
-    document.getElementById("htaccess_link").onclick = function () {
-      showHtaccessForm();
-    };
-    document.getElementById("sitemap_link").onclick = function () {
-      showSitemapForm();
-      
-    };
-    document.getElementById("robots_link").onclick = function () {
-      showRobotsForm();
-       
-    };
-    document.getElementById("redirection_link").onclick = function () {
-      showRedirectionForm();
-       
-    };
-    document.getElementById("sitemap_administration_link").onclick = function () {
-      showSitemapAdministration();
-      
-    };
-    document.getElementById("add_redirection").onclick = function () {
-        document.getElementById("redirection_form").style.display = "block";
-        document.getElementById("redirection_list").style.display = "none";
-        document.getElementById("add_redirection").style.display = "none";
-        document.getElementById("cancel_redirection").style.display = "block";
-    };
-    document.getElementById("updateRedirection").onclick = function () {
-        document.getElementById("redirection_update_form").style.display = "block";
-        document.getElementById("redirection_list").style.display = "none";
-        document.getElementById("add_redirection").style.display = "none";
-    };
-    document.getElementById("cancel_redirection").onclick = function () {
-        document.getElementById("redirection_form").style.display = "none";
-        document.getElementById("redirection_list").style.display = "block";
-        document.getElementById("add_redirection").style.display = "block";
-        document.getElementById("add_redirection").style.padding = "10px";
-        document.getElementById("add_redirection").style.margin = "10px";
-        document.getElementById("add_redirection").style.float = "right";
-        document.getElementById("cancel_redirection").style.display = "none";
+      $("#htaccess_link").click(function(){
+        showHtaccessForm();
+      });
+      $("#sitemap_link").click(function(){
+        showSitemapForm();
+        
+      });
+      $("#robots_link").click(function(){
+        showRobotsForm();
+        
+      });
+      $("#redirection_link").click(function(){
+        showRedirectionForm();
+        
+      });
+      $("#sitemap_administration_link").click(function(){
+        showSitemapAdministration();
+        
+      });
 
-        // button.addEventListener('click',hideshow,false);
+      $("#add_redirection").click(function () {
 
-        // function hideshow() {
-        //     document.getElementById('cancel_redirection').style.display = 'block'; 
-        //     this.style.display = 'none'
-        // }   
-    };
+          $("#redirection_form").show();
+          $("#redirection_list").hide();
+          $("#add_redirection").hide();
+          $("#cancel_redirection").show();
+
+      });
+
+      $("#updateRedirection").click(function () {
+          $("#redirection_update_form").show();
+          $("#redirection_list").hide();
+          $("#add_redirection").hide();
+      });
+
+      $("#cancel_redirection").click(function () {
+          $("#redirection_form").hide();
+          $("#redirection_list").show();
+          $("#add_redirection").show();
+          $("#add_redirection").css("padding", "10px");
+          $("#add_redirection").css("padding", "10px");
+          $("#add_redirection").css("float", "right");
+          $("#cancel_redirection").hide(); 
+      });
 
     function showHtaccessForm() {
-      document.getElementById("htaccess").style.display = "block";
-      // set menu active background color
-      // document.getElementById("htaccess_link").style.backgroundColor = "#beeaf3";
-        document.getElementById("robots").style.display = "none";
-        document.getElementById("sitemap").style.display = "none";
-        document.getElementById("redirection").style.display = "none";
-        // document.getElementById("sitemap_link").style.color = "black";
-        document.getElementById("features").style.display = "none"; 
+      $("#htaccess").show();
+        $("#robots").hide();
+        $("#sitemap").hide();
+        $("#redirection").hide();
+        $("#features").hide();
     }
 
     function showRobotsForm() {
-      document.getElementById("htaccess").style.display = "none";
-        document.getElementById("robots").style.display = "block";
-        document.getElementById("sitemap").style.display = "none";
-        document.getElementById("redirection").style.display = "none";
-        document.getElementById("features").style.display = "none";
+       $("#htaccess").hide();
+         $("#robots").show();
+         $("#sitemap").hide();
+         $("#redirection").hide();
+         $("#features").hide();
     }
 
     function showSitemapForm() {
-      document.getElementById("htaccess").style.display = "none";
-        document.getElementById("robots").style.display = "none";
-        document.getElementById("sitemap").style.display = "block";
-        document.getElementById("redirection").style.display = "none";
-        // document.getElementById("htaccess_link").style.color = "black";
-        document.getElementById("features").style.display = "none";
+      $("#htaccess").hide();
+        $("#robots").hide();
+        $("#sitemap").show();
+        $("#redirection").hide();
+        $("#features").hide();
     }
 
     function showRedirectionForm() {
-      document.getElementById("htaccess").style.display = "none";
-        document.getElementById("robots").style.display = "none";
-        document.getElementById("sitemap").style.display = "none";
-        document.getElementById("redirection").style.display = "block";
-        document.getElementById("features").style.display = "none";
+       $("#htaccess").hide();
+         $("#robots").hide();
+         $("#sitemap").hide();
+         $("#redirection").show();
+         $("#features").hide();
     }
 
     function showSitemapAdministration() {
-      document.getElementById("htaccess").style.display = "none";
-        document.getElementById("robots").style.display = "none";
-        document.getElementById("sitemap").style.display = "none";
-        document.getElementById("redirection").style.display = "none";
-        document.getElementById("sitemap_administration").style.display = "block";
+      $("#htaccess").hide();
+        $("#robots").hide();
+        $("#sitemap").hide();
+        $("#redirection").hide();
+        $("#sitemap_administration").show();
     }
     
     
