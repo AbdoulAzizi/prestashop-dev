@@ -27,6 +27,8 @@ class AdminMegaseoController extends ModuleAdminController{
 
         parent::initContent();
 
+        $redirection_upload_file = new HelperUploader('redirection_upload_file');
+
         $this->context->smarty->assign(array(
             'content' => $this->content,
             'module_name' => 'megaseo',
@@ -34,6 +36,7 @@ class AdminMegaseoController extends ModuleAdminController{
             'sitemap_content' => $this->getSitemapContent(),
             'htaccess_content' => $this->getHtaccessContent(),
             'redirection_data' => $this->getRedirectionData(),
+            'redirection_upload_file' => $redirection_upload_file->render(),
             
 
 
@@ -226,7 +229,6 @@ class AdminMegaseoController extends ModuleAdminController{
                 'redirection_from' => pSQL($redirection_from),
                 'redirection_to' => pSQL($redirection_to),
                 'redirection_type' => pSQL($redirection_type),
-                'redirection_date' => date('Y-m-d H:i:s')
             ]);
 
             if($redirection_id){
@@ -260,7 +262,142 @@ class AdminMegaseoController extends ModuleAdminController{
             }
         }
 
+        if(isset($_FILES['redirection_upload_file']) && $_FILES['redirection_upload_file']['error'] == 0){
+            $file_content = file_get_contents($_FILES['redirection_upload_file']['tmp_name']);
+            $file_content = explode("\n", $file_content);
+            $file_content = array_map('trim', $file_content);
+            $file_content = array_unique($file_content);
+
+            $redirection_upload_success = [];
+            $redirection_upload_errors = [];
+            $redirections_added = 0;
+
+            foreach($file_content as $line){
+                $line = explode(',', $line);
+                $line = array_map('trim', $line);
+
+                foreach($line as $key => $value){
+                    if(!$value){
+                        unset($line[$key]);
+                    }
+                }
+                // skip empty lines
+                if(!$line){
+                    continue;
+                }
+                // skip first line
+                if($line[0] == 'from'){
+                    continue;
+                }
+                
+            
+                $redirection_from = $line[0];
+                $redirection_type = $line[1];
+                $redirection_to = $line[2];
+
+
+                // if(!$redirection_from || !$redirection_to){
+                //     $redirection_upload_errors[] = $this->l('La ligne suivante n\'est pas valide : ').$line[0];
+                //     continue;
+                // }
+
+                // if(preg_match('#^https?://#', $redirection_from)){
+                //     $redirection_upload_errors[] = $this->l('L\'URI d\'origine ne doit pas commencer par http:// ou https://');
+                //     continue;
+                // }
+
+                // if(!preg_match('#^https?://#', $redirection_to)){
+                //     $redirection_upload_errors[] = $this->l('L\'URL cible doit commencer par http:// ou https://');
+                //     continue;
+                // }
+
+                // vérifier que la redirection n'existe pas déjà
+                $redirection_exists = Db::getInstance()->getValue('SELECT COUNT(*) FROM '._DB_PREFIX_.'redirection WHERE redirection_from = "'.pSQL($redirection_from).'"');
+                if($redirection_exists){
+                    $redirection_upload_errors[] = $redirection_from;
+                    continue;
+                }
+
+                if(count($redirection_upload_errors)){
+                    return $this->errors[] = $this->l('Les redirection (s) suivantes existent déjà dans le tableau : ').implode(', ', $redirection_upload_errors);
+                }
+
+                // enregistrer la redirection
+                $redirection_id = Db::getInstance()->insert('redirection', [
+                    'redirection_from' => pSQL($redirection_from),
+                    'redirection_to' => pSQL($redirection_to),
+                    'redirection_type' => pSQL($redirection_type),
+                ]);
+                if($redirection_id){
+                    $redirections_added++;
+                }
+                else{
+                    $redirection_upload_errors[] = $this->l('Une erreur est survenue lors de l\'enregistrement de la redirection');
+                }
+            }
+
+            if($redirections_added > 0){
+                return $this->confirmations[] = $redirections_added.' '.$this->l('redirections ont été ajoutées');
+            }
+           
+        }
+
+        $this->ExportRedirections();
+
         parent::postProcess();
+    }
+
+    public function ExportRedirections(){
+
+        if(Tools::isSubmit('export_redirections_button')){
+            // var_dump('export');exit;
+            $redirections = Db::getInstance()->executeS('SELECT * FROM '._DB_PREFIX_.'redirection');
+
+            $file_titles = [
+                'URI d\'origine',
+                'Type de redirection',
+                'URL cible'
+            ];
+
+            $file_content = [];
+            foreach($redirections as $redirection){
+                $file_content[] = [
+                    $redirection['redirection_from'],
+                    $redirection['redirection_type'],
+                    $redirection['redirection_to']
+                ];
+            }
+
+            $file_content = array_merge([$file_titles], $file_content);
+
+            $file_content = implode("\n", array_map(function($line){
+                return implode(',', $line);
+            }, $file_content));
+
+
+            // $redirections = array_map(function($redirection){
+            //     return [
+            //         $redirection['redirection_from'],
+            //         $redirection['redirection_type'],
+            //         $redirection['redirection_to']
+            //     ];
+            // }, $redirections);
+
+           
+            
+
+            $file_name = 'redirections_'.date('Y-m-d_H-i-s').'.csv';
+
+            // $file_content = implode("\n", array_map(function($redirection){
+            //     return implode(',', $redirection);
+            // }, $redirections));
+
+            header('Content-Type: text/csv; charset=utf-8');
+            header('Content-Disposition: attachment; filename='.$file_name);
+            header('Pragma: no-cache');
+            echo $file_content;
+            exit;
+        }
     }
 
 }
