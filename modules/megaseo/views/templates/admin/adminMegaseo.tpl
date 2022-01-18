@@ -208,7 +208,8 @@
                     {* <td>{$redirection.redirection_date}</td> *}
                     <td>
                     <form action="{$smarty.server.REQUEST_URI}" method="post" multipart="true" enctype="multipart/form-data">
-                        <button id="updateRedirection" class="btn btn-primary btn-xs" type="button" name="update_redirection" value="{$redirection.id_redirection}">
+                        <button id="{$redirection.id_redirection}" class="btn btn-primary btn-xs update_redirection" type="button" name="update_redirection" value="" 
+                        data-redirection_type="{$redirection.redirection_type}" data-redirection_from="{$redirection.redirection_from}" data-redirection_to="{$redirection.redirection_to}">
                           <i class="icon-edit"></i>
                         </button>
                         <button type="submit" name="deleteRedirection"  class="btn btn-danger btn-xs" value="{$redirection.id_redirection}">
@@ -288,6 +289,7 @@
       {else}
         <form action="{$smarty.server.REQUEST_URI}" method="post" multipart="true" enctype="multipart/form-data">
           <div class="panel-body">
+          <input type="hidden" id="redirection_id_update" name="redirection_id_update" value="">
             <div class="form-group">
               <label for="redirection_from_update">{l s="URI d'origine"}</label>
               <input type="text" class="form-control" id="redirection_from_update" name="redirection_from_update" placeholder="{l s="From"}" value="">
@@ -378,17 +380,25 @@
 
 <script>
 
-$(function(){
-  
-  $('input[name="update_redirection"]').on('click', function(){
-    
-    var $this = $(this); 
-  // set the clicked input value to the text field
-  $('#redirection_from_update').val($this.val());
-  });
+$('.update_redirection').each(function() {
+    $(this).click(function(e) {
+       var redirection_id = $(this).attr('id');
+      var redirection_from = $(this).attr('data-redirection_from');
+      var redirection_to = $(this).attr('data-redirection_to');
+      $('#redirection_id_update').val(redirection_id);
+      $('#redirection_from_update').val(redirection_from);
+      $('#redirection_to_update').val(redirection_to);
+      $('#redirection_type_update').val($(this).attr('data-redirection_type'));
 
+
+       $("#redirection_update_form").show();
+          $("#redirection_list").hide();
+          // $("#add_redirection").hide();
+          $("#cancel_redirection").show();
+
+    });
 });
-    
+
   
 $(document).ready(function(){
           $('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
@@ -460,14 +470,12 @@ $(document).ready(function(){
           $("#redirection_form").hide();
           $("#cancel_redirection").show();
           $("#add_redirection").show();
+          $("#redirection_update_form").hide();
 
       });
 
-      $("#updateRedirection").click(function () {
-          $("#redirection_update_form").show();
-          $("#redirection_list").hide();
-          // $("#add_redirection").hide();
-          $("#cancel_redirection").show();
+      $("#update_redirection").click(function () {
+         
       });
 
       $("#cancel_redirection").click(function () {
@@ -482,7 +490,7 @@ $(document).ready(function(){
           $("#redirection_update_form").hide();
        
           // reload the page
-          location.reload();
+          // location.reload();
 
          
       });

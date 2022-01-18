@@ -265,7 +265,54 @@ class AdminMegaseoController extends ModuleAdminController{
 
         $this->ExportRedirections();
 
+        $this->UpdateRedirection();
+
         parent::postProcess();
+    }
+    
+    public function UpdateRedirection(){
+        if(Tools::isSubmit('updateRedirectionSubmit')){
+           
+            $redirection_id = Tools::getValue('redirection_id_update');
+            $redirection_id = (int)$redirection_id;
+            
+
+            $redirection_from = Tools::getValue('redirection_from_update');
+            $redirection_to = Tools::getValue('redirection_to_update');
+            $redirection_type = Tools::getValue('redirection_type_update');
+
+            if(!$redirection_from || !$redirection_to){
+                return $this->errors[] = $this->l('Vous devez renseigner les deux champs');
+            }
+
+            if(preg_match('#^https?://#', $redirection_from)){
+                return $this->errors[] = $this->l('L\'URI d\'origine ne doit pas commencer par http:// ou https://');
+            }
+
+            if(!preg_match('#^https?://#', $redirection_to)){
+                return $this->errors[] = $this->l('L\'URL cible doit commencer par http:// ou https://');
+            }
+
+            // vérifier que la redirection n'existe pas déjà
+            $redirection_exists = Db::getInstance()->getValue('SELECT COUNT(*) FROM '._DB_PREFIX_.'redirection WHERE redirection_from = "'.pSQL($redirection_from).'" AND id_redirection != "'.pSQL($redirection_id).'" AND redirection_type = "'.pSQL($redirection_type).'" AND redirection_to = "'.pSQL($redirection_to).'"');
+            if($redirection_exists){
+                return $this->errors[] = $this->l('Cette redirection existe déjà');
+            }
+
+            // Met à jour la redirection
+            $redirection_updated = Db::getInstance()->update('redirection', [
+                'redirection_from' => pSQL($redirection_from),
+                'redirection_to' => pSQL($redirection_to),
+                'redirection_type' => pSQL($redirection_type),
+            ], 'id_redirection = "'.pSQL($redirection_id).'"');
+
+            if($redirection_updated){
+                return $this->confirmations[] = $this->l('La redirection a été mise à jour');
+            }
+            else{
+                return $this->errors[] = $this->l('Une erreur est survenue lors de la mise à jour de la redirection');
+            }
+        }
     }
 
     public function ImportRedirection(){
