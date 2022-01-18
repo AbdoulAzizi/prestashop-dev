@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.39, created on 2022-01-18 17:35:41
+/* Smarty version 3.1.39, created on 2022-01-18 18:15:44
   from '/var/www/html/prestashop/modules/megaseo/views/templates/admin/adminMegaseo.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.39',
-  'unifunc' => 'content_61e6ec5d3047c9_36251853',
+  'unifunc' => 'content_61e6f5c05a3ea6_59581194',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '9a96fb9ec114505f183f25d5328abb1df7f3151e' => 
     array (
       0 => '/var/www/html/prestashop/modules/megaseo/views/templates/admin/adminMegaseo.tpl',
-      1 => 1642522660,
+      1 => 1642525723,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61e6ec5d3047c9_36251853 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61e6f5c05a3ea6_59581194 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 
 
@@ -220,41 +220,47 @@ echo $_prefixVariable6;?>
               </tr>
             </thead>
             <tbody>
-              <?php if ((isset($_smarty_tpl->tpl_vars['redirection_data']->value))) {?>
-               <?php
+              <?php if ((isset($_smarty_tpl->tpl_vars['redirection_data']->value)) && !empty($_smarty_tpl->tpl_vars['redirection_data']->value)) {?>
+                <?php
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['redirection_data']->value, 'redirection');
 $_smarty_tpl->tpl_vars['redirection']->do_else = true;
 if ($_from !== null) foreach ($_from as $_smarty_tpl->tpl_vars['redirection']->value) {
 $_smarty_tpl->tpl_vars['redirection']->do_else = false;
 ?>
-                  <tr>
-                    <td><?php echo $_smarty_tpl->tpl_vars['redirection']->value['redirection_from'];?>
+                    <tr>
+                      <td><?php echo $_smarty_tpl->tpl_vars['redirection']->value['redirection_from'];?>
 </td>
-                    <td><?php echo $_smarty_tpl->tpl_vars['redirection']->value['redirection_to'];?>
+                      <td><?php echo $_smarty_tpl->tpl_vars['redirection']->value['redirection_to'];?>
 </td>
-                    <td><?php echo $_smarty_tpl->tpl_vars['redirection']->value['redirection_type'];?>
+                      <td><?php echo $_smarty_tpl->tpl_vars['redirection']->value['redirection_type'];?>
 </td>
-                                        <td>
-                    <form action="<?php echo $_SERVER['REQUEST_URI'];?>
+                                            <td>
+                      <form action="<?php echo $_SERVER['REQUEST_URI'];?>
 " method="post" multipart="true" enctype="multipart/form-data">
-                        <button id="<?php echo $_smarty_tpl->tpl_vars['redirection']->value['id_redirection'];?>
+                          <button id="<?php echo $_smarty_tpl->tpl_vars['redirection']->value['id_redirection'];?>
 " class="btn btn-primary btn-xs update_redirection" type="button" name="update_redirection" value="" 
-                        data-redirection_type="<?php echo $_smarty_tpl->tpl_vars['redirection']->value['redirection_type'];?>
+                          data-redirection_type="<?php echo $_smarty_tpl->tpl_vars['redirection']->value['redirection_type'];?>
 " data-redirection_from="<?php echo $_smarty_tpl->tpl_vars['redirection']->value['redirection_from'];?>
 " data-redirection_to="<?php echo $_smarty_tpl->tpl_vars['redirection']->value['redirection_to'];?>
 ">
-                          <i class="icon-edit"></i>
+                            <i class="icon-edit"></i>
+                          </button>
+                          <button type="submit" name="deleteRedirection"  class="btn btn-danger btn-xs" value="<?php echo $_smarty_tpl->tpl_vars['redirection']->value['id_redirection'];?>
+" onclick="return confirm('<?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['l'][0], array( array('s'=>" Vous êtes sur le point de supprimer une redirection. Êtes-vous sûr ?"),$_smarty_tpl ) );?>
+');">
+                          <i class="icon-trash"></i>
                         </button>
-                        <button type="submit" name="deleteRedirection"  class="btn btn-danger btn-xs" value="<?php echo $_smarty_tpl->tpl_vars['redirection']->value['id_redirection'];?>
-">
-                        <i class="icon-trash"></i>
-                      </button>
-                    </form>
-                    </td>
-                  </tr>
-               <?php
+                      </form>
+                      </td>
+                    </tr>
+                <?php
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
+                <?php } else { ?>
+                <tr>
+                  <td colspan="4"><?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['l'][0], array( array('s'=>"Aucune redirection n'a été créée"),$_smarty_tpl ) );?>
+</td>
+                </tr>
               <?php }?>
             </tbody>
           </table>

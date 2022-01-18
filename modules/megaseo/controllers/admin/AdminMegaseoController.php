@@ -384,14 +384,14 @@ class AdminMegaseoController extends ModuleAdminController{
                 }
 
                 if(!preg_match('#^https?://#', $redirection_to)){
-                    $redirection_upload_errors[] = $this->l('Cette URL cible doit commencer par http:// ou https://') . $redirection_to;
+                    $redirection_upload_errors[] = $this->l('Cette URL cible : '.' "'.$redirection_to.'" '.$this->l('doit commencer par http:// ou https://'));
                     continue;
                 }
 
                   // vérifier que la redirection n'existe pas déjà
                   $redirection_exists = Db::getInstance()->getValue('SELECT COUNT(*) FROM '._DB_PREFIX_.'redirection WHERE redirection_from = "'.pSQL($redirection_from).'" AND redirection_to = "'.pSQL($redirection_to).'" AND redirection_type = "'.pSQL($redirection_type).'"');
                   if($redirection_exists){
-                      $redirection_upload_errors[] = $redirection_from;
+                      $redirection_upload_errors[] = $this->l('Cette redirection existe déjà : ').$redirection_from.' '.$redirection_to;
                       continue;
                   }
 
@@ -413,7 +413,7 @@ class AdminMegaseoController extends ModuleAdminController{
             // var_dump($redirection_upload_errors);exit;
 
             if(count($redirection_upload_errors)){
-                return $this->errors[] = $this->l('Les redirection (s) suivantes existent déjà dans le tableau : ').implode(', ', $redirection_upload_errors);
+                return $this->errors[] = $this->l('Erreurs : ').implode("<br>", $redirection_upload_errors);
             }
 
             if($redirections_added > 0){

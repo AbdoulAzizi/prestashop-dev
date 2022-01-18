@@ -61,7 +61,7 @@ class Megaseo extends Module
 
     public function uninstall()
     {
-        // Configuration::deleteByName('MEGASEO_LIVE_MODE');
+        Configuration::deleteByName('MEGASEO_LIVE_MODE');
 
         include(dirname(__FILE__).'/sql/uninstall.php');
 

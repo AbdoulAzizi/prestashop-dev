@@ -199,26 +199,30 @@
               </tr>
             </thead>
             <tbody>
-              {if isset($redirection_data)}
-               {foreach $redirection_data as $redirection}
-                  <tr>
-                    <td>{$redirection.redirection_from}</td>
-                    <td>{$redirection.redirection_to}</td>
-                    <td>{$redirection.redirection_type}</td>
-                    {* <td>{$redirection.redirection_date}</td> *}
-                    <td>
-                    <form action="{$smarty.server.REQUEST_URI}" method="post" multipart="true" enctype="multipart/form-data">
-                        <button id="{$redirection.id_redirection}" class="btn btn-primary btn-xs update_redirection" type="button" name="update_redirection" value="" 
-                        data-redirection_type="{$redirection.redirection_type}" data-redirection_from="{$redirection.redirection_from}" data-redirection_to="{$redirection.redirection_to}">
-                          <i class="icon-edit"></i>
+              {if isset($redirection_data) && !empty($redirection_data)}
+                {foreach $redirection_data as $redirection}
+                    <tr>
+                      <td>{$redirection.redirection_from}</td>
+                      <td>{$redirection.redirection_to}</td>
+                      <td>{$redirection.redirection_type}</td>
+                      {* <td>{$redirection.redirection_date}</td> *}
+                      <td>
+                      <form action="{$smarty.server.REQUEST_URI}" method="post" multipart="true" enctype="multipart/form-data">
+                          <button id="{$redirection.id_redirection}" class="btn btn-primary btn-xs update_redirection" type="button" name="update_redirection" value="" 
+                          data-redirection_type="{$redirection.redirection_type}" data-redirection_from="{$redirection.redirection_from}" data-redirection_to="{$redirection.redirection_to}">
+                            <i class="icon-edit"></i>
+                          </button>
+                          <button type="submit" name="deleteRedirection"  class="btn btn-danger btn-xs" value="{$redirection.id_redirection}" onclick="return confirm('{l s=" Vous êtes sur le point de supprimer une redirection. Êtes-vous sûr ?"}');">
+                          <i class="icon-trash"></i>
                         </button>
-                        <button type="submit" name="deleteRedirection"  class="btn btn-danger btn-xs" value="{$redirection.id_redirection}">
-                        <i class="icon-trash"></i>
-                      </button>
-                    </form>
-                    </td>
-                  </tr>
-               {/foreach}
+                      </form>
+                      </td>
+                    </tr>
+                {/foreach}
+                {else}
+                <tr>
+                  <td colspan="4">{l s="Aucune redirection n'a été créée"}</td>
+                </tr>
               {/if}
             </tbody>
           </table>
