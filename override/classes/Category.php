@@ -1,10 +1,20 @@
 <?php
 class Category extends CategoryCore
 {
+     
+    /*
+    * module: megaseo
+    * date: 2022-01-18 11:27:27
+    * version: 1.0.0
+    */
     public $description_lower;
    
-	public static $definition = array(
-   
+	/*
+    * module: megaseo
+    * date: 2022-01-18 11:27:27
+    * version: 1.0.0
+    */
+    public static $definition = array(
         'table' => 'category',
         'primary' => 'id_category',
         'multilang' => true,

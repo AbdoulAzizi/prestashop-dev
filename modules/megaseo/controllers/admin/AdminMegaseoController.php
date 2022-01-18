@@ -26,7 +26,6 @@ class AdminMegaseoController extends ModuleAdminController{
     {
 
         parent::initContent();
-
         $redirection_upload_file = new HelperUploader('redirection_upload_file');
 
         $this->context->smarty->assign(array(
@@ -262,6 +261,20 @@ class AdminMegaseoController extends ModuleAdminController{
             }
         }
 
+        $this->ImportRedirection();
+
+        $this->ExportRedirections();
+
+        parent::postProcess();
+    }
+
+    public function ImportRedirection(){
+
+        if(Tools::getValue('redirection_import_submit') && $_FILES['redirection_upload_file']['error'] == UPLOAD_ERR_NO_FILE){
+            // vérifier que le fichier a bien été uploadé
+            return $this->errors[] = $this->l('Vous devez sélectionner un fichier à importer');
+        }
+
         if(isset($_FILES['redirection_upload_file']) && $_FILES['redirection_upload_file']['error'] == 0){
             $file_content = file_get_contents($_FILES['redirection_upload_file']['tmp_name']);
             $file_content = explode("\n", $file_content);
@@ -289,6 +302,12 @@ class AdminMegaseoController extends ModuleAdminController{
                 if($line[0] == 'from'){
                     continue;
                 }
+
+                // check if line is valid
+                if(count($line) < 3){
+                    $redirection_upload_errors[] = $this->l('Ligne invalide : ').implode(', ', $line);
+                    continue;
+                }
                 
             
                 $redirection_from = $line[0];
@@ -301,26 +320,34 @@ class AdminMegaseoController extends ModuleAdminController{
                 //     continue;
                 // }
 
-                // if(preg_match('#^https?://#', $redirection_from)){
-                //     $redirection_upload_errors[] = $this->l('L\'URI d\'origine ne doit pas commencer par http:// ou https://');
-                //     continue;
-                // }
+              
+                if(preg_match('#^https?://#', $redirection_from)){
+                    // $redirection_upload_errors[] = $this->l('L\'URI d\'origine ne doit pas commencer par http:// ou https://');
+                    // remove http:// or https://
+                    $redirection_from = preg_replace('#^https?://#', '', $redirection_from);
+                    // remove www.
+                    if(preg_match('#^www\.#', $redirection_from)){
+                        $redirection_from = preg_replace('#^www\.#', '', $redirection_from);
+                    }
+                    // remove $_SERVER['SERVER_NAME']
+                    if(preg_match('#^'.preg_quote($_SERVER['SERVER_NAME'], '#').'#', $redirection_from)){
+                        $redirection_from = preg_replace('#^'.preg_quote($_SERVER['SERVER_NAME'], '#').'#', '', $redirection_from);
+                    }
+                    // continue;
+                }
 
-                // if(!preg_match('#^https?://#', $redirection_to)){
-                //     $redirection_upload_errors[] = $this->l('L\'URL cible doit commencer par http:// ou https://');
-                //     continue;
-                // }
-
-                // vérifier que la redirection n'existe pas déjà
-                $redirection_exists = Db::getInstance()->getValue('SELECT COUNT(*) FROM '._DB_PREFIX_.'redirection WHERE redirection_from = "'.pSQL($redirection_from).'"');
-                if($redirection_exists){
-                    $redirection_upload_errors[] = $redirection_from;
+                if(!preg_match('#^https?://#', $redirection_to)){
+                    $redirection_upload_errors[] = $this->l('Cette URL cible doit commencer par http:// ou https://') . $redirection_to;
                     continue;
                 }
 
-                if(count($redirection_upload_errors)){
-                    return $this->errors[] = $this->l('Les redirection (s) suivantes existent déjà dans le tableau : ').implode(', ', $redirection_upload_errors);
-                }
+                  // vérifier que la redirection n'existe pas déjà
+                  $redirection_exists = Db::getInstance()->getValue('SELECT COUNT(*) FROM '._DB_PREFIX_.'redirection WHERE redirection_from = "'.pSQL($redirection_from).'" AND redirection_to = "'.pSQL($redirection_to).'" AND redirection_type = "'.pSQL($redirection_type).'"');
+                  if($redirection_exists){
+                      $redirection_upload_errors[] = $redirection_from;
+                      continue;
+                  }
+
 
                 // enregistrer la redirection
                 $redirection_id = Db::getInstance()->insert('redirection', [
@@ -336,15 +363,18 @@ class AdminMegaseoController extends ModuleAdminController{
                 }
             }
 
+            // var_dump($redirection_upload_errors);exit;
+
+            if(count($redirection_upload_errors)){
+                return $this->errors[] = $this->l('Les redirection (s) suivantes existent déjà dans le tableau : ').implode(', ', $redirection_upload_errors);
+            }
+
             if($redirections_added > 0){
                 return $this->confirmations[] = $redirections_added.' '.$this->l('redirections ont été ajoutées');
             }
            
         }
-
-        $this->ExportRedirections();
-
-        parent::postProcess();
+        
     }
 
     public function ExportRedirections(){

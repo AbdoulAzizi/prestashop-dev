@@ -195,7 +195,6 @@
                 <th>{l s="URI d'origine"}</th>
                 <th>{l s="URL cible"}</th>
                 <th>{l s="Type de redirection"}</th>
-                <th>{l s="Date"}</th>
                 <th>{l s="Action"}</th>
               </tr>
             </thead>
@@ -206,7 +205,7 @@
                     <td>{$redirection.redirection_from}</td>
                     <td>{$redirection.redirection_to}</td>
                     <td>{$redirection.redirection_type}</td>
-                    <td>{$redirection.redirection_date}</td>
+                    {* <td>{$redirection.redirection_date}</td> *}
                     <td>
                     <form action="{$smarty.server.REQUEST_URI}" method="post" multipart="true" enctype="multipart/form-data">
                         <button id="updateRedirection" class="btn btn-primary btn-xs" type="button" name="update_redirection" value="{$redirection.id_redirection}">
@@ -330,8 +329,8 @@
          <div class="form-group">
             <label class="control-label col-lg-3" for="redirection_upload_file">
               <span class="label-tooltip" data-toggle="tooltip"
-                title="{l s='Upload a file from your computer'}">
-                {l s='File'}
+                title="{l s='Veuillez sélectionner un fichier CSV contenant les redirections à importer.'}">
+                {l s='Fichier'}
               </span>
             </label>
             <div class="col-lg-8">
@@ -341,7 +340,7 @@
             &nbsp;
             </div>
             <div class="col-lg-8">
-              <p class="help-block">{l s='Upload a file from your computer'}</p>
+              <p class="help-block">{l s='Importer un fichier CSV'}</p>
             </div>
           </div>
            <div class="panel-body">
@@ -351,7 +350,8 @@
               </div>
              *}
               <div class="panel-footer">
-                <button type="submit" name="importRedirectionSubmit" class="btn btn-primary pull-right">Importer</button>
+                <input type="hidden" name="redirection_import_submit" value="1">
+                <button type="submit" name="importRedirectionSubmit" class="btn btn-primary pull-right" value="{l s="Importer"}">{l s="Importer"}</button>
               </div>
            </div>
          </form>
@@ -467,6 +467,7 @@ $(document).ready(function(){
           $("#redirection_update_form").show();
           $("#redirection_list").hide();
           // $("#add_redirection").hide();
+          $("#cancel_redirection").show();
       });
 
       $("#cancel_redirection").click(function () {
@@ -478,6 +479,12 @@ $(document).ready(function(){
           $("#cancel_redirection").hide(); 
           $("#redirection_import_form").hide();
           $("#import_redirections_button").show();
+          $("#redirection_update_form").hide();
+       
+          // reload the page
+          location.reload();
+
+         
       });
 
     function showHtaccessForm() {

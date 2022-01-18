@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.39, created on 2022-01-17 18:11:54
+/* Smarty version 3.1.39, created on 2022-01-18 13:30:01
   from '/var/www/html/prestashop/modules/megaseo/views/templates/admin/adminMegaseo.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.39',
-  'unifunc' => 'content_61e5a35a9b8191_91992466',
+  'unifunc' => 'content_61e6b2c903d663_05076557',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '9a96fb9ec114505f183f25d5328abb1df7f3151e' => 
     array (
       0 => '/var/www/html/prestashop/modules/megaseo/views/templates/admin/adminMegaseo.tpl',
-      1 => 1642438981,
+      1 => 1642508998,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61e5a35a9b8191_91992466 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61e6b2c903d663_05076557 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 
 
@@ -215,8 +215,6 @@ echo $_prefixVariable6;?>
 </th>
                 <th><?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['l'][0], array( array('s'=>"Type de redirection"),$_smarty_tpl ) );?>
 </th>
-                <th><?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['l'][0], array( array('s'=>"Date"),$_smarty_tpl ) );?>
-</th>
                 <th><?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['l'][0], array( array('s'=>"Action"),$_smarty_tpl ) );?>
 </th>
               </tr>
@@ -236,9 +234,7 @@ $_smarty_tpl->tpl_vars['redirection']->do_else = false;
 </td>
                     <td><?php echo $_smarty_tpl->tpl_vars['redirection']->value['redirection_type'];?>
 </td>
-                    <td><?php echo $_smarty_tpl->tpl_vars['redirection']->value['redirection_date'];?>
-</td>
-                    <td>
+                                        <td>
                     <form action="<?php echo $_SERVER['REQUEST_URI'];?>
 " method="post" multipart="true" enctype="multipart/form-data">
                         <button id="updateRedirection" class="btn btn-primary btn-xs" type="button" name="update_redirection" value="<?php echo $_smarty_tpl->tpl_vars['redirection']->value['id_redirection'];?>
@@ -389,9 +385,9 @@ echo $_prefixVariable9;?>
          <div class="form-group">
             <label class="control-label col-lg-3" for="redirection_upload_file">
               <span class="label-tooltip" data-toggle="tooltip"
-                title="<?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['l'][0], array( array('s'=>'Upload a file from your computer'),$_smarty_tpl ) );?>
+                title="<?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['l'][0], array( array('s'=>'Veuillez sélectionner un fichier CSV contenant les redirections à importer.'),$_smarty_tpl ) );?>
 ">
-                <?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['l'][0], array( array('s'=>'File'),$_smarty_tpl ) );?>
+                <?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['l'][0], array( array('s'=>'Fichier'),$_smarty_tpl ) );?>
 
               </span>
             </label>
@@ -403,13 +399,16 @@ echo $_prefixVariable9;?>
             &nbsp;
             </div>
             <div class="col-lg-8">
-              <p class="help-block"><?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['l'][0], array( array('s'=>'Upload a file from your computer'),$_smarty_tpl ) );?>
+              <p class="help-block"><?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['l'][0], array( array('s'=>'Importer un fichier CSV'),$_smarty_tpl ) );?>
 </p>
             </div>
           </div>
            <div class="panel-body">
                             <div class="panel-footer">
-                <button type="submit" name="importRedirectionSubmit" class="btn btn-primary pull-right">Importer</button>
+                <input type="hidden" name="redirection_import_submit" value="1">
+                <button type="submit" name="importRedirectionSubmit" class="btn btn-primary pull-right" value="<?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['l'][0], array( array('s'=>"Importer"),$_smarty_tpl ) );?>
+"><?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['l'][0], array( array('s'=>"Importer"),$_smarty_tpl ) );?>
+</button>
               </div>
            </div>
          </form>
@@ -526,6 +525,7 @@ $(document).ready(function(){
           $("#redirection_update_form").show();
           $("#redirection_list").hide();
           // $("#add_redirection").hide();
+          $("#cancel_redirection").show();
       });
 
       $("#cancel_redirection").click(function () {
@@ -537,6 +537,15 @@ $(document).ready(function(){
           $("#cancel_redirection").hide(); 
           $("#redirection_import_form").hide();
           $("#import_redirections_button").show();
+          $("#redirection_update_form").hide();
+
+           // cancel submit action
+           return false;
+       
+          // reload the page
+          location.reload();
+
+         
       });
 
     function showHtaccessForm() {
