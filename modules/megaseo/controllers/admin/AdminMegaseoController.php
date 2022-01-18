@@ -328,6 +328,12 @@ class AdminMegaseoController extends ModuleAdminController{
             $file_content = array_map('trim', $file_content);
             $file_content = array_unique($file_content);
 
+            // vérifier que l'extension du fichier est bien csv
+            $file_extension = pathinfo($_FILES['redirection_upload_file']['name'], PATHINFO_EXTENSION);
+
+            if($file_extension != 'csv'){
+                return $this->errors[] = $this->l('Le fichier doit être au format CSV');
+            }
             $redirection_upload_success = [];
             $redirection_upload_errors = [];
             $redirections_added = 0;
