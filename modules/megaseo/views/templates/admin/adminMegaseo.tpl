@@ -376,7 +376,7 @@
             <h2 class="panel-title">{l s="Génération du sitemap"}</h2>
           </div>
           <div class="panel-body">
-            <form action="{$smarty.server.REQUEST_URI}" method="post" multipart="true" enctype="multipart/form-data">
+            <form action="{$smarty.server.REQUEST_URI}" method="post" multipart="true" enctype="multipart/form-data" id="sitemap_generation_type_form">
               <div class="form-group">
                 <input type="radio" name="generate_sitemap" value="1" id="automatic_sitemap" checked>
                 <label for="automatic_sitemap">{l s="Générer automatiquement le sitemap"}</label>
@@ -394,7 +394,8 @@
                   </div>
                 {else}
                   <div>
-                    <a href="#" id="default_sitemap_generate" style="color: red; padding:10px;">{l s="Cliquez ici pour générer le sitemap par défaut"}</a>
+                    {* submit form when click on a link *}
+                    <a href="#" id="default_sitemap_generate" type="submit" style="color: red; padding:10px;">{l s="Cliquez ici pour genrer le sitemap par défaut"}</a>
                   </div>
                   <div>
                     <textarea class="form-control" rows="10" id="sitemap_content" name="sitemap_content" placeholder="{l s="Contenu du sitemap"}">{$sitemap_content}</textarea>
@@ -402,7 +403,7 @@
                 {/if}
               </div>
               <div class="panel-footer">
-                <button type="submit" name="generateSitemapSubmit" class="btn btn-primary pull-right">{l s="SAUVEGARDER"}</button>
+                <button type="submit" id="generateSitemapSubmit" name="generateSitemapSubmit" class="btn btn-primary pull-right" onclick="return confirm('{l s=" Cette action supprimera le sitemap existant et le remplacera par le sitemap généré automatiquement. Etes-vous sûr de vouloir continuer ?"}');">{l s="Générer le sitemap"}</button>
               </div>
             </form>
           </div>
@@ -418,15 +419,28 @@
   
 
 
-<script>
-
+<script>  
+      $('#default_sitemap_generate').click(function(e){
+        e.preventDefault();
+        // set manual_sitemap value to 1
+        $('#manual_sitemap').val(1);
+        $('#sitemap_generation_type_form').submit();
+      });
       // si le type de génération automatique est coché
       $('#automatic_sitemap').click(function() {
         $('#manual_textarea_site_map').hide();
+        if($('#automatic_sitemap').is(':checked')) {
+          $('#generateSitemapSubmit').html('{l s="Générer le sitemap"}');
+        }
       });
+      // if automatic_sitemap is checked
+     
       // si le type de génération manuelle est coché
       $('#manual_sitemap').click(function() {
         $('#manual_textarea_site_map').show();
+        if($('#manual_sitemap').is(':checked')) {
+          $('#generateSitemapSubmit').html('{l s="SAUVEGARDER"}');
+        }
       });
 
     $('.update_redirection').each(function() {

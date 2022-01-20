@@ -1,11 +1,11 @@
 <?php
-/* Smarty version 3.1.39, created on 2022-01-20 12:54:59
+/* Smarty version 3.1.39, created on 2022-01-20 15:15:09
   from 'module:blockwishlistviewstemplat' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.39',
-  'unifunc' => 'content_61e94d93f07bb5_70716712',
+  'unifunc' => 'content_61e96e6de5b008_34363229',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61e94d93f07bb5_70716712 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61e96e6de5b008_34363229 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!-- begin /var/www/html/prestashop/modules/blockwishlist/views/templates/components/toast.tpl -->
 <div
     class="wishlist-toast"

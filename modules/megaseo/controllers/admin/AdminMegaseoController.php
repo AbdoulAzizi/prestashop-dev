@@ -19,12 +19,12 @@ class AdminMegaseoController extends ModuleAdminController{
         parent::__construct();
         $this->bootstrap = true;
 
-        $this->type_array = array(
+        $this->mega_sitemap_urls_types = array(
             'home',
-            'product',
-            'category',
+            'products',
+            'categories',
             'cms',
-            'cmsCategory',
+            'cmsCategories',
         );
 
 
@@ -326,27 +326,33 @@ class AdminMegaseoController extends ModuleAdminController{
         }
     }
 
-    public function createSitemapXML($id_shop = null){
-        if (null === $id_shop) {
-            $id_shop = (int)$this->context->shop->id;
+    public function createSitemapXML(){
+
+        $root_path = _PS_ROOT_DIR_;
+
+
+        if(Tools::isSubmit('generateSitemapSubmit') && Tools::getValue('generate_sitemap') == 'automatic_sitemap'){
+
+            // PS ROOT PATH
+           if(!$this->generateSitemap()){
+               return $this->errors[] = $this->l('Une erreur est survenue lors de la génération du sitemap');
+           }
+           else{
+               return $this->confirmations[] = $this->l('Le sitemap a été généré').'<br>'.$this->l('Le fichier sitemap.xml est disponible dans le dossier').' '.$root_path.'/'.'sitemap.xml';
+           }
+         
         }
-        // include_once(_PS_MODULE_DIR_.'/megaseo/classes/megaSitemap.php');
-
-
-        if(Tools::isSubmit('generateSitemapSubmit')){
-            // $sitemap = new MegaSitemap();
-            $link_sitemap = 0;
-            $lang = 1;
-            $index = 0;
-
-           if($this->generateSitemap()){
-                return $this->confirmations[] = $this->l('La sitemap a été générée');
+        if(Tools::getValue('generate_sitemap')){
+            if(!$this->generateSitemap()){
+                return $this->errors[] = $this->l('Une erreur est survenue lors de la génération du sitemap');
             }
             else{
-                return $this->errors[] = $this->l('Une erreur est survenue lors de la génération de la sitemap');
+                return $this->confirmations[] = $this->l('Le sitemap a été généré').'<br>'.$this->l('Le fichier sitemap.xml est disponible dans le dossier').' '.$root_path.'/'.'sitemap.xml';
             }
+        }
 
-
+        if(Tools::isSubmit('generateSitemapSubmit') && Tools::getValue('default_sitemap_generate')){
+            $this->generateSitemap();
         }
     }
 
@@ -397,16 +403,9 @@ class AdminMegaseoController extends ModuleAdminController{
                     continue;
                 }
 
-
                 $redirection_from = $line[0];
                 $redirection_type = $line[1];
                 $redirection_to = $line[2];
-
-
-                // if(!$redirection_from || !$redirection_to){
-                //     $redirection_upload_errors[] = $this->l('La ligne suivante n\'est pas valide : ').$line[0];
-                //     continue;
-                // }
 
 
                 if(preg_match('#^https?://#', $redirection_from)){
@@ -528,87 +527,34 @@ class AdminMegaseoController extends ModuleAdminController{
         $this->context->shop = Context::getContext()->shop;
         $id_shop = $this->context->shop->id;
 
-        $sitemap_file = $this->getSitemapFilePath($id_shop);
+        $sitemap_file = $this->getSitemapFilePath();
 
         if (file_exists($sitemap_file)) {
-            unlink($sitemap_file);
-            $this->createSitemapFile();
+            unlink($sitemap_file); // Delete old sitemap file
+            $this->createSitemapFile(); // Create new sitemap file
         }else{
             $this->createSitemapFile();
         }
 
         // add header
-        $sitemap_content = '<?xml version="1.0" encoding="UTF-8"?>
-        <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
+        $sitemap_content = '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL . '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">' . PHP_EOL;
 
-          // add urls
-          // add product links
-          foreach ($this->getAllProductsLinks() as $product_link) {
-              $sitemap_content .= '
-              <url>
-                  <loc>'.$product_link['loc'].'</loc>
-                  <lastmod>'.$product_link['lastmod'].'</lastmod>
-                  <changefreq>weekly</changefreq>
-                  <priority>0.8</priority>
-                  <image:image>
-                      <image:loc>'.$product_link['product_images'][0]['image:loc'].'</image:loc>
-                      <image:caption>'.$product_link['product_images'][0]['image:caption'].'</image:caption>
-                      <image:title>'.$product_link['product_images'][0]['image:title'].'</image:title>
-                 </image:image>
-              </url>';
+        foreach($this->mega_sitemap_urls_types as $sitemap_urls_type){
+            $function = 'get'.ucfirst($sitemap_urls_type).'Links';
+            $sitemap_urls = $this->$function();
+            if(!$this->$function()){
+                continue;
             }
+            $sitemap_content .= $this->$function();
+        }
 
-            // // add category links
-            // foreach ($this->getAllCategoriesLinks() as $category_link) {
-            //     $sitemap_content .= '
-            //     <url>
-            //         <loc>'.$category_link['loc'].'</loc>
-            //         <lastmod>'.$category_link['lastmod'].'</lastmod>
-            //         <changefreq>weekly</changefreq>
-            //         <priority>0.8</priority>
-            //     </url>';
-            // }
-
-            // // add CMS links
-            // foreach ($this->getCMSPagesLinks() as $cms_link) {
-            //     $sitemap_content .= '
-            //     <url>
-            //         <loc>'.$cms_link['loc'].'</loc>
-            //         <changefreq>weekly</changefreq>
-            //         <priority>0.8</priority>
-            //     </url>';
-            // }
-
-            // // add CMS category links
-            // foreach ($this->getCMSPageCategoriesLinks() as $cms_category_link) {
-            //     $sitemap_content .= '
-            //     <url>
-            //         <loc>'.$cms_category_link['loc'].'</loc>
-            //         <lastmod>'.$cms_category_link['lastmod'].'</lastmod>
-            //         <changefreq>weekly</changefreq>
-            //         <priority>0.8</priority>
-            //     </url>';
-            // }
-
-            // // add Home page link
-            // $sitemap_content .= '
-            // <url>
-            //     <loc>'.$this->context->shop->getBaseURL().'</loc>
-            //     <changefreq>weekly</changefreq>
-            //     <priority>1.0</priority>
-            // </url>';
-
-            // var_dump($this->context->shop->getBaseURL());exit;
-
-
-            //  add footer
-            $sitemap_content .= PHP_EOL.'</urlset>';
+        $sitemap_content .= PHP_EOL.'</urlset>';
 
             file_put_contents($sitemap_file, $sitemap_content);
 
-        // tools redirect
-        Tools::redirectAdmin('index.php?controller=AdminMegaseo&token='.Tools::getAdminTokenLite('AdminMegaseo'));
-        die;
+        // reurn 
+        return true; 
+       
 
     }
 
@@ -638,35 +584,12 @@ class AdminMegaseoController extends ModuleAdminController{
        }
     }
 
-
-    protected function recursiveSitemapCreator($link_sitemap, $lang, &$index)
-    {
-        if (!count($link_sitemap)) {
-            return false;
-        }
-
-        $sitemap_link = $this->context->shop->id . '_' . $lang . '_' . $index . '_sitemap.xml';
-        $write_fd = fopen($this->normalizeDirectory(_PS_ROOT_DIR_) . $sitemap_link, 'wb');
-
-        fwrite($write_fd, '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL . '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">' . PHP_EOL);
-        foreach ($link_sitemap as $key => $file) {
-            fwrite($write_fd, '<url>' . PHP_EOL);
-            $lastmod = (isset($file['lastmod']) && !empty($file['lastmod'])) ? date('c', strtotime($file['lastmod'])) : null;
-
-            fwrite($write_fd, '</url>' . PHP_EOL);
-        }
-        fwrite($write_fd, '</urlset>' . PHP_EOL);
-        fclose($write_fd);
-        $this->saveSitemapLink($sitemap_link);
-
-        return true;
-    }
-
     // get All products links
-    protected function getAllProductsLinks()
+    protected function getProductsLinks()
     {
         $link_sitemap = [];
-        $product_images = [];
+        $product_image = [];
+        $sitemap_content = '';
         // $products = $this->getProducts($lang);
         // get all languages
         $languages = Language::getLanguages(false);
@@ -674,34 +597,32 @@ class AdminMegaseoController extends ModuleAdminController{
             // $id_lang = $language['id_lang'];
             $products = $this->getProducts($lang);
             foreach ($products as $product) {
-                // var_dump($product);exit;
-
                 // get product image link
                 $image_link = $this->context->link->getImageLink($product['link_rewrite'], $product['id_image'], 'home_default');
                 if (isset($image_link) && !empty($image_link)) {
-                  $product_images[] = array(
-                      'image:loc' => $image_link,
-                      'image:caption' => $product['name'],
-                      'image:title' => $product['description_short'],
-                  );
+                  $product_image_link= $image_link;
+                }else{
+                  $product_image_link = '';
                 }
 
-                $link_sitemap[] = [
-                    'loc' => $this->context->link->getProductLink($product['id_product'], $product['link_rewrite'], $product['category'], $product['ean13'], $lang['id_lang']),
-                    'lastmod' => $product['date_upd'],
-                    'product_images' => $product_images,
-                ];
+                $sitemap_content .= '
+                <url>
+                    <loc>'.$this->context->link->getProductLink($product['id_product'], $product['link_rewrite'], $product['category'], $product['ean13'], $lang['id_lang']).'</loc>
+                    <lastmod>'.$product['date_upd'].'</lastmod>
+                    <changefreq>weekly</changefreq>
+                    <priority>0.8</priority>
+                    <image:image>
+                        <image:loc>'.$product_image_link.'</image:loc>
+                        <image:caption>'.$product['name'].'</image:caption>
+                        <image:title>'.$product['description_short'].'</image:title>
+                     </image:image>
+                </url>';
             }
         }
-        // $products = Product::getProducts($this->context->language->id, 0, 0, 'id_product', 'ASC');
-        // foreach ($products as $product) {
-        //     $link_sitemap[] = [
-        //         'loc' => $this->context->link->getProductLink($product['id_product'], $product['link_rewrite'], $product['ean13'], $product['id_lang']),
-        //         'lastmod' => $product['date_upd']
-        //     ];
-        // }
-
-        return $link_sitemap;
+        $products_sitemap_links = $sitemap_content;
+        
+    
+        return $products_sitemap_links;
     }
 
     // getProducts
@@ -723,21 +644,25 @@ class AdminMegaseoController extends ModuleAdminController{
     }
 
     // get All categories links
-    protected function getAllCategoriesLinks()
+    protected function getCategoriesLinks()
     {
         $link_sitemap = [];
+        $sitemap_content = '';
         foreach(language::getIDs() as $id_lang) {
             $categories = $this->getCategories($id_lang);
             foreach ($categories as $category) {
-                // $link = new Link();
-                $link_sitemap[] = [
-                    'loc' => $this->context->link->getCategoryLink($category['id_category'], $category['link_rewrite'], $id_lang),
-                    'lastmod' => $category['date_upd'],
-                ];
+                $sitemap_content .= '
+                <url>
+                    <loc>'.$this->context->link->getCategoryLink($category['id_category'], $category['link_rewrite'], $id_lang).'</loc>
+                    <lastmod>'.$category['date_upd'].'</lastmod>
+                    <changefreq>weekly</changefreq>
+                    <priority>0.8</priority>
+                </url>';
             }
         }
+        $categories_sitemap_links = $sitemap_content;
 
-        return $link_sitemap;
+        return $categories_sitemap_links;
     }
 
     // getCategories
@@ -746,30 +671,35 @@ class AdminMegaseoController extends ModuleAdminController{
         $sql = 'SELECT c.id_category, c.date_upd, cl.link_rewrite
                 FROM ' . _DB_PREFIX_ . 'category c
                 LEFT JOIN ' . _DB_PREFIX_ . 'category_lang cl ON (cl.id_category = c.id_category)
-                WHERE cl.id_lang = ' . (int) $id_lang;
+                WHERE cl.id_lang = ' . (int) $id_lang
+                . ' AND c.active = 1';
 
         return Db::getInstance()->executeS($sql);
     }
 
 
     // get All CMS links
-    protected function getCMSPagesLinks()
+    protected function getCMSLinks()
     {
         $link_sitemap = [];
+        $sitemap_content = '';
         // get all languages
         $languages = Language::getLanguages(false);
         foreach ($languages as $lang) {
             // $id_lang = $language['id_lang'];
             $cms = $this->getCMSPages($lang);
             foreach ($cms as $cms_page) {
-                $link_sitemap[] = [
-                    'loc' => $this->context->link->getCMSLink($cms_page['id_cms'], $cms_page['link_rewrite'], $lang['id_lang']),
-                    // 'lastmod' => $cms_page['date_upd'],
-                ];
+                $sitemap_content .= '
+                <url>
+                    <loc>'.$this->context->link->getCMSLink($cms_page['id_cms'], $cms_page['link_rewrite'], $lang['id_lang']).'</loc>
+                    <changefreq>weekly</changefreq>
+                    <priority>0.8</priority>
+                </url>';
             }
         }
+        $cms_sitemap_links = $sitemap_content;
 
-        return $link_sitemap;
+        return $cms_sitemap_links;
     }
 
 
@@ -779,57 +709,69 @@ class AdminMegaseoController extends ModuleAdminController{
         $sql = 'SELECT c.id_cms, cl.link_rewrite
                 FROM ' . _DB_PREFIX_ . 'cms c
                 LEFT JOIN ' . _DB_PREFIX_ . 'cms_lang cl ON (cl.id_cms = c.id_cms)
-                WHERE cl.id_lang = ' . (int) $lang['id_lang'];
+                WHERE cl.id_lang = ' . (int) $lang['id_lang']
+                . ' AND c.active = 1';
 
         return Db::getInstance()->executeS($sql);
     }
 
     // get All CMS page category links
-    protected function getCMSPageCategoriesLinks()
+    protected function getCMSCategoriesLinks()
     {
         $link_sitemap = [];
+        $sitemap_content = '';
         // get all languages
         $languages = Language::getLanguages(false);
         foreach ($languages as $lang) {
             // $id_lang = $language['id_lang'];
-            $cms_categories = $this->getCMSPageCategories($lang);
+            $cms_categories = $this->getCMSCategories($lang);
             foreach ($cms_categories as $cms_category) {
-                $link_sitemap[] = [
-                    'loc' => $this->context->link->getCMSCategoryLink($cms_category['id_cms_category'], $cms_category['link_rewrite'], $lang['id_lang']),
-                    'lastmod' => $cms_category['date_upd'],
-                ];
+                $sitemap_content .= '
+                <url>
+                    <loc>'.$this->context->link->getCMSCategoryLink($cms_category['id_cms_category'], $cms_category['link_rewrite'], $lang['id_lang']).'</loc>
+                    <lastmod>'.$cms_category['date_upd'].'</lastmod>
+                    <changefreq>weekly</changefreq>
+                    <priority>0.8</priority>
+                </url>';
             }
         }
+        $cms_categories_sitemap_links = $sitemap_content;
 
-        return $link_sitemap;
+        return $cms_categories_sitemap_links;
     }
 
     // getCMSPageCategories
-    protected function getCMSPageCategories($lang)
+    protected function getCMSCategories($lang)
     {
         $sql = 'SELECT c.id_cms_category, c.date_upd, cl.link_rewrite
                 FROM ' . _DB_PREFIX_ . 'cms_category c
                 LEFT JOIN ' . _DB_PREFIX_ . 'cms_category_lang cl ON (cl.id_cms_category = c.id_cms_category)
-                WHERE cl.id_lang = ' . (int) $lang['id_lang'];
+                WHERE cl.id_lang = ' . (int) $lang['id_lang']
+                . ' AND c.active = 1';
 
         return Db::getInstance()->executeS($sql);
     }
 
     // get home page link
-    protected function getHomePageLink()
+    protected function getHomeLinks()
     {
         $link_sitemap = [];
+        $sitemap_content = '';
         // get all languages
         $languages = Language::getLanguages(false);
         foreach ($languages as $lang) {
             // $id_lang = $language['id_lang'];
-            $link_sitemap[] = [
-                'loc' => $this->context->link->getPageLink('index', null, $lang['id_lang']),
-                // 'lastmod' => date('Y-m-d'),
-            ];
+            $sitemap_content .= '
+            <url>
+                <loc>'.$this->context->shop->getBaseURL().'</loc>
+                <lastmod>'.date('Y-m-d').'</lastmod>
+                <changefreq>weekly</changefreq>
+                <priority>1</priority>
+            </url>';
         }
 
-        return $link_sitemap;
+        $home_page_sitemap_link = $sitemap_content;
+        return $home_page_sitemap_link;
     }
 
 

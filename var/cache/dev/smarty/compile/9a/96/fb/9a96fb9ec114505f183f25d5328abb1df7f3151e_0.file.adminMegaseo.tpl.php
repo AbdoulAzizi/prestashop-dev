@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.39, created on 2022-01-20 13:44:56
+/* Smarty version 3.1.39, created on 2022-01-20 18:08:25
   from '/var/www/html/prestashop/modules/megaseo/views/templates/admin/adminMegaseo.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.39',
-  'unifunc' => 'content_61e95948113d63_27880978',
+  'unifunc' => 'content_61e997092eeaf8_80052116',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '9a96fb9ec114505f183f25d5328abb1df7f3151e' => 
     array (
       0 => '/var/www/html/prestashop/modules/megaseo/views/templates/admin/adminMegaseo.tpl',
-      1 => 1642594953,
+      1 => 1642698483,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61e95948113d63_27880978 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61e997092eeaf8_80052116 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 
 
@@ -439,7 +439,7 @@ echo $_prefixVariable9;?>
           </div>
           <div class="panel-body">
             <form action="<?php echo $_SERVER['REQUEST_URI'];?>
-" method="post" multipart="true" enctype="multipart/form-data">
+" method="post" multipart="true" enctype="multipart/form-data" id="sitemap_generation_type_form">
               <div class="form-group">
                 <input type="radio" name="generate_sitemap" value="1" id="automatic_sitemap" checked>
                 <label for="automatic_sitemap"><?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['l'][0], array( array('s'=>"Générer automatiquement le sitemap"),$_smarty_tpl ) );?>
@@ -463,7 +463,7 @@ echo $_prefixVariable10;?>
                   </div>
                 <?php } else { ?>
                   <div>
-                    <a href="#" id="default_sitemap_generate" style="color: red; padding:10px;"><?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['l'][0], array( array('s'=>"Cliquez ici pour générer le sitemap par défaut"),$_smarty_tpl ) );?>
+                                        <a href="#" id="default_sitemap_generate" type="submit" style="color: red; padding:10px;"><?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['l'][0], array( array('s'=>"Cliquez ici pour genrer le sitemap par défaut"),$_smarty_tpl ) );?>
 </a>
                   </div>
                   <div>
@@ -474,7 +474,8 @@ echo $_prefixVariable10;?>
                 <?php }?>
               </div>
               <div class="panel-footer">
-                <button type="submit" name="generateSitemapSubmit" class="btn btn-primary pull-right"><?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['l'][0], array( array('s'=>"SAUVEGARDER"),$_smarty_tpl ) );?>
+                <button type="submit" id="generateSitemapSubmit" name="generateSitemapSubmit" class="btn btn-primary pull-right" onclick="return confirm('<?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['l'][0], array( array('s'=>" Cette action supprimera le sitemap existant et le remplacera par le sitemap généré automatiquement. Etes-vous sûr de vouloir continuer ?"),$_smarty_tpl ) );?>
+');"><?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['l'][0], array( array('s'=>"Générer le sitemap"),$_smarty_tpl ) );?>
 </button>
               </div>
             </form>
@@ -492,15 +493,30 @@ echo $_prefixVariable10;?>
 
 
 <?php echo '<script'; ?>
->
-
+>  
+      $('#default_sitemap_generate').click(function(e){
+        e.preventDefault();
+        // set manual_sitemap value to 1
+        $('#manual_sitemap').val(1);
+        $('#sitemap_generation_type_form').submit();
+      });
       // si le type de génération automatique est coché
       $('#automatic_sitemap').click(function() {
         $('#manual_textarea_site_map').hide();
+        if($('#automatic_sitemap').is(':checked')) {
+          $('#generateSitemapSubmit').html('<?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['l'][0], array( array('s'=>"Générer le sitemap"),$_smarty_tpl ) );?>
+');
+        }
       });
+      // if automatic_sitemap is checked
+     
       // si le type de génération manuelle est coché
       $('#manual_sitemap').click(function() {
         $('#manual_textarea_site_map').show();
+        if($('#manual_sitemap').is(':checked')) {
+          $('#generateSitemapSubmit').html('<?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['l'][0], array( array('s'=>"SAUVEGARDER"),$_smarty_tpl ) );?>
+');
+        }
       });
 
     $('.update_redirection').each(function() {
