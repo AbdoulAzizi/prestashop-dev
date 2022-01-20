@@ -370,11 +370,47 @@
   
 
     <div class="col-md-6" style="display: none;" id="sitemap_administration">
+        {*  choix du type de génération  automatique ou manuelle *}
+        <div class="panel panel-default" id="sitemap_generation_type">
+          <div class="panel-heading">
+            <h2 class="panel-title">{l s="Génération du sitemap"}</h2>
+          </div>
+          <div class="panel-body">
+            <form action="{$smarty.server.REQUEST_URI}" method="post" multipart="true" enctype="multipart/form-data">
+              <div class="form-group">
+                <input type="radio" name="generate_sitemap" value="1" id="automatic_sitemap" checked>
+                <label for="automatic_sitemap">{l s="Générer automatiquement le sitemap"}</label>
+              </div>
+              <div class="form-group">
+                <input type="radio" name="generate_sitemap" value="0" id="manual_sitemap">
+                <label for="manual_sitemap">{l s="Générer manuellement le sitemap"}</label>
+              </div>
+              <div class="form-group" id="manual_textarea_site_map" style="display: none;">
+                {if isset($sitemap_error_message)}
+                  <div class="alert alert-danger" role="alert" id="sitemap_error" style="">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span class="sr-only">Error:</span>
+                    <span class="sitemap_error_message" id="sitemap_error_message">{{$sitemap_error_message}}</span>
+                  </div>
+                {else}
+                  <div>
+                    <a href="#" id="default_sitemap_generate" style="color: red; padding:10px;">{l s="Cliquez ici pour générer le sitemap par défaut"}</a>
+                  </div>
+                  <div>
+                    <textarea class="form-control" rows="10" id="sitemap_content" name="sitemap_content" placeholder="{l s="Contenu du sitemap"}">{$sitemap_content}</textarea>
+                  </div>
+                {/if}
+              </div>
+              <div class="panel-footer">
+                <button type="submit" name="generateSitemapSubmit" class="btn btn-primary pull-right">{l s="SAUVEGARDER"}</button>
+              </div>
+            </form>
+          </div>
+        </div>
 
+
+              
     </div>
-
-
-     
 
 </div>
 
@@ -384,160 +420,173 @@
 
 <script>
 
-$('.update_redirection').each(function() {
-    $(this).click(function(e) {
-       var redirection_id = $(this).attr('id');
-      var redirection_from = $(this).attr('data-redirection_from');
-      var redirection_to = $(this).attr('data-redirection_to');
-      $('#redirection_id_update').val(redirection_id);
-      $('#redirection_from_update').val(redirection_from);
-      $('#redirection_to_update').val(redirection_to);
-      $('#redirection_type_update').val($(this).attr('data-redirection_type'));
+      // si le type de génération automatique est coché
+      $('#automatic_sitemap').click(function() {
+        $('#manual_textarea_site_map').hide();
+      });
+      // si le type de génération manuelle est coché
+      $('#manual_sitemap').click(function() {
+        $('#manual_textarea_site_map').show();
+      });
+
+    $('.update_redirection').each(function() {
+        $(this).click(function(e) {
+          var redirection_id = $(this).attr('id');
+          var redirection_from = $(this).attr('data-redirection_from');
+          var redirection_to = $(this).attr('data-redirection_to');
+          $('#redirection_id_update').val(redirection_id);
+          $('#redirection_from_update').val(redirection_from);
+          $('#redirection_to_update').val(redirection_to);
+          $('#redirection_type_update').val($(this).attr('data-redirection_type'));
 
 
-       $("#redirection_update_form").show();
-          $("#redirection_list").hide();
-          // $("#add_redirection").hide();
-          $("#cancel_redirection").show();
+          $("#redirection_update_form").show();
+              $("#redirection_list").hide();
+              // $("#add_redirection").hide();
+              $("#cancel_redirection").show();
 
+        });
     });
-});
 
-  
-$(document).ready(function(){
-          $('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
-              localStorage.setItem('activeTab', $(e.target).attr('href'));
+      
+    $(document).ready(function(){
+              $('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
+                  localStorage.setItem('activeTab', $(e.target).attr('href'));
+              });
+              var activeTab = localStorage.getItem('activeTab');
+              if(activeTab){
+                  $('#menu-tab a[href="' + activeTab + '"]').tab('show');
+                  // set tab active background color              
+              }
+              if (activeTab == '#htaccess') {
+              // call showHtaccessForm function
+                showHtaccessForm();
+              }
+              if (activeTab == '#robots') {
+                // call showRobotsForm function
+                showRobotsForm();
+              }
+              if (activeTab == '#sitemap') {
+                // call showSitemapForm function
+                showSitemapForm();
+              }
+              if (activeTab == '#redirection') {
+                // call showRedirectionForm function
+                showRedirectionForm();
+              }
+              if (activeTab == '#sitemap_administration') {
+                // call showSitemapAdministration function
+                showSitemapAdministration();
+              }
           });
-          var activeTab = localStorage.getItem('activeTab');
-          if(activeTab){
-              $('#menu-tab a[href="' + activeTab + '"]').tab('show');
-              // set tab active background color              
-          }
-          if (activeTab == '#htaccess') {
-           // call showHtaccessForm function
+        
+          $("#htaccess_link").click(function(){
             showHtaccessForm();
-          }
-          if (activeTab == '#robots') {
-            // call showRobotsForm function
-            showRobotsForm();
-          }
-          if (activeTab == '#sitemap') {
-            // call showSitemapForm function
+          });
+          $("#sitemap_link").click(function(){
             showSitemapForm();
-          }
-          if (activeTab == '#redirection') {
-            // call showRedirectionForm function
+            
+          });
+          $("#robots_link").click(function(){
+            showRobotsForm();
+            
+          });
+          $("#redirection_link").click(function(){
             showRedirectionForm();
-          }
-          if (activeTab == '#sitemap_administration') {
-            // call showSitemapAdministration function
+            
+          });
+          $("#sitemap_administration_link").click(function(){
             showSitemapAdministration();
-          }
-      });
-    
-      $("#htaccess_link").click(function(){
-        showHtaccessForm();
-      });
-      $("#sitemap_link").click(function(){
-        showSitemapForm();
+            
+          });
+
+          $("#add_redirection").click(function () {
+
+              $("#redirection_form").show();
+              $("#redirection_list").hide();
+              $("#add_redirection").hide();
+              $("#cancel_redirection").show();
+              $("#redirection_import_form").hide();
+              $("#import_redirections_button").show();
+              $("#redirection_update_form").hide();
+          });
+
+          $("#import_redirections_button").click(function () {
+
+              $("#redirection_import_form").show();
+              $("#redirection_list").hide();
+              $("#import_redirections_button").hide();
+              $("#redirection_form").hide();
+              $("#cancel_redirection").show();
+              $("#add_redirection").show();
+              $("#redirection_update_form").hide();
+
+          });
+
+          $("#update_redirection").click(function () {
+            
+          });
+
+          $("#cancel_redirection").click(function () {
+              $("#redirection_form").hide();
+              $("#redirection_list").show();
+              $("#add_redirection").show();
+              // $("#add_redirection").css("padding", "10px");
+              // $("#add_redirection").css("float", "right");
+              $("#cancel_redirection").hide(); 
+              $("#redirection_import_form").hide();
+              $("#import_redirections_button").show();
+              $("#redirection_update_form").hide();
+          
+              // reload the page
+              // location.reload();
+
+            
+          });
+
+        function showHtaccessForm() {
+          $("#htaccess").show();
+            $("#robots").hide();
+            $("#sitemap").hide();
+            $("#redirection").hide();
+            $("#features").hide();
+            $("#sitemap_administration").hide();
+        }
+
+        function showRobotsForm() {
+          $("#htaccess").hide();
+            $("#robots").show();
+            $("#sitemap").hide();
+            $("#redirection").hide();
+            $("#features").hide();
+            $("#sitemap_administration").hide();
+        }
+
+        function showSitemapForm() {
+          $("#htaccess").hide();
+            $("#robots").hide();
+            $("#sitemap").show();
+            $("#redirection").hide();
+            $("#features").hide();
+            $("#sitemap_administration").hide();
+        }
+
+        function showRedirectionForm() {
+          $("#htaccess").hide();
+            $("#robots").hide();
+            $("#sitemap").hide();
+            $("#redirection").show();
+            $("#features").hide();
+            $("#sitemap_administration").hide();
+        }
+
+        function showSitemapAdministration() {
+          $("#htaccess").hide();
+            $("#robots").hide();
+            $("#sitemap").hide();
+            $("#redirection").hide();
+            $("#sitemap_administration").show();
+        }
         
-      });
-      $("#robots_link").click(function(){
-        showRobotsForm();
         
-      });
-      $("#redirection_link").click(function(){
-        showRedirectionForm();
-        
-      });
-      $("#sitemap_administration_link").click(function(){
-        showSitemapAdministration();
-        
-      });
-
-      $("#add_redirection").click(function () {
-
-          $("#redirection_form").show();
-          $("#redirection_list").hide();
-          $("#add_redirection").hide();
-          $("#cancel_redirection").show();
-          $("#redirection_import_form").hide();
-          $("#import_redirections_button").show();
-          $("#redirection_update_form").hide();
-      });
-
-      $("#import_redirections_button").click(function () {
-
-          $("#redirection_import_form").show();
-          $("#redirection_list").hide();
-          $("#import_redirections_button").hide();
-          $("#redirection_form").hide();
-          $("#cancel_redirection").show();
-          $("#add_redirection").show();
-          $("#redirection_update_form").hide();
-
-      });
-
-      $("#update_redirection").click(function () {
-         
-      });
-
-      $("#cancel_redirection").click(function () {
-          $("#redirection_form").hide();
-          $("#redirection_list").show();
-          $("#add_redirection").show();
-          // $("#add_redirection").css("padding", "10px");
-          // $("#add_redirection").css("float", "right");
-          $("#cancel_redirection").hide(); 
-          $("#redirection_import_form").hide();
-          $("#import_redirections_button").show();
-          $("#redirection_update_form").hide();
-       
-          // reload the page
-          // location.reload();
-
-         
-      });
-
-    function showHtaccessForm() {
-      $("#htaccess").show();
-        $("#robots").hide();
-        $("#sitemap").hide();
-        $("#redirection").hide();
-        $("#features").hide();
-    }
-
-    function showRobotsForm() {
-       $("#htaccess").hide();
-         $("#robots").show();
-         $("#sitemap").hide();
-         $("#redirection").hide();
-         $("#features").hide();
-    }
-
-    function showSitemapForm() {
-      $("#htaccess").hide();
-        $("#robots").hide();
-        $("#sitemap").show();
-        $("#redirection").hide();
-        $("#features").hide();
-    }
-
-    function showRedirectionForm() {
-       $("#htaccess").hide();
-         $("#robots").hide();
-         $("#sitemap").hide();
-         $("#redirection").show();
-         $("#features").hide();
-    }
-
-    function showSitemapAdministration() {
-      $("#htaccess").hide();
-        $("#robots").hide();
-        $("#sitemap").hide();
-        $("#redirection").hide();
-        $("#sitemap_administration").show();
-    }
-    
-    
 </script>

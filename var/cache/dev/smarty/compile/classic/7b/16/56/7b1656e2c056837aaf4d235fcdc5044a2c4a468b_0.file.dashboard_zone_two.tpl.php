@@ -1,11 +1,11 @@
 <?php
-/* Smarty version 3.1.39, created on 2022-01-18 17:31:45
+/* Smarty version 3.1.39, created on 2022-01-19 17:38:33
   from '/var/www/html/prestashop/modules/dashtrends/views/templates/hook/dashboard_zone_two.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.39',
-  'unifunc' => 'content_61e6eb71ae9272_00803354',
+  'unifunc' => 'content_61e83e89e30d18_36811345',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61e6eb71ae9272_00803354 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61e83e89e30d18_36811345 (Smarty_Internal_Template $_smarty_tpl) {
 echo '<script'; ?>
 >
 	var currency_format = <?php echo floatval($_smarty_tpl->tpl_vars['currency']->value->format);?>

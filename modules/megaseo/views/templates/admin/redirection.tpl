@@ -34,3 +34,20 @@
      </form>
    {/if}
  </div>
+
+ {{* <div class="panel panel-default">
+        <div class="panel-heading">
+          <h2 class="panel-title">{l s="Générer un sitemap"}</h2>
+        </div>
+        <div class="panel-body">
+          <div class="form-group">
+            <label for="sitemap_generate">{l s="Générer un sitemap"}</label>
+            <input type="text" class="form-control" id="sitemap_generate" name="sitemap_generate" placeholder="{l s="URL"}" value="">
+          </div>
+          <div class="panel-footer">
+            <button type="submit" name="generateSitemapSubmit" class="btn btn-primary pull-right">{l s="Générer"}</button>
+          </div>
+        </div>
+      </div>
+
+    </div> *}}

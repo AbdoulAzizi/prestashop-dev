@@ -1,11 +1,11 @@
 <?php
-/* Smarty version 3.1.39, created on 2022-01-18 17:31:45
+/* Smarty version 3.1.39, created on 2022-01-19 17:38:34
   from '/var/www/html/prestashop/admin74060nxso/themes/default/template/controllers/dashboard/helpers/view/view.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.39',
-  'unifunc' => 'content_61e6eb71ed72c3_14444369',
+  'unifunc' => 'content_61e83e8a2155f9_34461194',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61e6eb71ed72c3_14444369 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61e83e8a2155f9_34461194 (Smarty_Internal_Template $_smarty_tpl) {
 echo '<script'; ?>
 >
 	var dashboard_ajax_url = '<?php echo $_smarty_tpl->tpl_vars['link']->value->getAdminLink('AdminDashboard');?>

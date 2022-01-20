@@ -1,11 +1,11 @@
 <?php
-/* Smarty version 3.1.39, created on 2022-01-18 17:39:34
+/* Smarty version 3.1.39, created on 2022-01-20 12:54:59
   from 'module:blockwishlistviewstemplat' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.39',
-  'unifunc' => 'content_61e6ed4643d0f1_68112132',
+  'unifunc' => 'content_61e94d93ef0aa5_11431641',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61e6ed4643d0f1_68112132 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61e94d93ef0aa5_11431641 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!-- begin /var/www/html/prestashop/modules/blockwishlist/views/templates/components/modals/add-to-wishlist.tpl -->
 <div
   class="wishlist-add-to"

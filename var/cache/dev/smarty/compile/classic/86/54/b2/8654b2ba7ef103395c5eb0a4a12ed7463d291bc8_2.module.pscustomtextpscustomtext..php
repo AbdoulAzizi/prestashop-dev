@@ -1,11 +1,11 @@
 <?php
-/* Smarty version 3.1.39, created on 2022-01-18 17:39:34
+/* Smarty version 3.1.39, created on 2022-01-20 10:48:01
   from 'module:pscustomtextpscustomtext.' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.39',
-  'unifunc' => 'content_61e6ed46731597_24933963',
+  'unifunc' => 'content_61e92fd1bdb893_13492395',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61e6ed46731597_24933963 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61e92fd1bdb893_13492395 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!-- begin /var/www/html/prestashop/modules/ps_customtext/ps_customtext.tpl -->
 <div id="custom-text">
   <?php echo $_smarty_tpl->tpl_vars['cms_infos']->value['text'];?>

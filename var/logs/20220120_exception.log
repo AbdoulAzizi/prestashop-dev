@@ -1,0 +1,60 @@
+*ERROR* 	v1.7.8.1	2022/01/20 - 12:01:35: Unknown column &#039;c.date_upd&#039; in &#039;field list&#039;&lt;br /&gt;&lt;br /&gt;&lt;pre&gt;SELECT c.id_cms, c.date_upd, cl.link_rewrite
+                FROM ps_cms c
+                LEFT JOIN ps_cms_lang cl ON (cl.id_cms = c.id_cms)
+                WHERE cl.id_lang = 0&lt;/pre&gt; at line 769 in file classes/db/Db.php
+*ERROR* 	v1.7.8.1	2022/01/20 - 12:05:08: Unknown column &#039;c.date_upd&#039; in &#039;field list&#039;&lt;br /&gt;&lt;br /&gt;&lt;pre&gt;SELECT c.id_cms, c.date_upd, cl.link_rewrite
+                FROM ps_cms c
+                LEFT JOIN ps_cms_lang cl ON (cl.id_cms = c.id_cms)
+                WHERE cl.id_lang = 0&lt;/pre&gt; at line 769 in file classes/db/Db.php
+*ERROR* 	v1.7.8.1	2022/01/20 - 12:52:46: Unknown column &#039;c.date_upd&#039; in &#039;field list&#039;&lt;br /&gt;&lt;br /&gt;&lt;pre&gt;SELECT c.id_cms, cl.link_rewrite, c.date_upd
+                FROM ps_cms c
+                LEFT JOIN ps_cms_lang cl ON (cl.id_cms = c.id_cms)
+                WHERE cl.id_lang = 1&lt;/pre&gt; at line 769 in file classes/db/Db.php
+*ERROR* 	v1.7.8.1	2022/01/20 - 12:53:17: Unknown column &#039;cl.date_upd&#039; in &#039;field list&#039;&lt;br /&gt;&lt;br /&gt;&lt;pre&gt;SELECT c.id_cms, cl.link_rewrite, cl.date_upd
+                FROM ps_cms c
+                LEFT JOIN ps_cms_lang cl ON (cl.id_cms = c.id_cms)
+                WHERE cl.id_lang = 1&lt;/pre&gt; at line 769 in file classes/db/Db.php
+*ERROR* 	v1.7.8.1	2022/01/20 - 13:15:03: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near &#039;LEFT JOIN ps_image i ON (i.id_product = p.id_product)
+        LEFT JOIN ps_imag&#039; at line 7&lt;br /&gt;&lt;br /&gt;&lt;pre&gt;SELECT p.id_product, p.date_upd, pl.link_rewrite, cl.name AS category, p.ean13
+                FROM ps_product p
+                LEFT JOIN ps_product_lang pl ON (pl.id_product = p.id_product)
+                LEFT JOIN ps_category_lang cl ON (cl.id_category = p.id_category_default)
+                WHERE pl.id_lang = 1
+                AND cl.id_lang = 1
+        LEFT JOIN ps_image i ON (i.id_product = p.id_product)
+        LEFT JOIN ps_image_lang il ON (il.id_image = i.id_image)
+        WHERE il.id_lang = 1&lt;/pre&gt; at line 769 in file classes/db/Db.php
+*ERROR* 	v1.7.8.1	2022/01/20 - 13:18:22: Unknown column &#039;i.legend&#039; in &#039;field list&#039;&lt;br /&gt;&lt;br /&gt;&lt;pre&gt;SELECT p.id_product, p.date_upd, pl.link_rewrite, cl.name AS category, p.ean13, i.id_image, i.legend, il.legend AS image, pl.name
+                FROM ps_product p
+                LEFT JOIN ps_product_lang pl ON (pl.id_product = p.id_product)
+                LEFT JOIN ps_category_lang cl ON (cl.id_category = p.id_category_default)
+                LEFT JOIN ps_image i ON (i.id_product = p.id_product)
+                LEFT JOIN ps_image_lang il ON (il.id_image = i.id_image)
+                WHERE pl.id_lang = 1
+                AND cl.id_lang = 1&lt;/pre&gt; at line 769 in file classes/db/Db.php
+*ERROR* 	v1.7.8.1	2022/01/20 - 13:18:41: Unknown column &#039;i.legend&#039; in &#039;field list&#039;&lt;br /&gt;&lt;br /&gt;&lt;pre&gt;SELECT p.id_product, p.date_upd, pl.link_rewrite, cl.name AS category, p.ean13, i.id_image, i.legend, il.legend AS image
+                FROM ps_product p
+                LEFT JOIN ps_product_lang pl ON (pl.id_product = p.id_product)
+                LEFT JOIN ps_category_lang cl ON (cl.id_category = p.id_category_default)
+                LEFT JOIN ps_image i ON (i.id_product = p.id_product)
+                LEFT JOIN ps_image_lang il ON (il.id_image = i.id_image)
+                WHERE pl.id_lang = 1
+                AND cl.id_lang = 1&lt;/pre&gt; at line 769 in file classes/db/Db.php
+*ERROR* 	v1.7.8.1	2022/01/20 - 13:18:57: Unknown column &#039;i.legend&#039; in &#039;field list&#039;&lt;br /&gt;&lt;br /&gt;&lt;pre&gt;SELECT p.id_product, p.date_upd, pl.link_rewrite, cl.name AS category, p.ean13, i.id_image, i.legend
+                FROM ps_product p
+                LEFT JOIN ps_product_lang pl ON (pl.id_product = p.id_product)
+                LEFT JOIN ps_category_lang cl ON (cl.id_category = p.id_category_default)
+                LEFT JOIN ps_image i ON (i.id_product = p.id_product)
+                LEFT JOIN ps_image_lang il ON (il.id_image = i.id_image)
+                WHERE pl.id_lang = 1
+                AND cl.id_lang = 1&lt;/pre&gt; at line 769 in file classes/db/Db.php
+*ERROR* 	v1.7.8.1	2022/01/20 - 13:24:43: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near &#039;FROM ps_product p
+                LEFT JOIN ps_product_lang pl ON (pl.id_produc&#039; at line 2&lt;br /&gt;&lt;br /&gt;&lt;pre&gt;SELECT p.id_product, p.date_upd, pl.link_rewrite, cl.name AS category, p.ean13, i.id_image, il.legend AS image,
+                FROM ps_product p
+                LEFT JOIN ps_product_lang pl ON (pl.id_product = p.id_product)
+                LEFT JOIN ps_category_lang cl ON (cl.id_category = p.id_category_default)
+                LEFT JOIN ps_image i ON (i.id_product = p.id_product)
+                LEFT JOIN ps_image_lang il ON (il.id_image = i.id_image)
+                WHERE pl.id_lang = 1
+                AND p.active = 1
+                AND cl.id_lang = 1&lt;/pre&gt; at line 769 in file classes/db/Db.php

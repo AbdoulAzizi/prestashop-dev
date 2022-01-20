@@ -70,10 +70,10 @@ class Megaseo extends Module
 
     public function hookBackOfficeHeader()
     {
-        if (Tools::getValue('module_name') == $this->name) {
-            $this->context->controller->addJS($this->_path.'views/js/back.js');
-            $this->context->controller->addCSS($this->_path.'views/css/back.css');
-        }
+        
+            $this->context->controller->addJS($this->_path.'views/js/mgaseo.js');
+            $this->context->controller->addCSS($this->_path.'views/css/megase.css');
+        
     }
 
     /**
@@ -151,4 +151,23 @@ class Megaseo extends Module
 		$cat->description_lower= $data['description_lower'];
 		$cat->update();
 	}
+
+    public function createSitemap($id_shop = null)
+    {
+        if (null === $id_shop) {
+            $id_shop = (int)$this->context->shop->id;
+        }
+        include_once(_PS_MODULE_DIR_.'/megaseo/classes/megaSitemap.php');
+
+        $sitemap = new MegaSitemap();
+        // $sitemap->id_shop = $id_shop;
+        // $sitemap->save();
+
+        $sitemap->generateSitemap($id_shop);
+    }
+    
+
+
+   
+
 }

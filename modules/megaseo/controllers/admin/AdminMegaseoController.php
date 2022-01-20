@@ -5,20 +5,29 @@ use PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController;
 
 
 class AdminMegaseoController extends ModuleAdminController{
-	
+
 	private $cache;
-       
+
     // you can use symfony DI to inject services
     // public function __construct(CacheProvider $cache)
     // {
     //     $this->cache = $cache;
     // }
-	
+
     public function __construct()
     {
         parent::__construct();
         $this->bootstrap = true;
-       
+
+        $this->type_array = array(
+            'home',
+            'product',
+            'category',
+            'cms',
+            'cmsCategory',
+        );
+
+
     }
 
 
@@ -36,7 +45,7 @@ class AdminMegaseoController extends ModuleAdminController{
             'htaccess_content' => $this->getHtaccessContent(),
             'redirection_data' => $this->getRedirectionData(),
             'redirection_upload_file' => $redirection_upload_file->render(),
-            
+
 
 
         ));
@@ -44,9 +53,9 @@ class AdminMegaseoController extends ModuleAdminController{
 
         $this->setTemplate('adminMegaseo.tpl');
 
-    
+
     }
-    
+
 
     public function getRobotsContent()
     {
@@ -55,9 +64,9 @@ class AdminMegaseoController extends ModuleAdminController{
 
         if(!file_exists($robots_file)){
             $this->context->smarty->assign('robot_error_message', $this->l('Le fichier ' .  $robots_file .' n\'existe pas'));
-            return ; 
+            return ;
         }
-        
+
         if (file_exists($robots_file)) {
 
             $functions = [
@@ -71,13 +80,13 @@ class AdminMegaseoController extends ModuleAdminController{
                   return  ; //$this->errors[] = sprintf($this->l('Les permissions d\'écriture du fichier '. $robots_file. ' ne sont pas présentes'));
                 }
             }
-            
+
 
             $robots_content = file_get_contents($robots_file);
 
             return $robots_content;
         }
-        
+
     }
 
     public function getSitemapContent()
@@ -87,7 +96,7 @@ class AdminMegaseoController extends ModuleAdminController{
 
         if(!file_exists($sitemap_file)){
             $this->context->smarty->assign('sitemap_error_message', $this->l('Le fichier ' .  $sitemap_file .' n\'existe pas'));
-            return ; 
+            return ;
         }
         if (file_exists($sitemap_file)) {
 
@@ -102,12 +111,12 @@ class AdminMegaseoController extends ModuleAdminController{
                   return  ; //$this->errors[] = sprintf($this->l('Les permissions d\'écriture du fichier '. $sitemap_file. ' ne sont pas présentes'));
                 }
             }
-           
+
             $sitemap_content = file_get_contents($sitemap_file);
 
             return $sitemap_content;
         }
-        
+
     }
 
     public function getHtaccessContent()
@@ -117,7 +126,7 @@ class AdminMegaseoController extends ModuleAdminController{
 
         if(!file_exists($htaccess_file)){
             $this->context->smarty->assign('htaccess_error_message', $this->l('Le fichier ' .  $htaccess_file .' n\'existe pas'));
-            return ; 
+            return ;
         }
 
         if (file_exists($htaccess_file)) {
@@ -133,19 +142,19 @@ class AdminMegaseoController extends ModuleAdminController{
                   return  ; //$this->errors[] = sprintf($this->l('Les permissions d\'écriture du fichier '. $htaccess_file. ' ne sont pas présentes'));
                 }
             }
-            
+
 
             $htaccess_content = file_get_contents($htaccess_file);
 
             return $htaccess_content;
         }
-        
+
     }
 
     public function getRedirectionData()
     {
         $redirection_data = [];
-       
+
         // retreive all redirection from redirection table by sql query
 
         $redirection_data =  Db::getInstance()->executeS('SELECT * FROM '._DB_PREFIX_.'redirection');
@@ -153,12 +162,12 @@ class AdminMegaseoController extends ModuleAdminController{
         // var_dump($redirection_data[0]['id_redirection']);exit;
 
         return $redirection_data;
-        
+
     }
-    
+
     public function postProcess()
     {
-        
+
         if (Tools::isSubmit('submitRobots')) {
             $robots_content = Tools::getValue('robots_content');
             $robots_file = _PS_ROOT_DIR_.'/robots.txt';
@@ -199,7 +208,7 @@ class AdminMegaseoController extends ModuleAdminController{
         }
 
         if(Tools::isSubmit('submitRedirection')){
-            
+
             // créer une redirection 301 ou 302 en fonction du choix de l'utilisateur et enregistrer la redirection
             $redirection_type = Tools::getValue('redirection_type');
             $redirection_from = Tools::getValue('redirection_from');
@@ -236,7 +245,7 @@ class AdminMegaseoController extends ModuleAdminController{
             else{
                 return $this->errors[] = $this->l('Une erreur est survenue lors de l\'enregistrement de la redirection');
             }
-            
+
 
         }
 
@@ -267,15 +276,17 @@ class AdminMegaseoController extends ModuleAdminController{
 
         $this->UpdateRedirection();
 
+        $this->createSitemapXML();
+
         parent::postProcess();
     }
-    
+
     public function UpdateRedirection(){
         if(Tools::isSubmit('updateRedirectionSubmit')){
-           
+
             $redirection_id = Tools::getValue('redirection_id_update');
             $redirection_id = (int)$redirection_id;
-            
+
 
             $redirection_from = Tools::getValue('redirection_from_update');
             $redirection_to = Tools::getValue('redirection_to_update');
@@ -312,6 +323,30 @@ class AdminMegaseoController extends ModuleAdminController{
             else{
                 return $this->errors[] = $this->l('Une erreur est survenue lors de la mise à jour de la redirection');
             }
+        }
+    }
+
+    public function createSitemapXML($id_shop = null){
+        if (null === $id_shop) {
+            $id_shop = (int)$this->context->shop->id;
+        }
+        // include_once(_PS_MODULE_DIR_.'/megaseo/classes/megaSitemap.php');
+
+
+        if(Tools::isSubmit('generateSitemapSubmit')){
+            // $sitemap = new MegaSitemap();
+            $link_sitemap = 0;
+            $lang = 1;
+            $index = 0;
+
+           if($this->generateSitemap()){
+                return $this->confirmations[] = $this->l('La sitemap a été générée');
+            }
+            else{
+                return $this->errors[] = $this->l('Une erreur est survenue lors de la génération de la sitemap');
+            }
+
+
         }
     }
 
@@ -361,8 +396,8 @@ class AdminMegaseoController extends ModuleAdminController{
                     $redirection_upload_errors[] = $this->l('Ligne invalide : ').implode(', ', $line);
                     continue;
                 }
-                
-            
+
+
                 $redirection_from = $line[0];
                 $redirection_type = $line[1];
                 $redirection_to = $line[2];
@@ -373,7 +408,7 @@ class AdminMegaseoController extends ModuleAdminController{
                 //     continue;
                 // }
 
-              
+
                 if(preg_match('#^https?://#', $redirection_from)){
                     // $redirection_upload_errors[] = $this->l('L\'URI d\'origine ne doit pas commencer par http:// ou https://');
                     // remove http:// or https://
@@ -425,9 +460,9 @@ class AdminMegaseoController extends ModuleAdminController{
             if($redirections_added > 0){
                 return $this->confirmations[] = $redirections_added.' '.$this->l('redirections ont été ajoutées');
             }
-           
+
         }
-        
+
     }
 
     public function ExportRedirections(){
@@ -466,8 +501,8 @@ class AdminMegaseoController extends ModuleAdminController{
             //     ];
             // }, $redirections);
 
-           
-            
+
+
 
             $file_name = 'redirections_'.date('Y-m-d_H-i-s').'.csv';
 
@@ -482,5 +517,320 @@ class AdminMegaseoController extends ModuleAdminController{
             exit;
         }
     }
+
+
+    public function generateSitemap($id_shop = 0)
+    {
+        if ($id_shop != 0) {
+            $this->context->shop = new Shop((int) $id_shop);
+        }
+
+        $this->context->shop = Context::getContext()->shop;
+        $id_shop = $this->context->shop->id;
+
+        $sitemap_file = $this->getSitemapFilePath($id_shop);
+
+        if (file_exists($sitemap_file)) {
+            unlink($sitemap_file);
+            $this->createSitemapFile();
+        }else{
+            $this->createSitemapFile();
+        }
+
+        // add header
+        $sitemap_content = '<?xml version="1.0" encoding="UTF-8"?>
+        <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
+
+          // add urls
+          // add product links
+          foreach ($this->getAllProductsLinks() as $product_link) {
+              $sitemap_content .= '
+              <url>
+                  <loc>'.$product_link['loc'].'</loc>
+                  <lastmod>'.$product_link['lastmod'].'</lastmod>
+                  <changefreq>weekly</changefreq>
+                  <priority>0.8</priority>
+                  <image:image>
+                      <image:loc>'.$product_link['product_images'][0]['image:loc'].'</image:loc>
+                      <image:caption>'.$product_link['product_images'][0]['image:caption'].'</image:caption>
+                      <image:title>'.$product_link['product_images'][0]['image:title'].'</image:title>
+                 </image:image>
+              </url>';
+            }
+
+            // // add category links
+            // foreach ($this->getAllCategoriesLinks() as $category_link) {
+            //     $sitemap_content .= '
+            //     <url>
+            //         <loc>'.$category_link['loc'].'</loc>
+            //         <lastmod>'.$category_link['lastmod'].'</lastmod>
+            //         <changefreq>weekly</changefreq>
+            //         <priority>0.8</priority>
+            //     </url>';
+            // }
+
+            // // add CMS links
+            // foreach ($this->getCMSPagesLinks() as $cms_link) {
+            //     $sitemap_content .= '
+            //     <url>
+            //         <loc>'.$cms_link['loc'].'</loc>
+            //         <changefreq>weekly</changefreq>
+            //         <priority>0.8</priority>
+            //     </url>';
+            // }
+
+            // // add CMS category links
+            // foreach ($this->getCMSPageCategoriesLinks() as $cms_category_link) {
+            //     $sitemap_content .= '
+            //     <url>
+            //         <loc>'.$cms_category_link['loc'].'</loc>
+            //         <lastmod>'.$cms_category_link['lastmod'].'</lastmod>
+            //         <changefreq>weekly</changefreq>
+            //         <priority>0.8</priority>
+            //     </url>';
+            // }
+
+            // // add Home page link
+            // $sitemap_content .= '
+            // <url>
+            //     <loc>'.$this->context->shop->getBaseURL().'</loc>
+            //     <changefreq>weekly</changefreq>
+            //     <priority>1.0</priority>
+            // </url>';
+
+            // var_dump($this->context->shop->getBaseURL());exit;
+
+
+            //  add footer
+            $sitemap_content .= PHP_EOL.'</urlset>';
+
+            file_put_contents($sitemap_file, $sitemap_content);
+
+        // tools redirect
+        Tools::redirectAdmin('index.php?controller=AdminMegaseo&token='.Tools::getAdminTokenLite('AdminMegaseo'));
+        die;
+
+    }
+
+    // get sitemap file path
+    public function getSitemapFilePath($id_shop = 0)
+    {
+        if ($id_shop != 0) {
+            $this->context->shop = new Shop((int) $id_shop);
+        }
+
+        $this->context->shop = Context::getContext()->shop;
+        $id_shop = $this->context->shop->id;
+
+        $sitemap_file = _PS_ROOT_DIR_.'/sitemap.xml';
+
+        return $sitemap_file;
+    }
+
+    // create sitemap file
+    public function createSitemapFile()
+    {
+       // create sitemap file at root directory
+       $sitemap_file = _PS_ROOT_DIR_.'/sitemap.xml';
+
+       if (!file_exists($sitemap_file)) {
+          touch($sitemap_file);
+       }
+    }
+
+
+    protected function recursiveSitemapCreator($link_sitemap, $lang, &$index)
+    {
+        if (!count($link_sitemap)) {
+            return false;
+        }
+
+        $sitemap_link = $this->context->shop->id . '_' . $lang . '_' . $index . '_sitemap.xml';
+        $write_fd = fopen($this->normalizeDirectory(_PS_ROOT_DIR_) . $sitemap_link, 'wb');
+
+        fwrite($write_fd, '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL . '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">' . PHP_EOL);
+        foreach ($link_sitemap as $key => $file) {
+            fwrite($write_fd, '<url>' . PHP_EOL);
+            $lastmod = (isset($file['lastmod']) && !empty($file['lastmod'])) ? date('c', strtotime($file['lastmod'])) : null;
+
+            fwrite($write_fd, '</url>' . PHP_EOL);
+        }
+        fwrite($write_fd, '</urlset>' . PHP_EOL);
+        fclose($write_fd);
+        $this->saveSitemapLink($sitemap_link);
+
+        return true;
+    }
+
+    // get All products links
+    protected function getAllProductsLinks()
+    {
+        $link_sitemap = [];
+        $product_images = [];
+        // $products = $this->getProducts($lang);
+        // get all languages
+        $languages = Language::getLanguages(false);
+        foreach ($languages as $lang) {
+            // $id_lang = $language['id_lang'];
+            $products = $this->getProducts($lang);
+            foreach ($products as $product) {
+                // var_dump($product);exit;
+
+                // get product image link
+                $image_link = $this->context->link->getImageLink($product['link_rewrite'], $product['id_image'], 'home_default');
+                if (isset($image_link) && !empty($image_link)) {
+                  $product_images[] = array(
+                      'image:loc' => $image_link,
+                      'image:caption' => $product['name'],
+                      'image:title' => $product['description_short'],
+                  );
+                }
+
+                $link_sitemap[] = [
+                    'loc' => $this->context->link->getProductLink($product['id_product'], $product['link_rewrite'], $product['category'], $product['ean13'], $lang['id_lang']),
+                    'lastmod' => $product['date_upd'],
+                    'product_images' => $product_images,
+                ];
+            }
+        }
+        // $products = Product::getProducts($this->context->language->id, 0, 0, 'id_product', 'ASC');
+        // foreach ($products as $product) {
+        //     $link_sitemap[] = [
+        //         'loc' => $this->context->link->getProductLink($product['id_product'], $product['link_rewrite'], $product['ean13'], $product['id_lang']),
+        //         'lastmod' => $product['date_upd']
+        //     ];
+        // }
+
+        return $link_sitemap;
+    }
+
+    // getProducts
+    protected function getProducts($lang)
+    {
+        $sql = 'SELECT p.id_product, p.date_upd, pl.link_rewrite, cl.name AS category, p.ean13, i.id_image, il.legend AS image,pl.name, pl.description_short
+                FROM ' . _DB_PREFIX_ . 'product p
+                LEFT JOIN ' . _DB_PREFIX_ . 'product_lang pl ON (pl.id_product = p.id_product)
+                LEFT JOIN ' . _DB_PREFIX_ . 'category_lang cl ON (cl.id_category = p.id_category_default)
+                LEFT JOIN ' . _DB_PREFIX_ . 'image i ON (i.id_product = p.id_product)
+                LEFT JOIN ' . _DB_PREFIX_ . 'image_lang il ON (il.id_image = i.id_image)
+                WHERE pl.id_lang = ' . (int) $lang['id_lang'] . '
+                AND p.active = 1
+                AND cl.id_lang = ' . (int) $lang['id_lang'];
+
+
+
+        return Db::getInstance()->executeS($sql);
+    }
+
+    // get All categories links
+    protected function getAllCategoriesLinks()
+    {
+        $link_sitemap = [];
+        foreach(language::getIDs() as $id_lang) {
+            $categories = $this->getCategories($id_lang);
+            foreach ($categories as $category) {
+                // $link = new Link();
+                $link_sitemap[] = [
+                    'loc' => $this->context->link->getCategoryLink($category['id_category'], $category['link_rewrite'], $id_lang),
+                    'lastmod' => $category['date_upd'],
+                ];
+            }
+        }
+
+        return $link_sitemap;
+    }
+
+    // getCategories
+    protected function getCategories($id_lang)
+    {
+        $sql = 'SELECT c.id_category, c.date_upd, cl.link_rewrite
+                FROM ' . _DB_PREFIX_ . 'category c
+                LEFT JOIN ' . _DB_PREFIX_ . 'category_lang cl ON (cl.id_category = c.id_category)
+                WHERE cl.id_lang = ' . (int) $id_lang;
+
+        return Db::getInstance()->executeS($sql);
+    }
+
+
+    // get All CMS links
+    protected function getCMSPagesLinks()
+    {
+        $link_sitemap = [];
+        // get all languages
+        $languages = Language::getLanguages(false);
+        foreach ($languages as $lang) {
+            // $id_lang = $language['id_lang'];
+            $cms = $this->getCMSPages($lang);
+            foreach ($cms as $cms_page) {
+                $link_sitemap[] = [
+                    'loc' => $this->context->link->getCMSLink($cms_page['id_cms'], $cms_page['link_rewrite'], $lang['id_lang']),
+                    // 'lastmod' => $cms_page['date_upd'],
+                ];
+            }
+        }
+
+        return $link_sitemap;
+    }
+
+
+    // getCMSPages
+    protected function getCMSPages($lang)
+    {
+        $sql = 'SELECT c.id_cms, cl.link_rewrite
+                FROM ' . _DB_PREFIX_ . 'cms c
+                LEFT JOIN ' . _DB_PREFIX_ . 'cms_lang cl ON (cl.id_cms = c.id_cms)
+                WHERE cl.id_lang = ' . (int) $lang['id_lang'];
+
+        return Db::getInstance()->executeS($sql);
+    }
+
+    // get All CMS page category links
+    protected function getCMSPageCategoriesLinks()
+    {
+        $link_sitemap = [];
+        // get all languages
+        $languages = Language::getLanguages(false);
+        foreach ($languages as $lang) {
+            // $id_lang = $language['id_lang'];
+            $cms_categories = $this->getCMSPageCategories($lang);
+            foreach ($cms_categories as $cms_category) {
+                $link_sitemap[] = [
+                    'loc' => $this->context->link->getCMSCategoryLink($cms_category['id_cms_category'], $cms_category['link_rewrite'], $lang['id_lang']),
+                    'lastmod' => $cms_category['date_upd'],
+                ];
+            }
+        }
+
+        return $link_sitemap;
+    }
+
+    // getCMSPageCategories
+    protected function getCMSPageCategories($lang)
+    {
+        $sql = 'SELECT c.id_cms_category, c.date_upd, cl.link_rewrite
+                FROM ' . _DB_PREFIX_ . 'cms_category c
+                LEFT JOIN ' . _DB_PREFIX_ . 'cms_category_lang cl ON (cl.id_cms_category = c.id_cms_category)
+                WHERE cl.id_lang = ' . (int) $lang['id_lang'];
+
+        return Db::getInstance()->executeS($sql);
+    }
+
+    // get home page link
+    protected function getHomePageLink()
+    {
+        $link_sitemap = [];
+        // get all languages
+        $languages = Language::getLanguages(false);
+        foreach ($languages as $lang) {
+            // $id_lang = $language['id_lang'];
+            $link_sitemap[] = [
+                'loc' => $this->context->link->getPageLink('index', null, $lang['id_lang']),
+                // 'lastmod' => date('Y-m-d'),
+            ];
+        }
+
+        return $link_sitemap;
+    }
+
 
 }
