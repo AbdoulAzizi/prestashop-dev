@@ -330,30 +330,42 @@ class AdminMegaseoController extends ModuleAdminController{
 
         $root_path = _PS_ROOT_DIR_;
 
+        if(Tools::isSubmit('SubmitSitemapGenerate')) {
 
-        if(Tools::isSubmit('generateSitemapSubmit') && Tools::getValue('generate_sitemap') == 'automatic_sitemap'){
-
-            // PS ROOT PATH
-           if(!$this->generateSitemap()){
-               return $this->errors[] = $this->l('Une erreur est survenue lors de la génération du sitemap');
-           }
-           else{
-               return $this->confirmations[] = $this->l('Le sitemap a été généré').'<br>'.$this->l('Le fichier sitemap.xml est disponible dans le dossier').' '.$root_path.'/'.'sitemap.xml';
-           }
-         
-        }
-        if(Tools::getValue('generate_sitemap')){
-            if(!$this->generateSitemap()){
-                return $this->errors[] = $this->l('Une erreur est survenue lors de la génération du sitemap');
+            if (!Tools::getValue('generate_sitemap_type')){
+                return $this->errors[] = $this->l('Vous devez choisir une option pour générer le fichier sitemap');
             }
-            else{
-                return $this->confirmations[] = $this->l('Le sitemap a été généré').'<br>'.$this->l('Le fichier sitemap.xml est disponible dans le dossier').' '.$root_path.'/'.'sitemap.xml';
-            }
-        }
 
-        if(Tools::isSubmit('generateSitemapSubmit') && Tools::getValue('default_sitemap_generate')){
-            $this->generateSitemap();
+            
+            if(Tools::getValue('generate_sitemap_type') == 'automatic_sitemap' || Tools::getValue('generate_sitemap_type') == 'default_sitemap_generate'){
+
+                // PS ROOT PATH
+                if(!$this->generateSitemap()){
+                    return $this->errors[] = $this->l('Une erreur est survenue lors de la génération du sitemap');
+                }
+                else{
+                    return $this->confirmations[] = $this->l('Le sitemap a été généré').'<br>'.$this->l('Le fichier sitemap.xml est disponible dans le dossier').' '.$root_path.'/'.'sitemap.xml';
+                }
+            
+            }
+
+            if(Tools::isSubmit('SubmitSitemapGenerate') && Tools::getValue('generate_sitemap_type') == 'manual_sitemap'){
+
+                $sitemap_content = Tools::getValue('sitemap_generate_content');
+                $sitemap_file = _PS_ROOT_DIR_.'/sitemap.xml';
+                if (file_exists($sitemap_file)) {
+                    file_put_contents($sitemap_file, $sitemap_content);
+                    // $this->context->smarty->assign('sitemap_success_messages', $this->l('Votre fichier sitemap.xml a été mis à jour'));
+                    return $this->confirmations[] = sprintf($this->l('Votre fichier sitemap.xml a été mis à jour'));
+                }
+                else {
+                    return $this->errors[] = $this->l('Le fichier sitemap.xml a rencontré un problème lors de la mise à jour');
+                }
+            }
+
         }
+        
+       
     }
 
     public function ImportRedirection(){

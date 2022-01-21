@@ -378,12 +378,17 @@
           <div class="panel-body">
             <form action="{$smarty.server.REQUEST_URI}" method="post" multipart="true" enctype="multipart/form-data" id="sitemap_generation_type_form">
               <div class="form-group">
-                <input type="radio" name="generate_sitemap" value="1" id="automatic_sitemap" checked>
+                <input type="radio" name="automatic_sitemap" value="automatic_sitemap" id="automatic_sitemap" class="generate_sitemap_radio">
                 <label for="automatic_sitemap">{l s="Générer automatiquement le sitemap"}</label>
               </div>
               <div class="form-group">
-                <input type="radio" name="generate_sitemap" value="0" id="manual_sitemap">
+                <input type="radio" name="manual_sitemap" value="manual_sitemap" id="manual_sitemap" class="generate_sitemap_radio">
                 <label for="manual_sitemap">{l s="Générer manuellement le sitemap"}</label>
+              </div>
+              <div style="display: none;" id="default_sitemap_generate_type">
+                {* submit form when click on a link *}
+                <input type="hidden" name="default_sitemap_generate" value="default_sitemap_generate" id="default_sitemap_generate_value">
+                <a href="#" id="default_sitemap_generate" type="submit" style="color: red; padding:10px;">{l s="Cliquez ici pour genrer le sitemap par défaut"}</a>
               </div>
               <div class="form-group" id="manual_textarea_site_map" style="display: none;">
                 {if isset($sitemap_error_message)}
@@ -393,17 +398,16 @@
                     <span class="sitemap_error_message" id="sitemap_error_message">{{$sitemap_error_message}}</span>
                   </div>
                 {else}
+                  
                   <div>
-                    {* submit form when click on a link *}
-                    <a href="#" id="default_sitemap_generate" type="submit" style="color: red; padding:10px;">{l s="Cliquez ici pour genrer le sitemap par défaut"}</a>
-                  </div>
-                  <div>
-                    <textarea class="form-control" rows="10" id="sitemap_content" name="sitemap_content" placeholder="{l s="Contenu du sitemap"}">{$sitemap_content}</textarea>
+                    <textarea class="form-control" rows="10" id="sitemap_generate_content" name="sitemap_generate_content" placeholder="{l s="Contenu du sitemap"}">{$sitemap_content}</textarea>
                   </div>
                 {/if}
               </div>
               <div class="panel-footer">
-                <button type="submit" id="generateSitemapSubmit" name="generateSitemapSubmit" class="btn btn-primary pull-right" onclick="return confirm('{l s=" Cette action supprimera le sitemap existant et le remplacera par le sitemap généré automatiquement. Etes-vous sûr de vouloir continuer ?"}');">{l s="Générer le sitemap"}</button>
+                <input type="hidden" name="generate_sitemap_type" value="" id="generate_sitemap_type">
+                <input type="hidden" name="SubmitSitemapGenerate" value="1">
+                <button type="button" id="generateSitemapSubmit" name="generateSitemapSubmit" class="btn btn-primary pull-right">{l s="Générer le sitemap"}</button>
               </div>
             </form>
           </div>
@@ -420,27 +424,78 @@
 
 
 <script>  
+
+      // on page reload set the checked radio button
+      $(document).ready(function(){
+      if(localStorage.selected) {
+        $('#' + localStorage.selected ).attr('checked', true);
+      }
+      $('.generate_sitemap_radio').click(function(){
+        localStorage.setItem("selected", this.id);
+      });
+    });
+
+
+
+
       $('#default_sitemap_generate').click(function(e){
         e.preventDefault();
-        // set manual_sitemap value to 1
-        $('#manual_sitemap').val(1);
-        $('#sitemap_generation_type_form').submit();
-      });
+
+          $('#generate_sitemap_type').val('default_sitemap_generate');
+
+          $('#sitemap_generation_type_form').submit();
+      }); 
       // si le type de génération automatique est coché
       $('#automatic_sitemap').click(function() {
+        $('#automatic_sitemap').val('automatic_sitemap');
         $('#manual_textarea_site_map').hide();
         if($('#automatic_sitemap').is(':checked')) {
           $('#generateSitemapSubmit').html('{l s="Générer le sitemap"}');
         }
       });
-      // if automatic_sitemap is checked
-     
+        // let checkbox option checked on load
       // si le type de génération manuelle est coché
       $('#manual_sitemap').click(function() {
+        $('#default_sitemap_generate_type').show();
         $('#manual_textarea_site_map').show();
         if($('#manual_sitemap').is(':checked')) {
           $('#generateSitemapSubmit').html('{l s="SAUVEGARDER"}');
         }
+      });
+      $(document).ready(function(){
+        if($('#manual_sitemap').is(':checked')) {
+            $('#generateSitemapSubmit').html('{l s="SAUVEGARDER"}');
+            $('#default_sitemap_generate_type').show();
+            $('#manual_textarea_site_map').show();
+          }
+      });
+
+      $('#generateSitemapSubmit').click(function(e){
+          e.preventDefault();
+          // set generateSitemapSubmit value to 1
+          $('#generateSitemapSubmit').val(1);
+              // vérifier le type de génération
+            if($('#automatic_sitemap').is(':checked')){
+              $('#generate_sitemap_type').val('automatic_sitemap');
+            }
+            if($('#manual_sitemap').is(':checked')){
+              $('#generate_sitemap_type').val('manual_sitemap');
+            }
+            // message de confirmation selon le type de génération
+            if($('#generate_sitemap_type').val() == 'automatic_sitemap'){
+              var result = confirm('{l s="cette action supprimera le sitemap existant et le générera à nouveau. Etes-vous sûr de vouloir continuer ?"}');
+              if(result){
+                $('#sitemap_generation_type_form').submit();
+              }
+            }
+            if($('#generate_sitemap_type').val() == 'manual_sitemap'){
+
+               var result = confirm('{l s="cette action supprimera le sitemap existant et le remplacera par le sitemap que vous avez saisi. Etes-vous sûr de vouloir continuer ?"}');
+
+              if(result){
+                $('#sitemap_generation_type_form').submit();
+              }
+            }
       });
 
     $('.update_redirection').each(function() {
