@@ -1,1 +1,522 @@
-test
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
+            <url>
+                <loc>http://localhost/prestashop/</loc>
+                <changefreq>daily</changefreq>
+                <priority>1.0</priority>
+            </url>
+                <url>
+                    <loc>http://localhost/prestashop/Accessoires de maison/6-mug-the-best-is-yet-to-come.html</loc>
+                    <lastmod>2021-11-28 19:16:38</lastmod>
+                    <changefreq>daily</changefreq>
+                    <priority>0.9</priority>
+                    <image:image>
+                        <image:loc>http://localhost/prestashop/6-home_default/mug-the-best-is-yet-to-come.jpg</image:loc>
+                        <image:caption>Mug The best is yet to come</image:caption>
+                        <image:title><p>Mug en céramique blanche, 325ml.</p></image:title>
+                     </image:image>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/Accessoires de maison/7-mug-the-adventure-begins.html</loc>
+                    <lastmod>2021-11-28 19:16:38</lastmod>
+                    <changefreq>daily</changefreq>
+                    <priority>0.9</priority>
+                    <image:image>
+                        <image:loc>http://localhost/prestashop/7-home_default/mug-the-adventure-begins.jpg</image:loc>
+                        <image:caption>Mug The adventure begins</image:caption>
+                        <image:title><p>Mug en céramique blanche. 325ml</p></image:title>
+                     </image:image>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/Accessoires de maison/8-mug-today-is-a-good-day.html</loc>
+                    <lastmod>2021-11-28 19:16:38</lastmod>
+                    <changefreq>daily</changefreq>
+                    <priority>0.9</priority>
+                    <image:image>
+                        <image:loc>http://localhost/prestashop/8-home_default/mug-today-is-a-good-day.jpg</image:loc>
+                        <image:caption>Mug Today is a good day</image:caption>
+                        <image:title><p>Mug en céramique blanche. 325ml</p></image:title>
+                     </image:image>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/Accessoires de maison/9-coussin-renard.html</loc>
+                    <lastmod>2021-11-28 19:16:38</lastmod>
+                    <changefreq>daily</changefreq>
+                    <priority>0.9</priority>
+                    <image:image>
+                        <image:loc>http://localhost/prestashop/9-home_default/coussin-renard.jpg</image:loc>
+                        <image:caption>Coussin renard</image:caption>
+                        <image:title><p>Coussin déhoussable avec zip invisible au dos. 32x32cm</p></image:title>
+                     </image:image>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/Accessoires de maison/9-coussin-renard.html</loc>
+                    <lastmod>2021-11-28 19:16:38</lastmod>
+                    <changefreq>daily</changefreq>
+                    <priority>0.9</priority>
+                    <image:image>
+                        <image:loc>http://localhost/prestashop/10-home_default/coussin-renard.jpg</image:loc>
+                        <image:caption>Coussin renard</image:caption>
+                        <image:title><p>Coussin déhoussable avec zip invisible au dos. 32x32cm</p></image:title>
+                     </image:image>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/Accessoires de maison/10-coussin-ours-brun.html</loc>
+                    <lastmod>2021-11-28 19:16:38</lastmod>
+                    <changefreq>daily</changefreq>
+                    <priority>0.9</priority>
+                    <image:image>
+                        <image:loc>http://localhost/prestashop/11-home_default/coussin-ours-brun.jpg</image:loc>
+                        <image:caption>Coussin ours brun</image:caption>
+                        <image:title><p>Coussin déhoussable avec zip invisible au dos. 32x32cm</p></image:title>
+                     </image:image>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/Accessoires de maison/10-coussin-ours-brun.html</loc>
+                    <lastmod>2021-11-28 19:16:38</lastmod>
+                    <changefreq>daily</changefreq>
+                    <priority>0.9</priority>
+                    <image:image>
+                        <image:loc>http://localhost/prestashop/12-home_default/coussin-ours-brun.jpg</image:loc>
+                        <image:caption>Coussin ours brun</image:caption>
+                        <image:title><p>Coussin déhoussable avec zip invisible au dos. 32x32cm</p></image:title>
+                     </image:image>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/Accessoires de maison/11-coussin-colibri.html</loc>
+                    <lastmod>2021-11-28 19:16:38</lastmod>
+                    <changefreq>daily</changefreq>
+                    <priority>0.9</priority>
+                    <image:image>
+                        <image:loc>http://localhost/prestashop/13-home_default/coussin-colibri.jpg</image:loc>
+                        <image:caption>Coussin colibri</image:caption>
+                        <image:title><p>Coussin déhoussable avec zip invisible au dos. 32x32cm</p></image:title>
+                     </image:image>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/Accessoires de maison/11-coussin-colibri.html</loc>
+                    <lastmod>2021-11-28 19:16:38</lastmod>
+                    <changefreq>daily</changefreq>
+                    <priority>0.9</priority>
+                    <image:image>
+                        <image:loc>http://localhost/prestashop/14-home_default/coussin-colibri.jpg</image:loc>
+                        <image:caption>Coussin colibri</image:caption>
+                        <image:title><p>Coussin déhoussable avec zip invisible au dos. 32x32cm</p></image:title>
+                     </image:image>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/Accessoires de maison/15-pack-mug-affiche-encadree.html</loc>
+                    <lastmod>2021-11-28 19:16:38</lastmod>
+                    <changefreq>daily</changefreq>
+                    <priority>0.9</priority>
+                    <image:image>
+                        <image:loc>http://localhost/prestashop/23-home_default/pack-mug-affiche-encadree.jpg</image:loc>
+                        <image:caption>Pack Mug + Affiche encadrée</image:caption>
+                        <image:title><p>Mug The Adventure Begins + Affiche encadrée Today is a good day 40x60cm </p></image:title>
+                     </image:image>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/Accessoires de maison/19-customizable-mug.html</loc>
+                    <lastmod>2021-12-20 11:12:23</lastmod>
+                    <changefreq>daily</changefreq>
+                    <priority>0.9</priority>
+                    <image:image>
+                        <image:loc>http://localhost/prestashop/22-home_default/customizable-mug.jpg</image:loc>
+                        <image:caption>Mug personnalisable</image:caption>
+                        <image:title><p>Mug en céramique blanche. 325ml</p></image:title>
+                     </image:image>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/Art/3-affiche-encadree-the-best-is-yet-to-come.html</loc>
+                    <lastmod>2021-11-28 19:16:38</lastmod>
+                    <changefreq>daily</changefreq>
+                    <priority>0.9</priority>
+                    <image:image>
+                        <image:loc>http://localhost/prestashop/3-home_default/affiche-encadree-the-best-is-yet-to-come.jpg</image:loc>
+                        <image:caption>Affiche encadrée The best is yet to come</image:caption>
+                        <image:title><p>Affiche imprimée sur papier rigide, finition mate et surface lisse.</p></image:title>
+                     </image:image>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/Art/4-affiche-encadree-the-adventure-begins.html</loc>
+                    <lastmod>2021-11-28 19:16:38</lastmod>
+                    <changefreq>daily</changefreq>
+                    <priority>0.9</priority>
+                    <image:image>
+                        <image:loc>http://localhost/prestashop/4-home_default/affiche-encadree-the-adventure-begins.jpg</image:loc>
+                        <image:caption>Affiche encadrée The adventure begins</image:caption>
+                        <image:title><p>Affiche imprimée sur papier rigide, finition mate et surface lisse.</p></image:title>
+                     </image:image>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/Art/5-affiche-encadree-today-is-a-good-day.html</loc>
+                    <lastmod>2021-11-28 19:16:38</lastmod>
+                    <changefreq>daily</changefreq>
+                    <priority>0.9</priority>
+                    <image:image>
+                        <image:loc>http://localhost/prestashop/5-home_default/affiche-encadree-today-is-a-good-day.jpg</image:loc>
+                        <image:caption>Affiche encadrée Today is a good day</image:caption>
+                        <image:title><p>Affiche imprimée sur papier rigide, finition mate et surface lisse.</p></image:title>
+                     </image:image>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/Art/12-illustration-vectorielle-renard.html</loc>
+                    <lastmod>2021-11-28 19:16:38</lastmod>
+                    <changefreq>daily</changefreq>
+                    <priority>0.9</priority>
+                    <image:image>
+                        <image:loc>http://localhost/prestashop/15-home_default/illustration-vectorielle-renard.jpg</image:loc>
+                        <image:caption>Illustration vectorielle Renard</image:caption>
+                        <image:title><p>Image vectorielle au format .svg. Téléchargement en vue d'une utilisation privée, personnelle et non commerciale. </p></image:title>
+                     </image:image>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/Art/13-illustration-vectorielle-ours-brun.html</loc>
+                    <lastmod>2021-11-28 19:16:38</lastmod>
+                    <changefreq>daily</changefreq>
+                    <priority>0.9</priority>
+                    <image:image>
+                        <image:loc>http://localhost/prestashop/16-home_default/illustration-vectorielle-ours-brun.jpg</image:loc>
+                        <image:caption>Illustration vectorielle Ours brun</image:caption>
+                        <image:title><p>Image vectorielle au format .svg. Téléchargement en vue d'une utilisation privée, personnelle et non commerciale. </p></image:title>
+                     </image:image>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/Art/14-illustration-vectorielle-colibri.html</loc>
+                    <lastmod>2021-11-28 19:16:38</lastmod>
+                    <changefreq>daily</changefreq>
+                    <priority>0.9</priority>
+                    <image:image>
+                        <image:loc>http://localhost/prestashop/17-home_default/illustration-vectorielle-colibri.jpg</image:loc>
+                        <image:caption>Illustration vectorielle Colibri</image:caption>
+                        <image:title><p>Image vectorielle au format .svg. Téléchargement en vue d'une utilisation privée, personnelle et non commerciale. </p></image:title>
+                     </image:image>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/Femmes/2-brown-bear-printed-sweater.html</loc>
+                    <lastmod>2021-11-28 19:16:38</lastmod>
+                    <changefreq>daily</changefreq>
+                    <priority>0.9</priority>
+                    <image:image>
+                        <image:loc>http://localhost/prestashop/21-home_default/brown-bear-printed-sweater.jpg</image:loc>
+                        <image:caption>Pull imprimé colibri</image:caption>
+                        <image:title><p>Coupe classique, col rond, manches longues. Pull 100% coton avec intérieur brossé pour plus de confort. </p></image:title>
+                     </image:image>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/Hommes/1-hummingbird-printed-t-shirt.html</loc>
+                    <lastmod>2021-11-28 19:16:38</lastmod>
+                    <changefreq>daily</changefreq>
+                    <priority>0.9</priority>
+                    <image:image>
+                        <image:loc>http://localhost/prestashop/1-home_default/hummingbird-printed-t-shirt.jpg</image:loc>
+                        <image:caption>T-shirt imprimé colibri</image:caption>
+                        <image:title><p>Coupe classique, col rond, manches courtes. T-shirt en coton pima extra-fin à fibres longues. </p></image:title>
+                     </image:image>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/Hommes/1-hummingbird-printed-t-shirt.html</loc>
+                    <lastmod>2021-11-28 19:16:38</lastmod>
+                    <changefreq>daily</changefreq>
+                    <priority>0.9</priority>
+                    <image:image>
+                        <image:loc>http://localhost/prestashop/2-home_default/hummingbird-printed-t-shirt.jpg</image:loc>
+                        <image:caption>T-shirt imprimé colibri</image:caption>
+                        <image:title><p>Coupe classique, col rond, manches courtes. T-shirt en coton pima extra-fin à fibres longues. </p></image:title>
+                     </image:image>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/Papeterie/16-carnet-de-notes-renard.html</loc>
+                    <lastmod>2021-11-28 19:16:38</lastmod>
+                    <changefreq>daily</changefreq>
+                    <priority>0.9</priority>
+                    <image:image>
+                        <image:loc>http://localhost/prestashop/18-home_default/carnet-de-notes-renard.jpg</image:loc>
+                        <image:caption>Carnet de notes Renard</image:caption>
+                        <image:title><p>Carnet 120 pages avec couverture rigide en carton recyclé. 16x22cm</p></image:title>
+                     </image:image>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/Papeterie/17-carnet-de-notes-ours-brun.html</loc>
+                    <lastmod>2021-11-28 19:16:38</lastmod>
+                    <changefreq>daily</changefreq>
+                    <priority>0.9</priority>
+                    <image:image>
+                        <image:loc>http://localhost/prestashop/19-home_default/carnet-de-notes-ours-brun.jpg</image:loc>
+                        <image:caption>Carnet de notes Ours brun</image:caption>
+                        <image:title><p>Carnet 120 pages avec couverture rigide en carton recyclé. 16x22cm</p></image:title>
+                     </image:image>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/Papeterie/18-carnet-de-notes-colibri.html</loc>
+                    <lastmod>2021-11-28 19:16:38</lastmod>
+                    <changefreq>daily</changefreq>
+                    <priority>0.9</priority>
+                    <image:image>
+                        <image:loc>http://localhost/prestashop/20-home_default/carnet-de-notes-colibri.jpg</image:loc>
+                        <image:caption>Carnet de notes Colibri</image:caption>
+                        <image:title><p>Carnet 120 pages avec couverture rigide en carton recyclé. 16x22cm</p></image:title>
+                     </image:image>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/1-racine</loc>
+                    <lastmod>2021-11-28 19:15:54</lastmod>
+                    <changefreq>daily</changefreq>
+                    <priority>0.8</priority>
+                    <image:image>
+                        <image:loc>http://localhost/prestashop/c/1-category_default/racine.jpg</image:loc>
+                        <image:caption>Racine</image:caption>
+                        <image:title></image:title>
+                    </image:image>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/2-accueil</loc>
+                    <lastmod>2021-11-28 19:15:54</lastmod>
+                    <changefreq>daily</changefreq>
+                    <priority>0.8</priority>
+                    <image:image>
+                        <image:loc>http://localhost/prestashop/c/2-category_default/accueil.jpg</image:loc>
+                        <image:caption>Accueil</image:caption>
+                        <image:title></image:title>
+                    </image:image>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/3-vetements</loc>
+                    <lastmod>2021-11-28 19:16:38</lastmod>
+                    <changefreq>daily</changefreq>
+                    <priority>0.8</priority>
+                    <image:image>
+                        <image:loc>http://localhost/prestashop/c/3-category_default/vetements.jpg</image:loc>
+                        <image:caption>Vêtements</image:caption>
+                        <image:title><p>Retrouvez nos coups de cœur mode, une sélection de pièces tendances à intégrer à votre garde-robe. Composez un style unique qui vous ressemble.</p></image:title>
+                    </image:image>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/4-hommes</loc>
+                    <lastmod>2021-11-28 19:16:38</lastmod>
+                    <changefreq>daily</changefreq>
+                    <priority>0.8</priority>
+                    <image:image>
+                        <image:loc>http://localhost/prestashop/c/4-category_default/hommes.jpg</image:loc>
+                        <image:caption>Hommes</image:caption>
+                        <image:title><p>T-shirts, pulls, sweats à capuche et accessoires pour hommes. Des basiques et des créations originales pour tous les styles. </p></image:title>
+                    </image:image>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/5-femmes</loc>
+                    <lastmod>2021-11-28 19:16:38</lastmod>
+                    <changefreq>daily</changefreq>
+                    <priority>0.8</priority>
+                    <image:image>
+                        <image:loc>http://localhost/prestashop/c/5-category_default/femmes.jpg</image:loc>
+                        <image:caption>Femmes</image:caption>
+                        <image:title><p>T-shirts, pulls, sweats à capuche et accessoires pour femmes. Des basiques et des créations originales pour tous les styles. </p></image:title>
+                    </image:image>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/6-accessoires</loc>
+                    <lastmod>2021-11-28 19:16:38</lastmod>
+                    <changefreq>daily</changefreq>
+                    <priority>0.8</priority>
+                    <image:image>
+                        <image:loc>http://localhost/prestashop/c/6-category_default/accessoires.jpg</image:loc>
+                        <image:caption>Accessoires</image:caption>
+                        <image:title><p>Des objets et accessoires pour le bureau, la cuisine ou le salon. Faites de votre intérieur un espace qui vous ressemble.</p></image:title>
+                    </image:image>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/7-papeterie</loc>
+                    <lastmod>2021-11-28 19:16:38</lastmod>
+                    <changefreq>daily</changefreq>
+                    <priority>0.8</priority>
+                    <image:image>
+                        <image:loc>http://localhost/prestashop/c/7-category_default/papeterie.jpg</image:loc>
+                        <image:caption>Papeterie</image:caption>
+                        <image:title><p>Carnets, agendas, accessoires de bureau et plus encore. Tout ce dont vous avez besoin pour joindre l'utile à l'agréable, au travail ou à la maison.</p></image:title>
+                    </image:image>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/8-accessoires-de-maison</loc>
+                    <lastmod>2021-11-28 19:16:38</lastmod>
+                    <changefreq>daily</changefreq>
+                    <priority>0.8</priority>
+                    <image:image>
+                        <image:loc>http://localhost/prestashop/c/8-category_default/accessoires-de-maison.jpg</image:loc>
+                        <image:caption>Accessoires de maison</image:caption>
+                        <image:title><p>Vous avez le sens du détail ? Agrémentez votre intérieur avec notre sélection d'accessoires de maison.</p></image:title>
+                    </image:image>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/9-art</loc>
+                    <lastmod>2021-11-28 19:16:38</lastmod>
+                    <changefreq>daily</changefreq>
+                    <priority>0.8</priority>
+                    <image:image>
+                        <image:loc>http://localhost/prestashop/c/9-category_default/art.jpg</image:loc>
+                        <image:caption>Art</image:caption>
+                        <image:title><p>Affiches encadrées et images vectorielles, tout ce dont vous avez besoin pour donner de la personnalité à vos murs ou donner vie à vos projets créatifs.</p></image:title>
+                    </image:image>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/content/1-livraison</loc>
+                    <changefreq>daily</changefreq>
+                    <priority>0.7</priority>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/content/2-mentions-legales</loc>
+                    <changefreq>daily</changefreq>
+                    <priority>0.7</priority>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/content/3-conditions-utilisation</loc>
+                    <changefreq>daily</changefreq>
+                    <priority>0.7</priority>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/content/4-a-propos</loc>
+                    <changefreq>daily</changefreq>
+                    <priority>0.7</priority>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/content/5-paiement-securise</loc>
+                    <changefreq>daily</changefreq>
+                    <priority>0.7</priority>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/content/category/1-accueil</loc>
+                    <lastmod>2021-11-28 19:15:54</lastmod>
+                    <changefreq>daily</changefreq>
+                    <priority>0.8</priority>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/meilleures-ventes</loc>
+                    <changefreq>daily</changefreq>
+                    <priority>0.1</priority>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/nous-contacter</loc>
+                    <changefreq>daily</changefreq>
+                    <priority>0.1</priority>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/</loc>
+                    <changefreq>daily</changefreq>
+                    <priority>0.1</priority>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/brands</loc>
+                    <changefreq>daily</changefreq>
+                    <priority>0.1</priority>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/nouveaux-produits</loc>
+                    <changefreq>daily</changefreq>
+                    <priority>0.1</priority>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/recuperation-mot-de-passe</loc>
+                    <changefreq>daily</changefreq>
+                    <priority>0.1</priority>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/promotions</loc>
+                    <changefreq>daily</changefreq>
+                    <priority>0.1</priority>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/fournisseur</loc>
+                    <changefreq>daily</changefreq>
+                    <priority>0.1</priority>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/adresses</loc>
+                    <changefreq>daily</changefreq>
+                    <priority>0.1</priority>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/connexion</loc>
+                    <changefreq>daily</changefreq>
+                    <priority>0.1</priority>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/panier</loc>
+                    <changefreq>daily</changefreq>
+                    <priority>0.1</priority>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/identite</loc>
+                    <changefreq>daily</changefreq>
+                    <priority>0.1</priority>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/mon-compte</loc>
+                    <changefreq>daily</changefreq>
+                    <priority>0.1</priority>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/suivi-commande</loc>
+                    <changefreq>daily</changefreq>
+                    <priority>0.1</priority>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/avoirs</loc>
+                    <changefreq>daily</changefreq>
+                    <priority>0.1</priority>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/commande</loc>
+                    <changefreq>daily</changefreq>
+                    <priority>0.1</priority>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/recherche</loc>
+                    <changefreq>daily</changefreq>
+                    <priority>0.1</priority>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/magasins</loc>
+                    <changefreq>daily</changefreq>
+                    <priority>0.1</priority>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/suivi-commande-invite</loc>
+                    <changefreq>daily</changefreq>
+                    <priority>0.1</priority>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/confirmation-commande</loc>
+                    <changefreq>daily</changefreq>
+                    <priority>0.1</priority>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/index.php?controller=module-ps_checkpayment-payment</loc>
+                    <changefreq>daily</changefreq>
+                    <priority>0.1</priority>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/index.php?controller=module-ps_checkpayment-validation</loc>
+                    <changefreq>daily</changefreq>
+                    <priority>0.1</priority>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/index.php?controller=module-ps_emailsubscription-verification</loc>
+                    <changefreq>daily</changefreq>
+                    <priority>0.1</priority>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/index.php?controller=module-ps_emailsubscription-subscription</loc>
+                    <changefreq>daily</changefreq>
+                    <priority>0.1</priority>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/index.php?controller=module-ps_shoppingcart-ajax</loc>
+                    <changefreq>daily</changefreq>
+                    <priority>0.1</priority>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/index.php?controller=module-ps_wirepayment-payment</loc>
+                    <changefreq>daily</changefreq>
+                    <priority>0.1</priority>
+                </url>
+</urlset>

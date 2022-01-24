@@ -3,7 +3,7 @@ class FrontController extends FrontControllerCore
 {
     /*
     * module: megaseo
-    * date: 2022-01-18 11:27:27
+    * date: 2022-01-24 12:58:56
     * version: 1.0.0
     */
     public function init()
@@ -12,7 +12,7 @@ class FrontController extends FrontControllerCore
     }
     /*
     * module: megaseo
-    * date: 2022-01-18 11:27:27
+    * date: 2022-01-24 12:58:56
     * version: 1.0.0
     */
     public function initContent()
@@ -46,7 +46,6 @@ class FrontController extends FrontControllerCore
                   }
               }
           }
-            
         parent::initContent();
     }
 }

@@ -25,6 +25,7 @@ class AdminMegaseoController extends ModuleAdminController{
             'categories',
             'cms',
             'cmsCategories',
+            'meta',
         );
 
 
@@ -37,6 +38,8 @@ class AdminMegaseoController extends ModuleAdminController{
         parent::initContent();
         $redirection_upload_file = new HelperUploader('redirection_upload_file');
 
+        $metas = Meta::getMetasByIdLang(Context::getContext()->language->id);
+
         $this->context->smarty->assign(array(
             'content' => $this->content,
             'module_name' => 'megaseo',
@@ -45,9 +48,8 @@ class AdminMegaseoController extends ModuleAdminController{
             'htaccess_content' => $this->getHtaccessContent(),
             'redirection_data' => $this->getRedirectionData(),
             'redirection_upload_file' => $redirection_upload_file->render(),
-
-
-
+            'sitemap_exclude_meta' => $metas,
+            'sitemap_exclude_meta_ids' => Configuration::get('MEGASEO_SITEMAP_EXCLUDE_META'),
         ));
         $this->bootstrap = true;
 
@@ -328,9 +330,16 @@ class AdminMegaseoController extends ModuleAdminController{
 
     public function createSitemapXML(){
 
-        $root_path = _PS_ROOT_DIR_;
-
+        // $shop_url = Tools::getShopDomain(true, true);
+        $shop_url =$this->context->shop->getBaseURL();
         if(Tools::isSubmit('SubmitSitemapGenerate')) {
+
+            $sitemap_exclude_meta_ids = '';
+            if (Tools::getValue('sitemap_exclude_meta')) {
+                $sitemap_exclude_meta_ids = implode(', ', Tools::getValue('sitemap_exclude_meta'));
+            }
+    
+            Configuration::updateValue('MEGASEO_SITEMAP_EXCLUDE_META', $sitemap_exclude_meta_ids);
 
             if (!Tools::getValue('generate_sitemap_type')){
                 return $this->errors[] = $this->l('Vous devez choisir une option pour générer le fichier sitemap');
@@ -344,7 +353,8 @@ class AdminMegaseoController extends ModuleAdminController{
                     return $this->errors[] = $this->l('Une erreur est survenue lors de la génération du sitemap');
                 }
                 else{
-                    return $this->confirmations[] = $this->l('Le sitemap a été généré').'<br>'.$this->l('Le fichier sitemap.xml est disponible dans le dossier').' '.$root_path.'/'.'sitemap.xml';
+                    return $this->confirmations[] = $this->l('Le sitemap a été généré.').'<br>'.$this->l('Le fichier sitemap.xml est disponible à l\'adresse : ').'<a href="'.$shop_url.'/sitemap.xml" target="_blank">'.$shop_url.'sitemap.xml</a>';
+
                 }
             
             }
@@ -536,6 +546,8 @@ class AdminMegaseoController extends ModuleAdminController{
             $this->context->shop = new Shop((int) $id_shop);
         }
 
+        // var_dump(Tools::getValue('sitemap_exclude_meta'));
+
         $this->context->shop = Context::getContext()->shop;
         $id_shop = $this->context->shop->id;
 
@@ -553,11 +565,17 @@ class AdminMegaseoController extends ModuleAdminController{
 
         foreach($this->mega_sitemap_urls_types as $sitemap_urls_type){
             $function = 'get'.ucfirst($sitemap_urls_type).'Links';
-            $sitemap_urls = $this->$function();
-            if(!$this->$function()){
-                continue;
+            if ($function != 'getMetaLinks') {
+                $sitemap_content .= $this->$function();
             }
-            $sitemap_content .= $this->$function();
+            // if(!$this->$function()){
+            //     continue;
+            // }
+            if ($function =='getMetaLinks') {
+                $sitemap_content .= $this->$function(Tools::getValue('sitemap_exclude_meta'));
+            }
+           
+            // $sitemap_content .= $this->$function();
         }
 
         $sitemap_content .= PHP_EOL.'</urlset>';
@@ -596,6 +614,37 @@ class AdminMegaseoController extends ModuleAdminController{
        }
     }
 
+    // get pages priority
+    public function getPagePriority($page_name)
+    {
+        $priority = Configuration::get('MEGASEO_PAGES_PRIORITY_'.strtoupper($page_name));
+        if (!$priority) {
+            $priority = 0.1;
+        }
+
+        if ($page_name == strtoupper('index')) {
+            $priority = 1;
+        }
+
+        return $priority;
+    }
+
+    // get pages frequency
+    public function getPageFrequency($page_name)
+    {
+        $frequency = Configuration::get('MEGASEO_PAGES_FREQUENCY_'.strtoupper($page_name));
+        if (!$frequency) {
+            $frequency = 'daily';
+        }
+
+        if ($page_name == 'index') {
+            $frequency = 'daily';
+        }
+
+        return $frequency;
+    }
+    
+
     // get All products links
     protected function getProductsLinks()
     {
@@ -621,8 +670,8 @@ class AdminMegaseoController extends ModuleAdminController{
                 <url>
                     <loc>'.$this->context->link->getProductLink($product['id_product'], $product['link_rewrite'], $product['category'], $product['ean13'], $lang['id_lang']).'</loc>
                     <lastmod>'.$product['date_upd'].'</lastmod>
-                    <changefreq>weekly</changefreq>
-                    <priority>0.8</priority>
+                    <changefreq>'.$this->getPageFrequency('products').'</changefreq>
+                    <priority>'.$this->getPagePriority('products').'</priority>
                     <image:image>
                         <image:loc>'.$product_image_link.'</image:loc>
                         <image:caption>'.$product['name'].'</image:caption>
@@ -667,8 +716,13 @@ class AdminMegaseoController extends ModuleAdminController{
                 <url>
                     <loc>'.$this->context->link->getCategoryLink($category['id_category'], $category['link_rewrite'], $id_lang).'</loc>
                     <lastmod>'.$category['date_upd'].'</lastmod>
-                    <changefreq>weekly</changefreq>
-                    <priority>0.8</priority>
+                    <changefreq>'.$this->getPageFrequency('categories').'</changefreq>
+                    <priority>'.$this->getPagePriority('categories').'</priority>
+                    <image:image>
+                        <image:loc>'.$this->context->link->getCatImageLink($category['link_rewrite'], $category['id_category'], ImageType::getFormattedName('category')).'</image:loc>
+                        <image:caption>'.$category['name'].'</image:caption>
+                        <image:title>'.$category['description'].'</image:title>
+                    </image:image>
                 </url>';
             }
         }
@@ -680,7 +734,7 @@ class AdminMegaseoController extends ModuleAdminController{
     // getCategories
     protected function getCategories($id_lang)
     {
-        $sql = 'SELECT c.id_category, c.date_upd, cl.link_rewrite
+        $sql = 'SELECT c.id_category, c.date_upd, cl.link_rewrite, cl.name, cl.description
                 FROM ' . _DB_PREFIX_ . 'category c
                 LEFT JOIN ' . _DB_PREFIX_ . 'category_lang cl ON (cl.id_category = c.id_category)
                 WHERE cl.id_lang = ' . (int) $id_lang
@@ -704,8 +758,8 @@ class AdminMegaseoController extends ModuleAdminController{
                 $sitemap_content .= '
                 <url>
                     <loc>'.$this->context->link->getCMSLink($cms_page['id_cms'], $cms_page['link_rewrite'], $lang['id_lang']).'</loc>
-                    <changefreq>weekly</changefreq>
-                    <priority>0.8</priority>
+                    <changefreq>'.$this->getPageFrequency('cms').'</changefreq>
+                    <priority>'.$this->getPagePriority('cms').'</priority>
                 </url>';
             }
         }
@@ -742,8 +796,8 @@ class AdminMegaseoController extends ModuleAdminController{
                 <url>
                     <loc>'.$this->context->link->getCMSCategoryLink($cms_category['id_cms_category'], $cms_category['link_rewrite'], $lang['id_lang']).'</loc>
                     <lastmod>'.$cms_category['date_upd'].'</lastmod>
-                    <changefreq>weekly</changefreq>
-                    <priority>0.8</priority>
+                    <changefreq>'.$this->getPageFrequency('cmsCategories').'</changefreq>
+                    <priority>'.$this->getPagePriority('cmsCategories').'</priority>
                 </url>';
             }
         }
@@ -776,15 +830,77 @@ class AdminMegaseoController extends ModuleAdminController{
             $sitemap_content .= '
             <url>
                 <loc>'.$this->context->shop->getBaseURL().'</loc>
-                <lastmod>'.date('Y-m-d').'</lastmod>
-                <changefreq>weekly</changefreq>
-                <priority>1</priority>
+                <changefreq>'.$this->getPageFrequency('home').'</changefreq>
+                <priority>'.$this->getPagePriority('home').'</priority>
             </url>';
         }
 
         $home_page_sitemap_link = $sitemap_content;
         return $home_page_sitemap_link;
     }
+
+    // other links like contact, about us, commande, etc
+    protected function getMetaLinks($sitemap_exclude_meta_ids)
+    {
+        $link_sitemap = [];
+        $sitemap_content = '';
+        // get all languages
+        $languages = Language::getLanguages(false);
+        foreach ($languages as $lang) {
+            // $id_lang = $language['id_lang'];
+            $metas = $this->getMetas($lang, $sitemap_exclude_meta_ids);
+            foreach ($metas as $meta) {
+                $sitemap_content .= '
+                <url>
+                    <loc>'.$this->context->link->getPageLink($meta['page'], null, $lang['id_lang']).'</loc>
+                    <changefreq>'.$this->getPageFrequency('meta').'</changefreq>
+                    <priority>'.$this->getPagePriority('meta').'</priority>
+                </url>';
+            }
+        }
+        $meta_sitemap_links = $sitemap_content;
+
+        return $meta_sitemap_links;
+    }
+
+    // getMetas
+    protected function getMetas($lang, $sitemap_exclude_meta_ids)
+    {
+        // $sitemap_exclude_meta_ids = implode(',', $sitemap_exclude_meta_ids);
+        // var_dump($sitemap_exclude_meta_ids);exit;
+        $sql = 'SELECT m.id_meta, m.page, ml.id_lang, ml.id_shop, ml.url_rewrite, ml.title, ml.description
+                FROM ' . _DB_PREFIX_ . 'meta m
+                LEFT JOIN ' . _DB_PREFIX_ . 'meta_lang ml ON (ml.id_meta = m.id_meta)
+                WHERE ml.id_lang = ' . (int) $lang['id_lang']
+                . ' AND m.configurable > 0 ';
+
+        if (!empty($sitemap_exclude_meta_ids)) {
+            $sql .= ' AND m.id_meta NOT IN ('.implode(', ', array_map('intval', $sitemap_exclude_meta_ids)).')';
+        }
+        return Db::getInstance()->executeS($sql);
+    }
+    // {
+    //     $link_sitemap = [];
+    //     $sitemap_content = '';
+    //     $link = new Link();
+    //     $metas = Db::getInstance()->executeS('SELECT * FROM ' . _DB_PREFIX_ . 'meta' . ' WHERE `configurable` > 0');
+    //     foreach ($metas as $meta) {
+    //         $languages = Language::getLanguages(false);
+    //             foreach ($languages as $lang) {
+    //                 $sitemap_content .= '
+    //                 <url>
+    //                     <loc>'.$link->getPageLink($meta['page'], null, $lang['id_lang']).'</loc>
+    //                     <changefreq>'.$this->getPageFrequency('meta').'</changefreq>
+    //                     <priority>'.$this->getPagePriority('meta').'</priority>
+    //                 </url>';
+    //             }
+    //     }
+
+    //     $meta_sitemap_links = $sitemap_content;
+    //     return $meta_sitemap_links;
+
+    // }
+        
 
 
 }

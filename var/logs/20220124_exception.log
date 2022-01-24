@@ -1,0 +1,74 @@
+*ERROR* 	v1.7.8.1	2022/01/24 - 11:46:57: Unknown column &#039;cl.description_short&#039; in &#039;field list&#039;&lt;br /&gt;&lt;br /&gt;&lt;pre&gt;SELECT c.id_category, c.date_upd, cl.link_rewrite, cl.name, cl.description_short
+                FROM ps_category c
+                LEFT JOIN ps_category_lang cl ON (cl.id_category = c.id_category)
+                WHERE cl.id_lang = 1 AND c.active = 1&lt;/pre&gt; at line 769 in file classes/db/Db.php
+*ERROR* 	v1.7.8.1	2022/01/24 - 15:51:50: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near &#039;$sitemap_exclude_meta_ids&#039; at line 5&lt;br /&gt;&lt;br /&gt;&lt;pre&gt;SELECT m.id_meta, m.link_rewrite, m.id_lang, m.id_shop, m.url_rewrite, m.title, m.description, m.keywords, m.robots, m.date_add, m.date_upd, m.active, m.no_follow, m.sitemap, m.link_rewrite
+                FROM ps_meta m
+                LEFT JOIN ps_meta_lang ml ON (ml.id_meta = m.id_meta)
+                WHERE m.id_lang = 1 AND m.active = 1
+                AND m.id_meta NOT IN $sitemap_exclude_meta_ids&lt;/pre&gt; at line 769 in file classes/db/Db.php
+*ERROR* 	v1.7.8.1	2022/01/24 - 15:54:39: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near &#039;11,13,34&#039; at line 5&lt;br /&gt;&lt;br /&gt;&lt;pre&gt;SELECT m.id_meta, m.link_rewrite, m.id_lang, m.id_shop, m.url_rewrite, m.title, m.description, m.keywords, m.robots, m.date_add, m.date_upd, m.active, m.no_follow, m.sitemap, m.link_rewrite
+                FROM ps_meta m
+                LEFT JOIN ps_meta_lang ml ON (ml.id_meta = m.id_meta)
+                WHERE m.id_lang = 1 AND m.active = 1
+                AND m.id_meta NOT IN 11,13,34&lt;/pre&gt; at line 769 in file classes/db/Db.php
+*ERROR* 	v1.7.8.1	2022/01/24 - 15:55:36: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near &#039;11,13,34&#039; at line 5&lt;br /&gt;&lt;br /&gt;&lt;pre&gt;SELECT m.id_meta, m.link_rewrite, m.id_lang, m.id_shop, m.url_rewrite, m.title, m.description, m.keywords, m.robots, m.date_add, m.date_upd, m.active, m.no_follow, m.sitemap, m.link_rewrite
+                FROM ps_meta m
+                LEFT JOIN ps_meta_lang ml ON (ml.id_meta = m.id_meta)
+                WHERE m.id_lang = 1 AND m.active = 1
+                AND m.id_meta NOT IN 11,13,34&lt;/pre&gt; at line 769 in file classes/db/Db.php
+*ERROR* 	v1.7.8.1	2022/01/24 - 15:55:50: Unknown column &#039;m.link_rewrite&#039; in &#039;field list&#039;&lt;br /&gt;&lt;br /&gt;&lt;pre&gt;SELECT m.id_meta, m.link_rewrite, m.id_lang, m.id_shop, m.url_rewrite, m.title, m.description, m.keywords, m.robots, m.date_add, m.date_upd, m.active, m.no_follow, m.sitemap, m.link_rewrite
+                FROM ps_meta m
+                LEFT JOIN ps_meta_lang ml ON (ml.id_meta = m.id_meta)
+                WHERE m.id_lang = 1 AND m.active = 1
+                AND m.id_meta NOT IN (11,13,34)&lt;/pre&gt; at line 769 in file classes/db/Db.php
+*ERROR* 	v1.7.8.1	2022/01/24 - 15:56:23: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near &#039;11,13,34&#039; at line 5&lt;br /&gt;&lt;br /&gt;&lt;pre&gt;SELECT m.id_meta, m.link_rewrite, m.id_lang, m.id_shop, m.url_rewrite, m.title, m.description, m.keywords, m.robots, m.date_add, m.date_upd, m.active, m.no_follow, m.sitemap, m.link_rewrite
+                FROM ps_meta m
+                LEFT JOIN ps_meta_lang ml ON (ml.id_meta = m.id_meta)
+                WHERE m.id_lang = 1 AND m.active = 1
+                AND m.id_meta NOT IN 11,13,34&lt;/pre&gt; at line 769 in file classes/db/Db.php
+*ERROR* 	v1.7.8.1	2022/01/24 - 15:59:06: Unknown column &#039;m.link_rewrite&#039; in &#039;field list&#039;&lt;br /&gt;&lt;br /&gt;&lt;pre&gt;SELECT m.id_meta, m.link_rewrite, m.id_lang, m.id_shop, m.url_rewrite, m.title, m.description, m.keywords, m.robots, m.date_add, m.date_upd, m.active, m.no_follow, m.sitemap, m.link_rewrite
+                FROM ps_meta m
+                LEFT JOIN ps_meta_lang ml ON (ml.id_meta = m.id_meta)
+                WHERE m.id_lang = 1 AND m.active = 1
+                AND m.id_meta NOT IN (&quot;11,13,34&quot;)&lt;/pre&gt; at line 769 in file classes/db/Db.php
+*ERROR* 	v1.7.8.1	2022/01/24 - 15:59:23: Unknown column &#039;m.link_rewrite&#039; in &#039;field list&#039;&lt;br /&gt;&lt;br /&gt;&lt;pre&gt;SELECT m.id_meta, m.link_rewrite, m.id_lang, m.id_shop, m.url_rewrite, m.title, m.description, m.keywords, m.robots, m.date_add, m.date_upd, m.active, m.no_follow, m.sitemap, m.link_rewrite
+                FROM ps_meta m
+                LEFT JOIN ps_meta_lang ml ON (ml.id_meta = m.id_meta)
+                WHERE m.id_lang = 1 AND m.active = 1
+                AND m.id_meta NOT IN (&quot;11&quot;,&quot;13&quot;,&quot;34&quot;)&lt;/pre&gt; at line 769 in file classes/db/Db.php
+*ERROR* 	v1.7.8.1	2022/01/24 - 16:02:46: Unknown column &#039;m.link_rewrite&#039; in &#039;field list&#039;&lt;br /&gt;&lt;br /&gt;&lt;pre&gt;SELECT m.id_meta, m.link_rewrite, m.id_lang, m.id_shop, m.url_rewrite, m.title, m.description, m.keywords, m.robots, m.date_add, m.date_upd, m.active, m.no_follow, m.sitemap, m.link_rewrite
+                FROM ps_meta m
+                LEFT JOIN ps_meta_lang ml ON (ml.id_meta = m.id_meta)
+                WHERE m.id_lang = 1 AND m.active = 1
+                AND m.id_meta NOT IN (11, 13, 34)&lt;/pre&gt; at line 769 in file classes/db/Db.php
+*ERROR* 	v1.7.8.1	2022/01/24 - 16:03:19: Unknown column &#039;m.link_rewrite&#039; in &#039;field list&#039;&lt;br /&gt;&lt;br /&gt;&lt;pre&gt;SELECT m.id_meta, m.link_rewrite, m.id_lang, m.id_shop, m.url_rewrite, m.title, m.description, m.keywords, m.robots, m.date_add, m.date_upd, m.active, m.no_follow, m.sitemap, m.link_rewrite
+                FROM ps_meta m
+                LEFT JOIN ps_meta_lang ml ON (ml.id_meta = m.id_meta)
+                WHERE m.id_lang = 1 AND m.active = 1
+                AND m.id_meta NOT IN (11, 13, 34)&lt;/pre&gt; at line 769 in file classes/db/Db.php
+*ERROR* 	v1.7.8.1	2022/01/24 - 16:04:54: Unknown column &#039;m.id_lang&#039; in &#039;field list&#039;&lt;br /&gt;&lt;br /&gt;&lt;pre&gt;SELECT m.id_meta, m.page, m.id_lang, m.id_shop, m.url_rewrite, m.title, m.description, m.keywords, m.robots, m.date_add, m.date_upd, m.active, m.no_follow, m.sitemap, m.link_rewrite
+                FROM ps_meta m
+                LEFT JOIN ps_meta_lang ml ON (ml.id_meta = m.id_meta)
+                WHERE m.id_lang = 1 AND m.active = 1
+                AND m.id_meta NOT IN (11, 13, 34)&lt;/pre&gt; at line 769 in file classes/db/Db.php
+*ERROR* 	v1.7.8.1	2022/01/24 - 16:05:46: Unknown column &#039;m.id_shop&#039; in &#039;field list&#039;&lt;br /&gt;&lt;br /&gt;&lt;pre&gt;SELECT m.id_meta, m.page, ml.id_lang, m.id_shop, m.url_rewrite, m.title, m.description, m.keywords, m.robots, m.date_add, m.date_upd, m.active, m.no_follow, m.sitemap, m.link_rewrite
+                FROM ps_meta m
+                LEFT JOIN ps_meta_lang ml ON (ml.id_meta = m.id_meta)
+                WHERE m.id_lang = 1 AND m.active = 1
+                AND m.id_meta NOT IN (11, 13, 34)&lt;/pre&gt; at line 769 in file classes/db/Db.php
+*ERROR* 	v1.7.8.1	2022/01/24 - 16:06:43: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near &#039;LEFT JOIN ps_meta_lang ml ON (ml.id_meta = m.id_meta)
+                WHERE m.i&#039; at line 2&lt;br /&gt;&lt;br /&gt;&lt;pre&gt;SELECT m.id_meta, m.page, ml.id_lang, ml.id_shop, ml.url_rewrite, ml.title, ml.description
+                LEFT JOIN ps_meta_lang ml ON (ml.id_meta = m.id_meta)
+                WHERE m.id_lang = 1 AND m.active = 1
+                AND m.id_meta NOT IN (11, 13, 34)&lt;/pre&gt; at line 769 in file classes/db/Db.php
+*ERROR* 	v1.7.8.1	2022/01/24 - 16:07:57: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near &#039;LEFT JOIN ps_meta_lang ml ON (ml.id_meta = m.id_meta)
+                WHERE ml.&#039; at line 2&lt;br /&gt;&lt;br /&gt;&lt;pre&gt;SELECT m.id_meta, m.page, ml.id_lang, ml.id_shop, ml.url_rewrite, ml.title, ml.description
+                LEFT JOIN ps_meta_lang ml ON (ml.id_meta = m.id_meta)
+                WHERE ml.id_lang = 1 AND m.active = 1
+                AND m.id_meta NOT IN (11, 13, 34)&lt;/pre&gt; at line 769 in file classes/db/Db.php
+*ERROR* 	v1.7.8.1	2022/01/24 - 16:09:05: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near &#039;LEFT JOIN ps_meta_lang ml ON (ml.id_meta = m.id_meta)
+                WHERE ml.&#039; at line 2&lt;br /&gt;&lt;br /&gt;&lt;pre&gt;SELECT m.id_meta, m.page, ml.id_lang, ml.id_shop, ml.url_rewrite, ml.title, ml.description
+                LEFT JOIN ps_meta_lang ml ON (ml.id_meta = m.id_meta)
+                WHERE ml.id_lang = 1 AND m.configurable &gt; 0
+                AND m.id_meta NOT IN (11, 13, 34)&lt;/pre&gt; at line 769 in file classes/db/Db.php

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.39, created on 2022-01-21 17:26:19
+/* Smarty version 3.1.39, created on 2022-01-24 17:42:16
   from '/var/www/html/prestashop/modules/megaseo/views/templates/admin/adminMegaseo.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.39',
-  'unifunc' => 'content_61eadeab63b8c7_91235223',
+  'unifunc' => 'content_61eed6e82b19d4_04009944',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '9a96fb9ec114505f183f25d5328abb1df7f3151e' => 
     array (
       0 => '/var/www/html/prestashop/modules/megaseo/views/templates/admin/adminMegaseo.tpl',
-      1 => 1642782357,
+      1 => 1643042490,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61eadeab63b8c7_91235223 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61eed6e82b19d4_04009944 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 
 
@@ -432,7 +432,8 @@ echo $_prefixVariable9;?>
   
 
     <div class="col-md-6" style="display: none;" id="sitemap_administration">
-                <div class="panel panel-default" id="sitemap_generation_type">
+
+                <div class="panel panel-default" id="sitemap_generation_type" style="">
           <div class="panel-heading">
             <h2 class="panel-title"><?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['l'][0], array( array('s'=>"Génération du sitemap"),$_smarty_tpl ) );?>
 </h2>
@@ -441,12 +442,12 @@ echo $_prefixVariable9;?>
             <form action="<?php echo $_SERVER['REQUEST_URI'];?>
 " method="post" multipart="true" enctype="multipart/form-data" id="sitemap_generation_type_form">
               <div class="form-group">
-                <input type="radio" name="automatic_sitemap" value="automatic_sitemap" id="automatic_sitemap" class="generate_sitemap_radio">
+                <input type="radio" name="generate_sitemap_radio" value="automatic_sitemap" id="automatic_sitemap" class="generate_sitemap_radio">
                 <label for="automatic_sitemap"><?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['l'][0], array( array('s'=>"Générer automatiquement le sitemap"),$_smarty_tpl ) );?>
 </label>
               </div>
               <div class="form-group">
-                <input type="radio" name="manual_sitemap" value="manual_sitemap" id="manual_sitemap" class="generate_sitemap_radio">
+                <input type="radio" name="generate_sitemap_radio" value="manual_sitemap" id="manual_sitemap" class="generate_sitemap_radio">
                 <label for="manual_sitemap"><?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['l'][0], array( array('s'=>"Générer manuellement le sitemap"),$_smarty_tpl ) );?>
 </label>
               </div>
@@ -475,6 +476,31 @@ echo $_prefixVariable10;?>
                   </div>
                 <?php }?>
               </div>
+                            <div class="form-group" id="sitemap_exclude_meta" style="display: none;">
+                <label for="sitemap_exclude_meta"><?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['l'][0], array( array('s'=>"Vous pouvez cocher les métas que vous ne souhaitez pas inclure dans le sitemap"),$_smarty_tpl ) );?>
+</label>
+                <?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['sitemap_exclude_meta']->value, 'meta');
+$_smarty_tpl->tpl_vars['meta']->do_else = true;
+if ($_from !== null) foreach ($_from as $_smarty_tpl->tpl_vars['meta']->value) {
+$_smarty_tpl->tpl_vars['meta']->do_else = false;
+?>
+                  <div class="checkbox grid-container">
+                                        <div class="" style="float: left; width: 300px; margin-bottom: 15px">
+                        <label>
+                          <input type="checkbox" name="sitemap_exclude_meta[]" value="<?php echo $_smarty_tpl->tpl_vars['meta']->value['id_meta'];?>
+" <?php if ($_smarty_tpl->tpl_vars['sitemap_exclude_meta_ids']->value && in_array($_smarty_tpl->tpl_vars['meta']->value['id_meta'],explode(',',$_smarty_tpl->tpl_vars['sitemap_exclude_meta_ids']->value))) {?>checked<?php }?>>
+                            <?php echo $_smarty_tpl->tpl_vars['meta']->value['title'];?>
+ [<?php echo $_smarty_tpl->tpl_vars['meta']->value['page'];?>
+]
+                        </label>
+                      </div>
+                  </div>
+                <?php
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
+              </div>
+
               <div class="panel-footer">
                 <input type="hidden" name="generate_sitemap_type" value="" id="generate_sitemap_type">
                 <input type="hidden" name="SubmitSitemapGenerate" value="1">
@@ -484,7 +510,7 @@ echo $_prefixVariable10;?>
             </form>
           </div>
         </div>
-
+        
 
               
     </div>
@@ -521,8 +547,10 @@ echo $_prefixVariable10;?>
       // si le type de génération automatique est coché
       $('#automatic_sitemap').click(function() {
         $('#automatic_sitemap').val('automatic_sitemap');
+        $('#default_sitemap_generate_type').hide();
         $('#manual_textarea_site_map').hide();
         if($('#automatic_sitemap').is(':checked')) {
+          $('#sitemap_exclude_meta').show();
           $('#generateSitemapSubmit').html('<?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['l'][0], array( array('s'=>"Générer le sitemap"),$_smarty_tpl ) );?>
 ');
         }
@@ -533,6 +561,7 @@ echo $_prefixVariable10;?>
         $('#default_sitemap_generate_type').show();
         $('#manual_textarea_site_map').show();
         if($('#manual_sitemap').is(':checked')) {
+          $('#sitemap_exclude_meta').hide();
           $('#generateSitemapSubmit').html('<?php echo call_user_func_array( $_smarty_tpl->smarty->registered_plugins[Smarty::PLUGIN_FUNCTION]['l'][0], array( array('s'=>"SAUVEGARDER"),$_smarty_tpl ) );?>
 ');
         }
@@ -544,6 +573,12 @@ echo $_prefixVariable10;?>
             $('#default_sitemap_generate_type').show();
             $('#manual_textarea_site_map').show();
           }
+          if($('#automatic_sitemap').is(':checked')) {
+            $('#default_sitemap_generate_type').hide();
+            $('#sitemap_exclude_meta').show();
+            $('#generateSitemapSubmit').show();
+          }
+
       });
 
       $('#generateSitemapSubmit').click(function(e){

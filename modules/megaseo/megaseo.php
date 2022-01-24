@@ -31,6 +31,34 @@ class Megaseo extends Module
 
         $this->bootstrap = true;
 
+           // pages priority
+           $this->mega_sitemap_pages_priority = array(
+            'home' => array(
+                'priority' => '1.0',
+                'frequency' => 'weekly',
+            ),
+            'products' => array(
+                'priority' => '0.9',
+                'frequency' => 'weekly',
+            ),
+            'categories' => array(
+                'priority' => '0.8',
+                'frequency' => 'weekly',
+            ),
+            'cms' => array(
+                'priority' => '0.7',
+                'frequency' => 'daily',
+            ),
+            'cmsCategories' => array(
+                'priority' => '0.8',
+                'frequency' => 'weekly',
+            ),
+            'meta' => array(
+                'priority' => '0.1',
+                'frequency' => 'weekly',
+            ),
+        );
+
         parent::__construct();
 
         $this->displayName = $this->l('Mega SEO');
@@ -43,6 +71,12 @@ class Megaseo extends Module
     public function install()
     {
         Configuration::updateValue('MEGASEO_LIVE_MODE', false);
+
+        // add mega_sitemap_pages_priority to table ps_configuration
+        foreach ($this->mega_sitemap_pages_priority as $key => $value) {
+            Configuration::updateValue('MEGASEO_PAGES_PRIORITY_'.strtoupper($key), $value['priority']);
+            Configuration::updateValue('MEGASEO_PAGES_FREQUENCY_'.strtoupper($key), $value['frequency']);
+        }
 
         include(dirname(__FILE__).'/sql/install.php');
 

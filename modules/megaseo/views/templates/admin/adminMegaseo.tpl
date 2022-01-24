@@ -370,19 +370,20 @@
   
 
     <div class="col-md-6" style="display: none;" id="sitemap_administration">
+
         {*  choix du type de génération  automatique ou manuelle *}
-        <div class="panel panel-default" id="sitemap_generation_type">
+        <div class="panel panel-default" id="sitemap_generation_type" style="">
           <div class="panel-heading">
             <h2 class="panel-title">{l s="Génération du sitemap"}</h2>
           </div>
           <div class="panel-body">
             <form action="{$smarty.server.REQUEST_URI}" method="post" multipart="true" enctype="multipart/form-data" id="sitemap_generation_type_form">
               <div class="form-group">
-                <input type="radio" name="automatic_sitemap" value="automatic_sitemap" id="automatic_sitemap" class="generate_sitemap_radio">
+                <input type="radio" name="generate_sitemap_radio" value="automatic_sitemap" id="automatic_sitemap" class="generate_sitemap_radio">
                 <label for="automatic_sitemap">{l s="Générer automatiquement le sitemap"}</label>
               </div>
               <div class="form-group">
-                <input type="radio" name="manual_sitemap" value="manual_sitemap" id="manual_sitemap" class="generate_sitemap_radio">
+                <input type="radio" name="generate_sitemap_radio" value="manual_sitemap" id="manual_sitemap" class="generate_sitemap_radio">
                 <label for="manual_sitemap">{l s="Générer manuellement le sitemap"}</label>
               </div>
               <div style="display: none;" id="default_sitemap_generate_type">
@@ -404,6 +405,22 @@
                   </div>
                 {/if}
               </div>
+              {* metas to not include in the sitemap *}
+              <div class="form-group" id="sitemap_exclude_meta" style="display: none;">
+                <label for="sitemap_exclude_meta">{l s="Vous pouvez cocher les métas que vous ne souhaitez pas inclure dans le sitemap"}</label>
+                {foreach from=$sitemap_exclude_meta item=meta}
+                  <div class="checkbox grid-container">
+                  {* two checkbox by line *}
+                      <div class="" style="float: left; width: 300px; margin-bottom: 15px">
+                        <label>
+                          <input type="checkbox" name="sitemap_exclude_meta[]" value="{$meta.id_meta}" {if $sitemap_exclude_meta_ids and in_array($meta.id_meta, explode(',', $sitemap_exclude_meta_ids))}checked{/if}>
+                            {$meta.title} [{$meta.page}]
+                        </label>
+                      </div>
+                  </div>
+                {/foreach}
+              </div>
+
               <div class="panel-footer">
                 <input type="hidden" name="generate_sitemap_type" value="" id="generate_sitemap_type">
                 <input type="hidden" name="SubmitSitemapGenerate" value="1">
@@ -412,7 +429,7 @@
             </form>
           </div>
         </div>
-
+        
 
               
     </div>
@@ -448,8 +465,10 @@
       // si le type de génération automatique est coché
       $('#automatic_sitemap').click(function() {
         $('#automatic_sitemap').val('automatic_sitemap');
+        $('#default_sitemap_generate_type').hide();
         $('#manual_textarea_site_map').hide();
         if($('#automatic_sitemap').is(':checked')) {
+          $('#sitemap_exclude_meta').show();
           $('#generateSitemapSubmit').html('{l s="Générer le sitemap"}');
         }
       });
@@ -459,6 +478,7 @@
         $('#default_sitemap_generate_type').show();
         $('#manual_textarea_site_map').show();
         if($('#manual_sitemap').is(':checked')) {
+          $('#sitemap_exclude_meta').hide();
           $('#generateSitemapSubmit').html('{l s="SAUVEGARDER"}');
         }
       });
@@ -468,6 +488,12 @@
             $('#default_sitemap_generate_type').show();
             $('#manual_textarea_site_map').show();
           }
+          if($('#automatic_sitemap').is(':checked')) {
+            $('#default_sitemap_generate_type').hide();
+            $('#sitemap_exclude_meta').show();
+            $('#generateSitemapSubmit').show();
+          }
+
       });
 
       $('#generateSitemapSubmit').click(function(e){
