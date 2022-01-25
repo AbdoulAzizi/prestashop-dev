@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.39, created on 2022-01-24 17:42:16
+/* Smarty version 3.1.39, created on 2022-01-25 13:05:35
   from '/var/www/html/prestashop/modules/megaseo/views/templates/admin/adminMegaseo.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.39',
-  'unifunc' => 'content_61eed6e82b19d4_04009944',
+  'unifunc' => 'content_61efe78f688f19_35932707',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '9a96fb9ec114505f183f25d5328abb1df7f3151e' => 
     array (
       0 => '/var/www/html/prestashop/modules/megaseo/views/templates/admin/adminMegaseo.tpl',
-      1 => 1643042490,
+      1 => 1643042847,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61eed6e82b19d4_04009944 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61efe78f688f19_35932707 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 
 

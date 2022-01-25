@@ -1,11 +1,11 @@
 <?php
-/* Smarty version 3.1.39, created on 2022-01-24 13:08:26
+/* Smarty version 3.1.39, created on 2022-01-25 11:41:35
   from '/var/www/html/prestashop/admin74060nxso/themes/default/template/invalid_token.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.39',
-  'unifunc' => 'content_61ee96ba7b8647_35452151',
+  'unifunc' => 'content_61efd3dfe8f7a2_54243245',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61ee96ba7b8647_35452151 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61efd3dfe8f7a2_54243245 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 <!doctype html>
 <html>

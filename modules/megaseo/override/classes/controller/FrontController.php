@@ -27,7 +27,7 @@ class FrontController extends FrontControllerCore
               $redirection_type = $redirection['redirection_type'];
               
             // add delimiters for preg_match
-              $redirection_from = "'".$redirection_from."'" ;
+              $redirection_from = "'".$redirection_from."$'";
 
               if ( preg_match($redirection_from, $request_uri) )
               {

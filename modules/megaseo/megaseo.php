@@ -70,7 +70,6 @@ class Megaseo extends Module
     
     public function install()
     {
-        Configuration::updateValue('MEGASEO_LIVE_MODE', false);
 
         // add mega_sitemap_pages_priority to table ps_configuration
         foreach ($this->mega_sitemap_pages_priority as $key => $value) {
@@ -161,19 +160,6 @@ class Megaseo extends Module
             $formBuilder->setData($params['data']);
         }
 	
-	public function hookActionDispatcher(array $params){
-		ob_start(array($this,'_analysisHTML'));
-		if($params["controller_class"]==''){
-			//TODO REGISTER 404 <
-		}
-	}
-	
-	public function hookActionDispatcherAfter(array $params){
-		// var_dump($params);
-		
-		ob_end_flush();
-	}
-	
 	public function _analysisHTML($cnt){
 		// var_dump($cnt);
 		return ($cnt);
@@ -185,21 +171,6 @@ class Megaseo extends Module
 		$cat->description_lower= $data['description_lower'];
 		$cat->update();
 	}
-
-    public function createSitemap($id_shop = null)
-    {
-        if (null === $id_shop) {
-            $id_shop = (int)$this->context->shop->id;
-        }
-        include_once(_PS_MODULE_DIR_.'/megaseo/classes/megaSitemap.php');
-
-        $sitemap = new MegaSitemap();
-        // $sitemap->id_shop = $id_shop;
-        // $sitemap->save();
-
-        $sitemap->generateSitemap($id_shop);
-    }
-    
 
 
    

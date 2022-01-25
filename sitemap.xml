@@ -390,6 +390,11 @@
                     <priority>0.8</priority>
                 </url>
                 <url>
+                    <loc>http://localhost/prestashop/page-introuvable</loc>
+                    <changefreq>daily</changefreq>
+                    <priority>0.1</priority>
+                </url>
+                <url>
                     <loc>http://localhost/prestashop/meilleures-ventes</loc>
                     <changefreq>daily</changefreq>
                     <priority>0.1</priority>
@@ -425,7 +430,17 @@
                     <priority>0.1</priority>
                 </url>
                 <url>
+                    <loc>http://localhost/prestashop/plan-site</loc>
+                    <changefreq>daily</changefreq>
+                    <priority>0.1</priority>
+                </url>
+                <url>
                     <loc>http://localhost/prestashop/fournisseur</loc>
+                    <changefreq>daily</changefreq>
+                    <priority>0.1</priority>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/adresse</loc>
                     <changefreq>daily</changefreq>
                     <priority>0.1</priority>
                 </url>
@@ -441,6 +456,16 @@
                 </url>
                 <url>
                     <loc>http://localhost/prestashop/panier</loc>
+                    <changefreq>daily</changefreq>
+                    <priority>0.1</priority>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/reduction</loc>
+                    <changefreq>daily</changefreq>
+                    <priority>0.1</priority>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/historique-commandes</loc>
                     <changefreq>daily</changefreq>
                     <priority>0.1</priority>
                 </url>
@@ -516,6 +541,11 @@
                 </url>
                 <url>
                     <loc>http://localhost/prestashop/index.php?controller=module-ps_wirepayment-payment</loc>
+                    <changefreq>daily</changefreq>
+                    <priority>0.1</priority>
+                </url>
+                <url>
+                    <loc>http://localhost/prestashop/index.php?controller=module-ps_wirepayment-validation</loc>
                     <changefreq>daily</changefreq>
                     <priority>0.1</priority>
                 </url>

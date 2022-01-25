@@ -1,0 +1,1 @@
+*ERROR* 	v1.7.8.1	2022/01/25 - 11:21:43: Table &#039;prestashop_dev.ps_redirection&#039; doesn&#039;t exist&lt;br /&gt;&lt;br /&gt;&lt;pre&gt;SELECT COUNT(*) FROM ps_redirection WHERE redirection_from = &quot;test24&quot; LIMIT 1&lt;/pre&gt; at line 769 in file classes/db/Db.php

@@ -4,14 +4,14 @@ class Category extends CategoryCore
      
     /*
     * module: megaseo
-    * date: 2022-01-24 12:58:55
+    * date: 2022-01-25 11:27:17
     * version: 1.0.0
     */
     public $description_lower;
    
 	/*
     * module: megaseo
-    * date: 2022-01-24 12:58:55
+    * date: 2022-01-25 11:27:17
     * version: 1.0.0
     */
     public static $definition = array(

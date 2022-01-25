@@ -3,7 +3,7 @@ class FrontController extends FrontControllerCore
 {
     /*
     * module: megaseo
-    * date: 2022-01-24 12:58:56
+    * date: 2022-01-25 11:27:18
     * version: 1.0.0
     */
     public function init()
@@ -12,7 +12,7 @@ class FrontController extends FrontControllerCore
     }
     /*
     * module: megaseo
-    * date: 2022-01-24 12:58:56
+    * date: 2022-01-25 11:27:18
     * version: 1.0.0
     */
     public function initContent()
@@ -28,7 +28,10 @@ class FrontController extends FrontControllerCore
               $redirection_to = $redirection['redirection_to'];
               $redirection_type = $redirection['redirection_type'];
               
-              $redirection_from = "'".$redirection_from."'" ;
+              $redirection_from = '/\b'.$redirection_from.'\b$/';
+              var_dump($redirection_from);
+              var_dump($request_uri);       
+              var_dump("$_SERVER[HTTP_HOST]");
               if ( preg_match($redirection_from, $request_uri) )
               {
                   

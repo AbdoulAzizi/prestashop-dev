@@ -224,9 +224,9 @@ class AdminMegaseoController extends ModuleAdminController{
                 return $this->errors[] = $this->l('L\'URI d\'origine ne doit pas commencer par http:// ou https://');
             }
 
-            if(!preg_match('#^https?://#', $redirection_to)){
-                return $this->errors[] = $this->l('L\'URL cible doit commencer par http:// ou https://');
-            }
+            // if(!preg_match('#^https?://#', $redirection_to)){
+            //     return $this->errors[] = $this->l('L\'URL cible doit commencer par http:// ou https://');
+            // }
 
             // vérifier que la redirection n'existe pas déjà
             $redirection_exists = Db::getInstance()->getValue('SELECT COUNT(*) FROM '._DB_PREFIX_.'redirection WHERE redirection_from = "'.pSQL($redirection_from).'"');
@@ -302,9 +302,9 @@ class AdminMegaseoController extends ModuleAdminController{
                 return $this->errors[] = $this->l('L\'URI d\'origine ne doit pas commencer par http:// ou https://');
             }
 
-            if(!preg_match('#^https?://#', $redirection_to)){
-                return $this->errors[] = $this->l('L\'URL cible doit commencer par http:// ou https://');
-            }
+            // if(!preg_match('#^https?://#', $redirection_to)){
+            //     return $this->errors[] = $this->l('L\'URL cible doit commencer par http:// ou https://');
+            // }
 
             // vérifier que la redirection n'existe pas déjà
             $redirection_exists = Db::getInstance()->getValue('SELECT COUNT(*) FROM '._DB_PREFIX_.'redirection WHERE redirection_from = "'.pSQL($redirection_from).'" AND id_redirection != "'.pSQL($redirection_id).'" AND redirection_type = "'.pSQL($redirection_type).'" AND redirection_to = "'.pSQL($redirection_to).'"');
