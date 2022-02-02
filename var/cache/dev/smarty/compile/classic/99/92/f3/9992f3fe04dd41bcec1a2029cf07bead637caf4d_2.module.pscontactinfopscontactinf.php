@@ -1,11 +1,11 @@
 <?php
-/* Smarty version 3.1.39, created on 2022-01-25 13:05:53
+/* Smarty version 3.1.39, created on 2022-02-02 18:10:21
   from 'module:pscontactinfopscontactinf' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.39',
-  'unifunc' => 'content_61efe7a155e7c3_88122321',
+  'unifunc' => 'content_61fabafd7517b4_66367670',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61efe7a155e7c3_88122321 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61fabafd7517b4_66367670 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'/var/www/html/prestashop/vendor/smarty/smarty/libs/plugins/function.mailto.php','function'=>'smarty_function_mailto',),));
 ?>
 <!-- begin /var/www/html/prestashop/themes/classic/modules/ps_contactinfo/ps_contactinfo.tpl -->

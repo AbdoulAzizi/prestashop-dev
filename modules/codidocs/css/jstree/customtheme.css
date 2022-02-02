@@ -1,0 +1,118 @@
+@import "style.css";
+
+.actual-picture{
+	max-width: 250px;
+	max-height: 250px;
+	margin: 25px 0;
+}
+.progress-wrp {
+  border: 1px solid #0099CC;
+  padding: 1px;
+  position: relative;
+  height: 30px;
+  border-radius: 3px;
+  margin: 10px;
+  display:none;
+  text-align: left;
+  background: #fff;
+  box-shadow: inset 1px 3px 6px rgba(0, 0, 0, 0.12);
+}
+
+.progress-wrp .progress-bar {
+  height: 100%;
+  border-radius: 3px;
+  background-color: blue;
+  width: 0;
+  box-shadow: inset 1px 1px 10px rgba(0, 0, 0, 0.11);
+}
+
+.progress-wrp .status {
+  top: 3px;
+  left: 50%;
+  position: absolute;
+  display: inline-block;
+  color: #000000;
+}
+
+.main-container-folders-list:after{
+	content:" ";
+	clear: both;
+	display:block;
+}
+#btn-add-document{
+	clear: both;
+    float: right;
+    margin-top: 15px;
+	display:none;
+}
+.content-folder{
+	width: calc(100% - 330px);
+	box-shadow: 0 0 5px #ccc;
+	border: 1px solid grey;
+	height: 250px;
+	overflow:auto;
+    float: right;
+    position: relative;
+    display: block;
+	padding: 5px 8px;
+}
+.content-folder .content-file{ padding: 5px 3px;}
+.content-folder .content-file p{margin: 0px;}
+.file-button:hover{
+	background-color: #d0d0d0;
+    box-shadow: 0 0 3px #fff;
+}
+.file-button{
+	display: inline-block;
+    height: 18px;
+    width: 22px;
+    margin: 3px 0 0 2px;
+    border-radius: 2px;
+    box-shadow: 0 0 2px #ccc;
+    background-color: #e0e0e0;
+    background-repeat: no-repeat;
+    background-position: center center;
+    cursor: pointer;
+}
+.content-folder .content-file:nth-child(2n+1){background-color: #EEE;}
+.jstree-container {
+    border: 1px solid grey;
+    height: 100%;
+    overflow: auto;
+    font: 10px Verdana, sans-serif;
+    box-shadow: 0 0 5px #ccc;
+    padding: 10px;
+    position: relative;
+	width: 300px;
+    float: left;
+	margin-right: 15px;
+}
+.jstree-container.has-toolbar {
+    padding-top: 25px;
+}
+.tree-toolbar {
+    height: 25px;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    background: #f5f5f5;
+    border-bottom: 1px solid #CCC;
+    left: 0px;
+}
+
+.tree-toolbar a.toolbar-button {
+    display: inline-block;
+    height: 18px;
+    width: 22px;
+    margin: 3px 0 0 2px;
+    border-radius: 2px;
+    box-shadow: 0 0 2px #ccc;
+    background-color: #e0e0e0;
+    background-repeat: no-repeat;
+    background-position: center center;
+    cursor: pointer;
+}
+.tree-toolbar a.toolbar-button:hover {
+    background-color: #d0d0d0;
+    box-shadow: 0 0 3px #fff;
+}
