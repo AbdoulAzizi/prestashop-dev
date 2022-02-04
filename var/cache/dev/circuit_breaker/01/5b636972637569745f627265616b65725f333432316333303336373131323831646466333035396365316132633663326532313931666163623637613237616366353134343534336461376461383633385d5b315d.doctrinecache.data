@@ -1,0 +1,91 @@
+1644055495
+s:6377:"<?xml version="1.0" encoding="utf-8" ?><rss version="2.0" xml:base="https://www.prestashop.com/fr/blog/feed.xml" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:og="http://ogp.me/ns#" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:sioc="http://rdfs.org/sioc/ns#" xmlns:sioct="http://rdfs.org/sioc/types#" xmlns:skos="http://www.w3.org/2004/02/skos/core#" xmlns:xsd="http://www.w3.org/2001/XMLSchema#">
+  <channel>
+    <title>Blog Feed</title>
+    <link>https://www.prestashop.com/fr/blog/feed.xml</link>
+    <description></description>
+    <language>fr</language>
+     <atom:link href="https://www.prestashop.com/fr/blog/feed.xml" rel="self" type="application/rss+xml" />
+      <item>
+    <title>Pages d’erreur 404 : comment détecter et gérer les pages introuvables sur votre site internet ?</title>
+    <link>https://www.prestashop.com/fr/blog/erreurs-http-404-not-found-comment-resoudre</link>
+    <description>Les pages introuvables de type 404 Not Found sur un site, ça vous parle ?</description>
+     <pubDate>Thu, 03 Feb 2022 17:38:28 +0100</pubDate>
+ <dc:creator>YATEO</dc:creator>
+ <guid isPermaLink="false">https://www.prestashop.com/fr/blog/erreurs-http-404-not-found-comment-resoudre</guid>
+  </item>
+  <item>
+    <title>Sept astuces pour gérer les avis clients négatifs</title>
+    <link>https://www.prestashop.com/fr/blog/avis-clients-negatifs</link>
+    <description>Aujourd’hui, tous les entrepreneurs ont besoin des avis clients pour prospérer. Il existe néanmoins un problème : tous les avis ne sont pas systématiquement positifs !</description>
+     <pubDate>Tue, 01 Feb 2022 09:36:31 +0100</pubDate>
+ <dc:creator>YATEO</dc:creator>
+ <guid isPermaLink="false">https://www.prestashop.com/fr/blog/avis-clients-negatifs</guid>
+  </item>
+  <item>
+    <title>Douze tactiques pour réussir la promotion de vos produits</title>
+    <link>https://www.prestashop.com/fr/blog/ecommerce-promotion-produits</link>
+    <description>La promotion de vos produits est un levier indispensable pour développer puis pérenniser votre activité, que vous veniez de commencer dans le e-commerce ou que vou</description>
+     <pubDate>Fri, 21 Jan 2022 17:38:38 +0100</pubDate>
+ <dc:creator>YATEO</dc:creator>
+ <guid isPermaLink="false">https://www.prestashop.com/fr/blog/ecommerce-promotion-produits</guid>
+  </item>
+  <item>
+    <title>Est-ce vraiment possible de créer une boutique en ligne gratuitement ?</title>
+    <link>https://www.prestashop.com/fr/blog/possible-vendre-en-ligne-gratuitement</link>
+    <description>Si vous avez atterri sur cet article de blog, vous êtes probablement en train de réfléchir à des moyens de créer de la valeur ajoutée pour votre entreprise, comme </description>
+     <pubDate>Tue, 18 Jan 2022 11:44:22 +0100</pubDate>
+ <dc:creator>PrestaShop Team</dc:creator>
+ <guid isPermaLink="false">https://www.prestashop.com/fr/blog/possible-vendre-en-ligne-gratuitement</guid>
+  </item>
+  <item>
+    <title>Comment Champgrand a pu multiplier son chiffre d’affaires par 2 avec l’aide de PrestaShop 1.7</title>
+    <link>https://www.prestashop.com/fr/blog/soledis-champgrand-ecommerce</link>
+    <description>Agence partenaire Platinium PrestaShop, Soledis a récemment complètement refait la boutique en lign</description>
+     <pubDate>Fri, 14 Jan 2022 16:33:50 +0100</pubDate>
+ <dc:creator>Yann Tertrais</dc:creator>
+ <guid isPermaLink="false">https://www.prestashop.com/fr/blog/soledis-champgrand-ecommerce</guid>
+  </item>
+  <item>
+    <title>Réglementation des soldes : êtes-vous certain de la respecter ?</title>
+    <link>https://www.prestashop.com/fr/blog/soldes-reglementation-conformite</link>
+    <description>Les soldes sont toujours une occasion de booster votre activité, que vous veniez d’ouvrir votre boutique en ligne ou que vous gériez votre site e-commerce depuis d</description>
+     <pubDate>Tue, 11 Jan 2022 14:33:39 +0100</pubDate>
+ <dc:creator>YATEO</dc:creator>
+ <guid isPermaLink="false">https://www.prestashop.com/fr/blog/soldes-reglementation-conformite</guid>
+  </item>
+  <item>
+    <title>Comment optimiser le référencement local de sa boutique en ligne ?</title>
+    <link>https://www.prestashop.com/fr/blog/seo-referencement-local</link>
+    <description>En 2021, le e-commerce représente 13,4 % du commerce de détail. On remarque une hausse de 3,6% en deux ans : le commerce en ligne est de plus en plus ancré dans nos habitudes de consommation.</description>
+     <pubDate>Thu, 06 Jan 2022 18:11:12 +0100</pubDate>
+ <dc:creator>Laura D.</dc:creator>
+ <guid isPermaLink="false">https://www.prestashop.com/fr/blog/seo-referencement-local</guid>
+  </item>
+  <item>
+    <title>E-commerce 2022 : 10 tendances clés décryptées</title>
+    <link>https://www.prestashop.com/fr/blog/tendances-ecommerce-2022</link>
+    <description>On ne cesse de le répéter, la pandémie mondiale a permis au e-commerce de faire des avancées spectaculaires.</description>
+     <pubDate>Tue, 04 Jan 2022 15:53:13 +0100</pubDate>
+ <dc:creator>PrestaShop Team</dc:creator>
+ <guid isPermaLink="false">https://www.prestashop.com/fr/blog/tendances-ecommerce-2022</guid>
+  </item>
+  <item>
+    <title>7 conseils SEO et SEA pour votre e-commerce</title>
+    <link>https://www.prestashop.com/fr/blog/conseils-seo-sea</link>
+    <description>Cheval de bataille des e-commerçants, la position dans les résultats des moteurs de recherche permet d’augmenter le nombre de visiteurs sur son site web et par conséquent son chiffre d’affaires.</description>
+     <pubDate>Mon, 27 Dec 2021 14:41:20 +0100</pubDate>
+ <dc:creator>Achille CATEL</dc:creator>
+ <guid isPermaLink="false">https://www.prestashop.com/fr/blog/conseils-seo-sea</guid>
+  </item>
+  <item>
+    <title>8 astuces pour concevoir des emails personnalisés vendeurs</title>
+    <link>https://www.prestashop.com/fr/blog/astuces-mails-personnalises-ecommerce</link>
+    <description>Parvenir à engager les clients par email relève aujourd’hui du défi.</description>
+     <pubDate>Mon, 27 Dec 2021 11:35:02 +0100</pubDate>
+ <dc:creator>YATEO</dc:creator>
+ <guid isPermaLink="false">https://www.prestashop.com/fr/blog/astuces-mails-personnalises-ecommerce</guid>
+  </item>
+  </channel>
+</rss>
+";

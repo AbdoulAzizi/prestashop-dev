@@ -36,7 +36,8 @@ class Filemanager extends Module
     {
         // create folder
         if(!is_dir(_PS_ROOT_DIR_.'/doc_filemanager')){
-            mkdir(_PS_ROOT_DIR_.'/doc_filemanager');
+         // create folder with permission
+            mkdir(_PS_ROOT_DIR_.'/doc_filemanager', 0777, true);
         }
 
         if (parent::install()) {

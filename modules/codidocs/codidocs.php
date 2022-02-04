@@ -188,7 +188,6 @@ class codidocs extends Module{
 			  }
 		   }
 		}
-        var_dump($folders);
 		return $folders;
 	 }
 	 

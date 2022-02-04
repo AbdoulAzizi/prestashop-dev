@@ -1,11 +1,11 @@
 <?php
-/* Smarty version 3.1.39, created on 2022-02-02 18:10:21
+/* Smarty version 3.1.39, created on 2022-02-04 18:46:35
   from '/var/www/html/prestashop/themes/classic/templates/_partials/helpers.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.39',
-  'unifunc' => 'content_61fabafd5027b7_49466498',
+  'unifunc' => 'content_61fd667b7e4464_79299760',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
@@ -20,21 +20,21 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61fabafd5027b7_49466498 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61fd667b7e4464_79299760 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->smarty->ext->_tplFunction->registerTplFunctions($_smarty_tpl, array (
   'renderLogo' => 
   array (
     'compiled_filepath' => '/var/www/html/prestashop/var/cache/dev/smarty/compile/classiclayouts_layout_full_width_tpl/2a/79/ae/2a79ae0bf8153895448a16a1e3a0345ee5e008c7_2.file.helpers.tpl.php',
     'uid' => '2a79ae0bf8153895448a16a1e3a0345ee5e008c7',
-    'call_name' => 'smarty_template_function_renderLogo_4025329061fabafd4fb1c1_90736366',
+    'call_name' => 'smarty_template_function_renderLogo_103138756461fd667b7dd601_90603308',
   ),
 ));
 ?> 
 
 <?php }
-/* smarty_template_function_renderLogo_4025329061fabafd4fb1c1_90736366 */
-if (!function_exists('smarty_template_function_renderLogo_4025329061fabafd4fb1c1_90736366')) {
-function smarty_template_function_renderLogo_4025329061fabafd4fb1c1_90736366(Smarty_Internal_Template $_smarty_tpl,$params) {
+/* smarty_template_function_renderLogo_103138756461fd667b7dd601_90603308 */
+if (!function_exists('smarty_template_function_renderLogo_103138756461fd667b7dd601_90603308')) {
+function smarty_template_function_renderLogo_103138756461fd667b7dd601_90603308(Smarty_Internal_Template $_smarty_tpl,$params) {
 foreach ($params as $key => $value) {
 $_smarty_tpl->tpl_vars[$key] = new Smarty_Variable($value, $_smarty_tpl->isRenderingCache);
 }
@@ -56,5 +56,5 @@ $_smarty_tpl->tpl_vars[$key] = new Smarty_Variable($value, $_smarty_tpl->isRende
   </a>
 <?php
 }}
-/*/ smarty_template_function_renderLogo_4025329061fabafd4fb1c1_90736366 */
+/*/ smarty_template_function_renderLogo_103138756461fd667b7dd601_90603308 */
 }
